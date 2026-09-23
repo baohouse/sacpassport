@@ -118,11 +118,11 @@
     "city": "Rancho Cordova",
     "url": "https://folsomtimes.com/sacvalley-korean-culture-festival-returns-with-food-music-fun-saturday/",
     "urlLabel": "Folsom Times",
-    "when": "May 30, 2026",
-    "whenKind": "confirmed",
-    "lastHeld": null,
-    "sortRank": 0,
-    "sortDate": "2026-05-30",
+    "when": "May 2027",
+    "whenKind": "estimate",
+    "lastHeld": "May 30, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-05-15",
     "origin": {
       "lat": 37.57,
       "lng": 126.98
@@ -137,11 +137,11 @@
     "city": "Clarksburg",
     "url": "https://www.facebook.com/FreeportFesta",
     "urlLabel": "facebook.com/FreeportFesta",
-    "when": "May 31, 2026",
-    "whenKind": "confirmed",
-    "lastHeld": null,
-    "sortRank": 0,
-    "sortDate": "2026-05-31",
+    "when": "May 2027",
+    "whenKind": "estimate",
+    "lastHeld": "May 31, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-05-15",
     "origin": {
       "lat": 38.72,
       "lng": -9.14
