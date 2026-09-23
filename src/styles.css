@@ -1,0 +1,435 @@
+:root {
+  --sky: #e7f3fb;
+  --ink: #0c2f48;
+  --ink-soft: #3e6278;
+  --ocean: #1578b0;
+  --ocean-deep: #0c5584;
+  --rule: rgba(12, 47, 72, 0.14);
+  --filled: #f5fbff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(900px 420px at 80% -10%, rgba(21, 120, 176, 0.16), transparent 55%),
+    var(--sky);
+  font-family: Inter, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--ocean);
+}
+
+a:hover {
+  color: var(--ocean-deep);
+}
+
+.wrap {
+  width: min(1080px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.stage {
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+.site-title {
+  margin: 0;
+  padding: 0.15rem 0.4rem 0;
+  color: var(--ink);
+  font-family: Oswald, Impact, sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.75rem, 14.2vw, 11.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow: visible;
+}
+
+.sac,
+.passport {
+  font-family: Oswald, Impact, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero {
+  position: relative;
+  z-index: 2;
+  height: min(48vh, 480px);
+  min-height: 320px;
+  margin-top: -4vw;
+}
+
+@media (min-width: 721px) {
+  /* Title + globe share a 1440px layout box; side padding stays inside the cap */
+  .stage {
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  .site-title {
+    /* Track viewport below the cap; freeze at the 1440-wide size on ultra-wide */
+    font-size: min(17.2vw, calc(1440px * 0.172));
+    padding: 0.15rem min(2.5vw, 36px) 0;
+  }
+
+  .passport::before {
+    content: " ";
+  }
+
+  /* Hero tracks title size (17.2vw × ~2.45 ≈ 42vw); caps with the 1440 box */
+  .hero {
+    --hero-h: min(42vw, calc(1440px * 0.42), 720px);
+    height: var(--hero-h);
+    min-height: 320px;
+    /* Collapse empty canvas under raised sphere — leave ~25% of prior sky under the mesh */
+    margin-bottom: calc(var(--hero-h) * -0.30);
+  }
+}
+
+#globe {
+  width: 100%;
+  height: 100%;
+}
+
+#globe canvas {
+  display: block;
+}
+
+.globe-fallback {
+  position: absolute;
+  inset: auto 1rem 1rem;
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+main {
+  position: relative;
+  z-index: 3;
+  padding: 0.5rem 0 4rem;
+}
+
+.question {
+  position: relative;
+  z-index: 3;
+  margin: 0.35rem 0 0.4rem;
+  font-family: "Noto Serif", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(1.65rem, 4.15vw, 2.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  text-align: center;
+}
+
+.sorts-slot {
+  margin-bottom: 1rem;
+}
+
+.sorts-sentinel {
+  height: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.sorts {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.sorts.is-pinned {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(231, 243, 251, 0.96);
+  box-shadow: 0 -1px 0 var(--rule);
+}
+
+.sorts button {
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.sorts button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--filled);
+  border-color: var(--ink);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  gap: 1.1rem;
+  padding: 0.85rem;
+  background: var(--filled);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  scroll-margin-top: 1rem;
+}
+
+.card.is-current {
+  border-color: rgba(21, 120, 176, 0.55);
+}
+
+.plate {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(21, 120, 176, 0.12), transparent 45%),
+    #e3f2fb;
+  border: 1px solid var(--rule);
+  box-sizing: border-box;
+}
+
+.plate img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.plate-open {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.flyer-lightbox {
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.flyer-lightbox[open] {
+  display: grid;
+  place-items: center;
+}
+
+.flyer-lightbox::backdrop {
+  background: rgba(12, 47, 72, 0.78);
+}
+
+.flyer-lightbox-frame {
+  position: relative;
+  max-width: 100vw;
+  max-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.flyer-lightbox-frame img {
+  display: block;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.flyer-lightbox-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 1;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(245, 251, 255, 0.55);
+  border-radius: 999px;
+  background: rgba(12, 47, 72, 0.72);
+  color: var(--filled);
+  font: inherit;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.flyer-lightbox-close:hover {
+  background: var(--ocean-deep);
+}
+
+.card-body {
+  line-height: 1.2;
+}
+
+.card h2 {
+  margin: 0.15rem 0 0.2rem;
+  font-family: "Noto Serif", Georgia, serif;
+  font-size: 1.46rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.event {
+  margin: 0;
+}
+
+.date {
+  margin: 0.2rem 0 0;
+  color: var(--ink-soft);
+}
+
+.venue {
+  margin: 0.2rem 0 0.45rem;
+}
+
+.venue-map {
+  display: inline;
+  margin-left: 0.2em;
+  color: var(--ocean);
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
+.venue-map:hover {
+  color: var(--ocean-deep);
+}
+
+.venue-map svg {
+  width: 0.95em;
+  height: 0.95em;
+  display: inline-block;
+  vertical-align: -0.12em;
+}
+
+.card-url {
+  display: inline-block;
+}
+
+@media (max-width: 720px) {
+  /*
+    Stacked SAC / PASSPORT; size so PASSPORT ink ≈ 94–97% of inner width
+    (stage pad 0.7rem each side). Globe sits behind the title, vertically
+    centered on the SAC line — peeks in the gap right of SAC.
+  */
+  .stage {
+    --title-size: 23.8vw;
+    /* 1.25× prior 36vw so the visible sphere grows ~25% */
+    --hero-size: 45vw;
+    --stage-pad-x: 0.7rem;
+    /* Keep sphere top in viewport when centered on SAC (0.39 × title-size) */
+    --stage-pad-top: max(
+      1.6rem,
+      calc(var(--hero-size) / 2 - 0.39 * var(--title-size) + 0.35rem)
+    );
+    position: relative;
+    display: block;
+    overflow: visible;
+    padding: var(--stage-pad-top) var(--stage-pad-x) 0;
+  }
+
+  .site-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    white-space: normal;
+    padding: 0;
+    text-align: left;
+    font-size: var(--title-size);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
+
+  .sac,
+  .passport {
+    display: block;
+    font-family: Oswald, Impact, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: var(--title-size);
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+  }
+
+  .passport {
+    margin-top: 0.08em;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    position: absolute;
+    z-index: 1;
+    right: var(--stage-pad-x);
+    /* Center of hero box = vertical center of SAC line box */
+    top: calc(
+      var(--stage-pad-top) + 0.39 * var(--title-size) - var(--hero-size) / 2
+    );
+    width: var(--hero-size);
+    height: var(--hero-size);
+    min-height: 0;
+    margin: 0;
+  }
+
+  .question {
+    margin-top: clamp(0.75rem, 2.8vw, 1.35rem);
+    font-size: clamp(0.95rem, 3.6vw, 1.45rem);
+    white-space: nowrap;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,528 @@
+import Globe from 'globe.gl';
+import * as THREE from 'three';
+import { feature } from 'topojson-client';
+import land from 'world-atlas/countries-110m.json';
+import cultures from '../data/cultures.json';
+
+const SAC = { lat: 38.5816, lng: -121.4944 };
+const INK = 'rgba(18, 72, 110, 0.72)';
+const OCEAN = '#1578b0';
+const OCEAN_DEEP = '#0c5584';
+const SPHERE = '#c5e4f6';
+
+const globeEl = document.querySelector('#globe');
+const fallbackEl = document.querySelector('#globe-fallback');
+const cardsEl = document.querySelector('#cards');
+const sortsEl = document.querySelector('.sorts');
+const sortButtons = [...document.querySelectorAll('.sorts button')];
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let sortMode = 'upcoming';
+let currentId = null;
+let world = null;
+
+const countries = feature(land, land.objects.countries).features.filter(
+  (shape) => String(shape.id) !== '010',
+);
+
+function ordered() {
+  const list = [...cultures];
+  if (sortMode === 'name') {
+    list.sort((a, b) => a.culture.localeCompare(b.culture));
+    return list;
+  }
+  list.sort((a, b) => {
+    if (a.sortRank !== b.sortRank) return a.sortRank - b.sortRank;
+    return (a.sortDate || '9999').localeCompare(b.sortDate || '9999');
+  });
+  return list;
+}
+
+function arcs() {
+  return cultures
+    .filter((item) => item.origin)
+    .map((item) => ({
+      id: item.id,
+      startLat: item.origin.lat,
+      startLng: item.origin.lng,
+      endLat: SAC.lat,
+      endLng: SAC.lng,
+    }));
+}
+
+function points() {
+  const pins = cultures
+    .filter((item) => item.origin)
+    .map((item) => ({
+      id: item.id,
+      lat: item.origin.lat,
+      lng: item.origin.lng,
+      culture: item.culture,
+    }));
+  pins.push({ id: 'sacramento', lat: SAC.lat, lng: SAC.lng, culture: 'Sacramento' });
+  return pins;
+}
+
+function paintGlobe() {
+  if (!world) return;
+  world
+    .arcsData(arcs())
+    .arcColor((arc) => (arc.id === currentId ? OCEAN_DEEP : 'rgba(21, 120, 176, 0.55)'))
+    .arcStroke((arc) => (arc.id === currentId ? 1.15 : 0.45))
+    .pointsData(points())
+    .pointColor((pin) => {
+      if (pin.id === 'sacramento') return OCEAN_DEEP;
+      return pin.id === currentId ? OCEAN : INK;
+    })
+    .pointRadius((pin) => (pin.id === currentId || pin.id === 'sacramento' ? 0.55 : 0.28));
+}
+
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const MONTH_SHORT = {
+  jan: 0,
+  january: 0,
+  feb: 1,
+  february: 1,
+  mar: 2,
+  march: 2,
+  apr: 3,
+  april: 3,
+  may: 4,
+  jun: 5,
+  june: 5,
+  jul: 6,
+  july: 6,
+  aug: 7,
+  august: 7,
+  sep: 8,
+  sept: 8,
+  september: 8,
+  oct: 9,
+  october: 9,
+  nov: 10,
+  november: 10,
+  dec: 11,
+  december: 11,
+};
+
+function monthYearFromIso(iso) {
+  if (!iso || !/^\d{4}-\d{2}/.test(iso)) return null;
+  const [year, month] = iso.split('-');
+  const monthIndex = Number(month) - 1;
+  if (monthIndex < 0 || monthIndex > 11) return null;
+  return `${MONTH_NAMES[monthIndex]} ${year}`;
+}
+
+function monthYearFromLooseDate(text) {
+  if (!text) return null;
+  const match = String(text).match(
+    /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\b\.?\s*(?:\d{1,2}(?:\s*[–-]\s*\d{1,2})?)?,?\s*(\d{4})/i,
+  );
+  if (!match) return null;
+  const monthIndex = MONTH_SHORT[match[1].toLowerCase()];
+  if (monthIndex == null) return null;
+  return `${MONTH_NAMES[monthIndex]} ${match[2]}`;
+}
+
+/** Month index emphasized by a season label ("Usually late May", "Labor Day weekend"). */
+function monthIndexFromSeasonWhen(text) {
+  if (!text) return null;
+  const lower = String(text).toLowerCase();
+  if (/\blabor day\b/.test(lower)) return 8; // September
+  const match = lower.match(
+    /\b(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\b/,
+  );
+  if (!match) return null;
+  return MONTH_SHORT[match[1]];
+}
+
+/** Next Month Year after `after` for a 0-based month (that month this year if still ahead). */
+function nextMonthYear(monthIndex, after = new Date()) {
+  if (monthIndex == null || monthIndex < 0 || monthIndex > 11) return null;
+  const year = monthIndex > after.getMonth() ? after.getFullYear() : after.getFullYear() + 1;
+  return `${MONTH_NAMES[monthIndex]} ${year}`;
+}
+
+/** Display date for cards / plates, keyed off whenKind. */
+function formatDateLabel(item) {
+  switch (item.whenKind) {
+    case 'confirmed':
+      return item.when || 'Date TBA';
+    case 'season': {
+      const monthYear =
+        monthYearFromIso(item.sortDate) ||
+        nextMonthYear(monthIndexFromSeasonWhen(item.when)) ||
+        nextMonthYear(
+          (() => {
+            const held = monthYearFromLooseDate(item.lastHeld);
+            if (!held) return null;
+            const name = held.split(' ')[0].toLowerCase();
+            return MONTH_SHORT[name];
+          })(),
+        );
+      return monthYear ? `${monthYear} (est.)` : 'Date TBA';
+    }
+    case 'estimate': {
+      const monthYear =
+        monthYearFromLooseDate(item.when) ||
+        monthYearFromIso(item.sortDate) ||
+        monthYearFromLooseDate(item.lastHeld);
+      return monthYear ? `${monthYear} (est.)` : 'Date TBA';
+    }
+    case 'unknown':
+    default:
+      return 'Date TBA';
+  }
+}
+
+function mapsSearchUrl(place, city) {
+  const query = [place, city].filter(Boolean).join(', ');
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+function urlHostnameLabel(url) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return 'Event site';
+  }
+}
+
+function selectCulture(id, scroll) {
+  currentId = id;
+  paintGlobe();
+  for (const card of cardsEl.querySelectorAll('.card')) {
+    card.classList.toggle('is-current', card.dataset.id === id);
+  }
+  const item = cultures.find((entry) => entry.id === id);
+  if (world && item?.origin && !reduceMotion) {
+    const lat = (item.origin.lat + SAC.lat) / 2;
+    const lng = (item.origin.lng + SAC.lng) / 2;
+    world.pointOfView({ lat, lng, altitude: 1.85 }, 700);
+  }
+  if (scroll) {
+    document.getElementById(`card-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function render() {
+  const list = ordered();
+  cardsEl.replaceChildren();
+
+  for (const item of list) {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.id = `card-${item.id}`;
+    card.dataset.id = item.id;
+    if (item.id === currentId) card.classList.add('is-current');
+
+    const dateLabel = formatDateLabel(item);
+
+    const plate = document.createElement('div');
+    plate.className = 'plate';
+    if (item.flyer) {
+      const openBtn = document.createElement('button');
+      openBtn.type = 'button';
+      openBtn.className = 'plate-open';
+      openBtn.setAttribute('aria-label', `View flyer: ${item.event}`);
+      const img = document.createElement('img');
+      img.src = item.flyer;
+      img.alt = `${item.event}, ${dateLabel}`;
+      openBtn.append(img);
+      openBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        openFlyerLightbox(img.src, img.alt, openBtn);
+      });
+      plate.append(openBtn);
+    }
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+
+    const title = document.createElement('h2');
+    title.textContent = item.culture;
+
+    const event = document.createElement('p');
+    event.className = 'event';
+    event.textContent = item.event;
+
+    const date = document.createElement('p');
+    date.className = 'date';
+    date.textContent = dateLabel;
+
+    const venue = document.createElement('p');
+    venue.className = 'venue';
+    const venueLabel = item.city ? `${item.place}, ${item.city}` : item.place;
+    venue.append(document.createTextNode(venueLabel));
+
+    const mapLink = document.createElement('a');
+    mapLink.className = 'venue-map';
+    mapLink.href = mapsSearchUrl(item.place, item.city);
+    mapLink.target = '_blank';
+    mapLink.rel = 'noopener noreferrer';
+    mapLink.setAttribute('aria-label', 'Open in Google Maps');
+    mapLink.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+    venue.append(mapLink);
+
+    body.append(title, event, date, venue);
+
+    if (item.url) {
+      const link = document.createElement('a');
+      link.className = 'card-url';
+      link.href = item.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = item.urlLabel || urlHostnameLabel(item.url);
+      body.append(link);
+    }
+
+    card.append(plate, body);
+    card.addEventListener('click', (eventTarget) => {
+      if (eventTarget.target.closest('a, .plate-open')) return;
+      selectCulture(item.id, false);
+    });
+    cardsEl.append(card);
+  }
+}
+
+let flyerLightbox = null;
+let flyerLightboxImg = null;
+let flyerLightboxClose = null;
+let flyerLightboxReturnFocus = null;
+let bodyOverflowBefore = '';
+let flyerLightboxScrollLocked = false;
+
+function unlockFlyerLightboxScroll() {
+  if (!flyerLightboxScrollLocked) return;
+  if (bodyOverflowBefore) document.body.style.overflow = bodyOverflowBefore;
+  else document.body.style.removeProperty('overflow');
+  bodyOverflowBefore = '';
+  flyerLightboxScrollLocked = false;
+}
+
+function teardownFlyerLightbox() {
+  unlockFlyerLightboxScroll();
+  if (flyerLightboxImg) {
+    flyerLightboxImg.removeAttribute('src');
+    flyerLightboxImg.alt = '';
+  }
+  const restore = flyerLightboxReturnFocus;
+  flyerLightboxReturnFocus = null;
+  queueMicrotask(() => restore?.focus?.());
+}
+
+function openFlyerLightbox(src, alt, trigger) {
+  if (!flyerLightbox) return;
+  flyerLightboxReturnFocus = trigger;
+  flyerLightboxImg.src = src;
+  flyerLightboxImg.alt = alt || 'Flyer';
+  if (!flyerLightbox.open) {
+    const prior = document.body.style.overflow;
+    bodyOverflowBefore = prior === 'hidden' ? '' : prior;
+    document.body.style.overflow = 'hidden';
+    flyerLightboxScrollLocked = true;
+  }
+  flyerLightbox.showModal();
+  flyerLightboxClose.focus();
+}
+
+function mountFlyerLightbox() {
+  document.querySelector('.flyer-lightbox')?.remove();
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'flyer-lightbox';
+  dialog.setAttribute('aria-label', 'Flyer');
+
+  const frame = document.createElement('div');
+  frame.className = 'flyer-lightbox-frame';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'flyer-lightbox-close';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.textContent = '×';
+
+  const img = document.createElement('img');
+  img.alt = '';
+
+  frame.append(closeBtn, img);
+  dialog.append(frame);
+  document.body.append(dialog);
+
+  const close = () => {
+    if (!dialog.open) return;
+    teardownFlyerLightbox();
+    dialog.close();
+  };
+
+  closeBtn.addEventListener('click', close);
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) close();
+  });
+  // Escape: native dialog fires cancel then closes. Some hosts skip the close event.
+  dialog.addEventListener('cancel', () => {
+    teardownFlyerLightbox();
+  });
+  dialog.addEventListener('close', () => {
+    teardownFlyerLightbox();
+  });
+
+  flyerLightbox = dialog;
+  flyerLightboxImg = img;
+  flyerLightboxClose = closeBtn;
+}
+
+function mountGlobe() {
+  try {
+    world = Globe({ rendererConfig: { alpha: true } })(globeEl);
+    world
+      .width(globeEl.clientWidth)
+      .height(globeEl.clientHeight)
+      .backgroundColor('rgba(0,0,0,0)')
+      .atmosphereColor('#8ec8ea')
+      .atmosphereAltitude(0.12)
+      .showGraticules(false)
+      .globeMaterial(
+        new THREE.MeshPhongMaterial({
+          color: SPHERE,
+          emissive: '#d7eefb',
+          emissiveIntensity: 0.28,
+          shininess: 2,
+        }),
+      )
+      .polygonsData(countries)
+      .polygonCapColor(() => 'rgba(245, 251, 255, 0.04)')
+      .polygonSideColor(() => 'rgba(0,0,0,0)')
+      .polygonStrokeColor(() => INK)
+      .polygonAltitude(0.004)
+      .polygonLabel(() => '')
+      .arcStartLat('startLat')
+      .arcStartLng('startLng')
+      .arcEndLat('endLat')
+      .arcEndLng('endLng')
+      .arcAltitude(0.28)
+      .arcDashLength(0.45)
+      .arcDashGap(0.18)
+      .arcDashAnimateTime(reduceMotion ? 0 : 4800)
+      .arcsTransitionDuration(0)
+      .pointAltitude(0.01)
+      .pointsTransitionDuration(0);
+
+    const controls = world.controls();
+    controls.autoRotate = !reduceMotion;
+    controls.autoRotateSpeed = 0.22;
+    controls.enablePan = false;
+    controls.enableZoom = false;
+    controls.zoomSpeed = 0;
+    // OrbitControls still preventDefault on wheel when zoom is off — let the page scroll.
+    const canvas = world.renderer()?.domElement ?? globeEl.querySelector('canvas');
+    if (canvas) {
+      canvas.addEventListener(
+        'wheel',
+        (event) => {
+          event.stopImmediatePropagation();
+        },
+        { capture: true, passive: true },
+      );
+    }
+    const narrow = window.matchMedia('(max-width: 720px)');
+    const placeGlobe = () => {
+      const phone = narrow.matches;
+      // Positive globeOffset Y shifts the sphere down (API negates into viewOffset).
+      // Desktop: raise by 20% of hero/canvas height so the lift scales with resize.
+      const desktopY = 36 - globeEl.clientHeight * 0.20;
+      // Phone: 10% of hero height down from SAC-centered box (CSS still centers the box).
+      const phoneY = globeEl.clientHeight * 0.10;
+      world.globeOffset(phone ? [0, phoneY] : [0, desktopY]);
+      world.pointOfView({ lat: 38.6, lng: -121.5, altitude: phone ? 2.05 : 2.4 });
+    };
+    placeGlobe();
+    narrow.addEventListener('change', placeGlobe);
+    paintGlobe();
+
+    const resize = () => {
+      world.width(globeEl.clientWidth).height(globeEl.clientHeight);
+      placeGlobe();
+    };
+    window.addEventListener('resize', resize);
+  } catch (error) {
+    console.error(error);
+    fallbackEl.hidden = false;
+  }
+}
+
+for (const button of sortButtons) {
+  button.addEventListener('click', () => {
+    sortMode = button.dataset.sort;
+    for (const peer of sortButtons) {
+      peer.setAttribute('aria-pressed', peer === button ? 'true' : 'false');
+    }
+    render();
+  });
+}
+
+function mountSortsPin() {
+  if (!sortsEl) return;
+
+  const slot = document.createElement('div');
+  slot.className = 'sorts-slot';
+  sortsEl.parentNode.insertBefore(slot, sortsEl);
+
+  const sentinel = document.createElement('div');
+  sentinel.className = 'sorts-sentinel';
+  sentinel.setAttribute('aria-hidden', 'true');
+  slot.append(sentinel, sortsEl);
+
+  let pinned = false;
+
+  const setPinned = (on) => {
+    if (on === pinned) return;
+    if (on) {
+      slot.style.height = `${sortsEl.offsetHeight}px`;
+      sortsEl.classList.add('is-pinned');
+    } else {
+      sortsEl.classList.remove('is-pinned');
+      slot.style.height = '';
+    }
+    pinned = on;
+  };
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      // Only pin after the original row has scrolled above the viewport.
+      const above = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      setPinned(above);
+    },
+    { threshold: 0 },
+  );
+  observer.observe(sentinel);
+
+  window.addEventListener('resize', () => {
+    if (!pinned) return;
+    sortsEl.classList.remove('is-pinned');
+    const height = sortsEl.offsetHeight;
+    slot.style.height = `${height}px`;
+    sortsEl.classList.add('is-pinned');
+  });
+}
+
+mountFlyerLightbox();
+render();
+mountGlobe();
+mountSortsPin();

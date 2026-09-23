@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SacPassport</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,500;1,500&family=Oswald:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div class="stage">
+      <h1 class="site-title">
+        <span class="sac">Sac</span><span class="passport">Passport</span>
+      </h1>
+      <section class="hero" aria-label="Routes into Sacramento">
+        <div id="globe"></div>
+        <p id="globe-fallback" class="globe-fallback" hidden>
+          The globe did not start. The event cards below still work.
+        </p>
+      </section>
+    </div>
+
+    <main class="wrap">
+      <h2 class="question">Where would you like to staycation?</h2>
+
+      <div class="sorts" role="group" aria-label="Sort cultures">
+        <button type="button" data-sort="upcoming" aria-pressed="true">Upcoming</button>
+        <button type="button" data-sort="name" aria-pressed="false">A–Z</button>
+      </div>
+
+      <div id="cards" class="cards"></div>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,322 @@
+[
+  {
+    "id": "greek",
+    "culture": "Greek",
+    "event": "Sacramento Greek Festival",
+    "place": "Annunciation Greek Orthodox Church",
+    "city": "Sacramento",
+    "url": "http://sacramentogreekfestival.com/",
+    "urlLabel": "sacramentogreekfestival.com",
+    "when": "Oct 2\u20134, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-02",
+    "origin": {
+      "lat": 37.98,
+      "lng": 23.73
+    },
+    "flyer": "/flyers/greek.jpg"
+  },
+  {
+    "id": "german",
+    "culture": "German",
+    "event": "Sacramento Turn Verein Oktoberfest",
+    "place": "Sacramento Turn Verein",
+    "city": "Sacramento",
+    "url": "https://sacramentoturnverein.com/oktoberfest/fest-info/",
+    "urlLabel": "sacramentoturnverein.com",
+    "when": "Oct 9\u201310, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-09",
+    "origin": {
+      "lat": 52.52,
+      "lng": 13.4
+    },
+    "flyer": "/flyers/german.jpg"
+  },
+  {
+    "id": "fijian",
+    "culture": "Fijian",
+    "event": "Fijian Cultural Night",
+    "place": "Summer Palace Cuisine",
+    "city": "Sacramento",
+    "url": "https://www.zeffy.com/en-US/ticketing/fijian-cultural-night",
+    "urlLabel": "Tickets on Zeffy",
+    "when": "Oct 10, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-10",
+    "origin": {
+      "lat": -18.14,
+      "lng": 178.44
+    },
+    "flyer": "/flyers/fijian.jpg"
+  },
+  {
+    "id": "native",
+    "culture": "Native American",
+    "event": "Auburn Big Time Pow Wow",
+    "place": "Gold Country Fairgrounds",
+    "city": "Auburn",
+    "url": "https://www.exploreauburnca.com/event/auburn-big-time-pow-wow",
+    "urlLabel": "exploreauburnca.com",
+    "when": "Oct 17, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-17",
+    "origin": null,
+    "flyer": "/flyers/native.jpg"
+  },
+  {
+    "id": "jewish",
+    "culture": "Jewish",
+    "event": "Jewish Food Faire",
+    "place": "Scottish Rite Center",
+    "city": "Sacramento",
+    "url": "https://sacjewishfoodfaire.com/",
+    "urlLabel": "sacjewishfoodfaire.com",
+    "when": "Nov 8, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-11-08",
+    "origin": {
+      "lat": 31.77,
+      "lng": 35.21
+    },
+    "flyer": "/flyers/jewish.jpg"
+  },
+  {
+    "id": "hmong",
+    "culture": "Hmong",
+    "event": "Sacramento Hmong New Year",
+    "place": "Cal Expo",
+    "city": "Sacramento",
+    "url": "https://sacramentohmongnewyear.com/",
+    "urlLabel": "sacramentohmongnewyear.com",
+    "when": "Nov 27\u201329, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-11-27",
+    "origin": {
+      "lat": 19.45,
+      "lng": 103.18
+    },
+    "flyer": "/flyers/hmong.jpg"
+  },
+  {
+    "id": "korean",
+    "culture": "Korean",
+    "event": "Sacramento Valley Korean Culture Festival",
+    "place": "KP Market",
+    "city": "Rancho Cordova",
+    "url": "https://folsomtimes.com/sacvalley-korean-culture-festival-returns-with-food-music-fun-saturday/",
+    "urlLabel": "Folsom Times",
+    "when": "May 30, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-05-30",
+    "origin": {
+      "lat": 37.57,
+      "lng": 126.98
+    },
+    "flyer": "/flyers/korean.jpg"
+  },
+  {
+    "id": "portuguese",
+    "culture": "Portuguese",
+    "event": "Freeport Portuguese Festa",
+    "place": "IDES Portuguese Hall",
+    "city": "Clarksburg",
+    "url": "https://www.facebook.com/FreeportFesta",
+    "urlLabel": "facebook.com/FreeportFesta",
+    "when": "May 31, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-05-31",
+    "origin": {
+      "lat": 38.72,
+      "lng": -9.14
+    },
+    "flyer": "/flyers/portuguese.png"
+  },
+  {
+    "id": "filipino",
+    "culture": "Filipino",
+    "event": "Filipino Fiesta",
+    "place": "Jose P. Rizal Community Center",
+    "city": "Sacramento",
+    "url": "http://www.sacramentofiesta.org/",
+    "urlLabel": "sacramentofiesta.org",
+    "when": "Usually June",
+    "whenKind": "season",
+    "lastHeld": "Jun 7, 2026",
+    "sortRank": 2,
+    "sortDate": "2027-06-10",
+    "origin": {
+      "lat": 14.6,
+      "lng": 120.98
+    },
+    "flyer": "/flyers/filipino-2025.jpg"
+  },
+  {
+    "id": "japanese",
+    "culture": "Japanese",
+    "event": "Japanese Food & Cultural Bazaar",
+    "place": "Buddhist Church of Sacramento",
+    "city": "Sacramento",
+    "url": "https://www.buddhistchurch.org/bazaar",
+    "urlLabel": "buddhistchurch.org",
+    "when": "Usually one Saturday in August",
+    "whenKind": "season",
+    "lastHeld": "Aug 8, 2026",
+    "sortRank": 2,
+    "sortDate": "2027-08-08",
+    "origin": {
+      "lat": 35.68,
+      "lng": 139.65
+    },
+    "flyer": "/flyers/japanese.png"
+  },
+  {
+    "id": "indian",
+    "culture": "Indian",
+    "event": "IAS Mega India Day",
+    "place": "Folsom High School",
+    "city": "Folsom",
+    "url": "https://iassac.org/Calendar-2026.php",
+    "urlLabel": "iassac.org",
+    "when": "Estimate \u00b7 Aug 15, 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Aug 15, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-08-15",
+    "origin": {
+      "lat": 28.61,
+      "lng": 77.21
+    },
+    "flyer": "/flyers/indian.png"
+  },
+  {
+    "id": "ukrainian",
+    "culture": "Ukrainian",
+    "event": "Mriya Fest",
+    "place": "Sacramento",
+    "city": null,
+    "url": "https://www.parasolka.org/mriyafest",
+    "urlLabel": "parasolka.org",
+    "when": "May 8, 2027",
+    "whenKind": "confirmed",
+    "lastHeld": "May 3, 2025",
+    "sortRank": 0,
+    "sortDate": "2027-05-08",
+    "origin": {
+      "lat": 50.45,
+      "lng": 30.52
+    },
+    "flyer": "/flyers/ukrainian.jpg"
+  },
+  {
+    "id": "polish",
+    "culture": "Polish",
+    "event": "Polish Festival",
+    "place": "Polish American Hall",
+    "city": "Roseville",
+    "url": "https://sacpolishclub.com/annual-polish-festival",
+    "urlLabel": "sacpolishclub.com",
+    "when": "Usually September",
+    "whenKind": "season",
+    "lastHeld": "Sep 12, 2026",
+    "sortRank": 2,
+    "sortDate": "2027-09-10",
+    "origin": {
+      "lat": 52.23,
+      "lng": 21.01
+    },
+    "flyer": "/flyers/polish.jpg"
+  },
+  {
+    "id": "hawaiian",
+    "culture": "Hawaiian and Pacific Islander",
+    "event": "Sacramento Aloha Festival",
+    "place": "Gold Country Fairgrounds",
+    "city": "Auburn",
+    "url": "https://www.sacalohafest.org/",
+    "urlLabel": "sacalohafest.org",
+    "when": "Usually mid-September",
+    "whenKind": "season",
+    "lastHeld": "Sep 19, 2026",
+    "sortRank": 2,
+    "sortDate": "2027-09-19",
+    "origin": {
+      "lat": 21.31,
+      "lng": -157.86
+    },
+    "flyer": "/flyers/hawaiian.jpg"
+  },
+  {
+    "id": "middle-eastern",
+    "culture": "Middle Eastern",
+    "event": "St. George Middle Eastern Food Festival",
+    "place": "St. George Melkite Greek-Catholic Church",
+    "city": "Sacramento",
+    "url": "https://stgeorgemelkite.org/",
+    "urlLabel": "stgeorgemelkite.org",
+    "when": "Usually Labor Day weekend",
+    "whenKind": "season",
+    "lastHeld": "Sep 5\u20136, 2026",
+    "sortRank": 2,
+    "sortDate": "2027-09-04",
+    "origin": {
+      "lat": 33.89,
+      "lng": 35.5
+    },
+    "flyer": "/flyers/middle-eastern.png"
+  },
+  {
+    "id": "peruvian",
+    "culture": "Peruvian",
+    "event": "Fiesta del Perol",
+    "place": "Four Points by Sheraton",
+    "city": "Sacramento",
+    "url": "https://www.clublibertadfilialsacramento.org/events",
+    "urlLabel": "clublibertadfilialsacramento.org",
+    "when": "Oct 24\u201325, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": "Aug 31, 2024",
+    "sortRank": 0,
+    "sortDate": "2026-10-24",
+    "origin": {
+      "lat": -12.05,
+      "lng": -77.04
+    },
+    "flyer": "/flyers/peruvian.jpg"
+  },
+  {
+    "id": "iu-mien",
+    "culture": "Iu Mien",
+    "event": "Sacramento Iu Mien Festival",
+    "place": "Hiram Johnson High School",
+    "city": "Sacramento",
+    "url": "https://solvingsacramento.org/2025/07/sacramento-iu-mien-festival-celebrates-community-preserves-culture/",
+    "urlLabel": "solvingsacramento.org",
+    "when": "June 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jun 21, 2025",
+    "sortRank": 1,
+    "sortDate": "2027-06-10",
+    "origin": {
+      "lat": 20.25,
+      "lng": 100.9
+    },
+    "flyer": "/flyers/iumien.jpg"
+  }
+]
