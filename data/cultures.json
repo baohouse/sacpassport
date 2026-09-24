@@ -264,7 +264,7 @@
   },
   {
     "id": "hawaiian",
-    "culture": "Hawaiian and Pacific Islander",
+    "culture": "Hawaiian & Pacific Islander",
     "event": "Sacramento Aloha Festival",
     "place": "Gold Country Fairgrounds",
     "city": "Auburn",
@@ -280,25 +280,6 @@
       "lng": -157.86
     },
     "flyer": "/flyers/hawaiian.jpg"
-  },
-  {
-    "id": "middle-eastern",
-    "culture": "Middle Eastern",
-    "event": "St. George Middle Eastern Food Festival",
-    "place": "St. George Melkite Greek-Catholic Church",
-    "city": "Sacramento",
-    "url": "https://stgeorgemelkite.org/",
-    "urlLabel": "stgeorgemelkite.org",
-    "when": "Usually Labor Day weekend",
-    "whenKind": "season",
-    "lastHeld": "Sep 5–6, 2026",
-    "sortRank": 2,
-    "sortDate": "2027-09-04",
-    "origin": {
-      "lat": 33.89,
-      "lng": 35.5
-    },
-    "flyer": "/flyers/middle-eastern.png"
   },
   {
     "id": "peruvian",
@@ -641,5 +622,24 @@
       "lng": 73.05
     },
     "flyer": "/flyers/pakistani.jpg"
+  },
+  {
+    "id": "australian",
+    "culture": "Australian",
+    "event": "Australia Day",
+    "place": "McKinley Park",
+    "city": "Sacramento",
+    "url": "https://sacfooty.com/calendar-event/australia-day/",
+    "urlLabel": "sacfooty.com",
+    "when": "January 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jan 24, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-01-15",
+    "origin": {
+      "lat": -35.28,
+      "lng": 149.13
+    },
+    "flyer": "/flyers/australian.jpg"
   }
 ]

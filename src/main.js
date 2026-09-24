@@ -34,6 +34,10 @@ function ordered() {
     return list;
   }
   list.sort((a, b) => {
+    const monthA = (a.sortDate || '9999').slice(0, 7);
+    const monthB = (b.sortDate || '9999').slice(0, 7);
+    const byMonth = monthA.localeCompare(monthB);
+    if (byMonth !== 0) return byMonth;
     if (a.sortRank !== b.sortRank) return a.sortRank - b.sortRank;
     return (a.sortDate || '9999').localeCompare(b.sortDate || '9999');
   });
