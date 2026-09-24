@@ -94,7 +94,7 @@
   {
     "id": "jewish",
     "culture": "Jewish",
-    "event": "Jewish Food Faire",
+    "event": "Sacramento Jewish Food Faire",
     "place": "Scottish Rite Center",
     "city": "Sacramento",
     "url": "https://sacjewishfoodfaire.com/",
@@ -170,7 +170,7 @@
   {
     "id": "filipino",
     "culture": "Filipino",
-    "event": "Filipino Fiesta",
+    "event": "Filipino Fiesta of Sacramento",
     "place": "Jose P. Rizal Community Center",
     "city": "Sacramento",
     "url": "http://www.sacramentofiesta.org/",
@@ -227,7 +227,7 @@
   {
     "id": "ukrainian",
     "culture": "Ukrainian",
-    "event": "Mriya Fest",
+    "event": "MriyaFest",
     "place": "Sacramento",
     "city": null,
     "url": "https://www.parasolka.org/mriyafest",
@@ -379,7 +379,7 @@
   {
     "id": "mexican",
     "culture": "Mexican",
-    "event": "Cinco de Mayo en el Parque",
+    "event": "Cinco de Mayo at the Park",
     "place": "César Chávez Plaza",
     "city": "Sacramento",
     "url": "https://www.eventbrite.com/e/cinco-de-mayo-at-the-park-tickets-1985419408898",
@@ -398,7 +398,7 @@
   {
     "id": "brazilian",
     "culture": "Brazilian",
-    "event": "Brazilian Day Sac Fest",
+    "event": "Brazilian Day Sacramento Street Festival",
     "place": "3rd Avenue (between 34th & Broadway)",
     "city": "Sacramento",
     "url": "https://www.braziliandaysacfest.com/",
@@ -417,7 +417,7 @@
   {
     "id": "colombian",
     "culture": "Colombian",
-    "event": "Que Chimba Fest",
+    "event": "Chimba Fest",
     "place": "Sangam Hall",
     "city": "West Sacramento",
     "url": "https://www.tickeri.com/events/wk0a0b0ji33e/chimba-fest",
@@ -451,5 +451,195 @@
       "lng": -89.19
     },
     "flyer": "/flyers/salvadoran-2024.jpg"
+  },
+  {
+    "id": "armenian",
+    "culture": "Armenian",
+    "event": "Sacramento Armenian Food Festival",
+    "place": "St. James Armenian Church",
+    "city": "Citrus Heights",
+    "url": "https://foodfestival.stjamessacramento.org/",
+    "urlLabel": "foodfestival.stjamessacramento.org",
+    "when": "Oct 17, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-17",
+    "origin": {
+      "lat": 40.18,
+      "lng": 44.51
+    },
+    "flyer": "/flyers/armenian.jpg"
+  },
+  {
+    "id": "punjabi",
+    "culture": "Punjabi",
+    "event": "CDM Punjabi Music Festival",
+    "place": "Cal Expo",
+    "city": "Sacramento",
+    "url": "https://calexpo.com/event/cdm-2026/",
+    "urlLabel": "calexpo.com",
+    "when": "Oct 17, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-17",
+    "origin": {
+      "lat": 30.73,
+      "lng": 76.78
+    },
+    "flyer": "/flyers/punjabi.png"
+  },
+  {
+    "id": "egyptian",
+    "culture": "Egyptian",
+    "event": "Egyptian Festival",
+    "place": "St. Mary Coptic Orthodox Church",
+    "city": "Roseville",
+    "url": "https://www.facebook.com/events/1058677856790461/",
+    "urlLabel": "facebook.com",
+    "when": "September 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Sep 19–20, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-09-15",
+    "origin": {
+      "lat": 30.04,
+      "lng": 31.24
+    },
+    "flyer": "/flyers/egyptian.jpg"
+  },
+  {
+    "id": "italian",
+    "culture": "Italian",
+    "event": "Columbus Day Festival",
+    "place": "Italian Center",
+    "city": "Carmichael",
+    "url": "https://italiancenter.net/events/columbus-day-festival.html",
+    "urlLabel": "italiancenter.net",
+    "when": "October 2026",
+    "whenKind": "estimate",
+    "lastHeld": "Oct 12, 2025",
+    "sortRank": 1,
+    "sortDate": "2026-10-15",
+    "origin": {
+      "lat": 41.9,
+      "lng": 12.5
+    },
+    "flyer": "/flyers/italian.jpg"
+  },
+  {
+    "id": "serbian",
+    "culture": "Serbian",
+    "event": "Serbian Food & Culture Festival",
+    "place": "Assumption Serbian Orthodox Church",
+    "city": "Fair Oaks",
+    "url": "https://serbchurchsac.org/parish-festival/",
+    "urlLabel": "serbchurchsac.org",
+    "when": "October 2026",
+    "whenKind": "estimate",
+    "lastHeld": "Oct 12, 2024",
+    "sortRank": 1,
+    "sortDate": "2026-10-15",
+    "origin": {
+      "lat": 44.79,
+      "lng": 20.45
+    },
+    "flyer": "/flyers/serbian.jpg"
+  },
+  {
+    "id": "scottish",
+    "culture": "Scottish",
+    "event": "Burns Supper",
+    "place": "North Ridge Country Club",
+    "city": "Fair Oaks",
+    "url": "https://saintandrewssocietyofsacramento.wildapricot.org/event-6431601",
+    "urlLabel": "saintandrewssocietyofsacramento.wildapricot.org",
+    "when": "February 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Feb 7, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-02-15",
+    "origin": {
+      "lat": 55.95,
+      "lng": -3.19
+    },
+    "flyer": "/flyers/scottish.jpg"
+  },
+  {
+    "id": "irish",
+    "culture": "Irish",
+    "event": "St. Patrick's Day Parade",
+    "place": "Old Sacramento Waterfront",
+    "city": "Sacramento",
+    "url": "https://www.downtownsac.org/downtown-sac-experiences/st-patricks-day-parade-and-festival/",
+    "urlLabel": "downtownsac.org",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Mar 14, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-03-15",
+    "origin": {
+      "lat": 53.35,
+      "lng": -6.26
+    },
+    "flyer": "/flyers/irish.jpg"
+  },
+  {
+    "id": "sikh",
+    "culture": "Sikh",
+    "event": "Nagar Kirtan",
+    "place": "Sacramento Sikh Society",
+    "city": "Sacramento",
+    "url": "https://sacsikhsociety.org/nagar-kirtan-2026/",
+    "urlLabel": "sacsikhsociety.org",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Mar 22, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-03-22",
+    "origin": {
+      "lat": 31.63,
+      "lng": 74.87
+    },
+    "flyer": "/flyers/sikh.jpg"
+  },
+  {
+    "id": "croatian",
+    "culture": "Croatian",
+    "event": "Croatian Extravaganza",
+    "place": "Croatian American Cultural Center",
+    "city": "Sacramento",
+    "url": "https://www.croatiancenter.org/",
+    "urlLabel": "croatiancenter.org",
+    "when": "June 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jun 13–14, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-06-15",
+    "origin": {
+      "lat": 45.81,
+      "lng": 15.98
+    },
+    "flyer": "/flyers/croatian.jpg"
+  },
+  {
+    "id": "pakistani",
+    "culture": "Pakistani",
+    "event": "Pakistani Independence Day & Family Festival",
+    "place": "Cal Expo",
+    "city": "Sacramento",
+    "url": "https://calexpo.com/event/pakistani-independence-day/",
+    "urlLabel": "calexpo.com",
+    "when": "August 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Aug 15, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-08-15",
+    "origin": {
+      "lat": 33.68,
+      "lng": 73.05
+    },
+    "flyer": "/flyers/pakistani.jpg"
   }
 ]
