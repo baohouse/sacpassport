@@ -9,3 +9,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://sacpassport.com/sitemap.xml
