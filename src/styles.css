@@ -329,7 +329,7 @@ main {
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 479px) {
   .cultures-modal {
     width: 100%;
     max-width: none;
@@ -351,17 +351,20 @@ main {
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 480px) {
+  .cultures-modal,
+  .cultures-modal-panel {
+    max-height: min(90vh, 52rem);
+  }
+
   .cultures-modal {
-    width: min(36rem, calc(100vw - 4rem));
+    width: min(30rem, calc(100vw - 4rem));
   }
 
   .cultures-modal-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .cultures-modal-item {
-    white-space: normal;
+    gap: 0.1rem 0.25rem;
+    padding: 0.4rem 0.45rem 0.55rem;
   }
 }
 
@@ -379,6 +382,17 @@ main {
   text-align: left;
   line-height: 1.25;
   cursor: pointer;
+}
+
+@media (min-width: 480px) {
+  .cultures-modal-item {
+    display: flex;
+    align-items: center;
+    white-space: normal;
+    padding: 0.12rem 0.4rem;
+    /* Two text lines plus this vertical padding, same height on every button. */
+    height: calc(2 * 1.25em + 0.24rem);
+  }
 }
 
 .cultures-modal-item:hover,
@@ -648,7 +662,7 @@ main {
 
   .question {
     margin-top: clamp(0.75rem, 2.8vw, 1.35rem);
-    font-size: clamp(0.95rem, 3.6vw, 1.45rem);
+    font-size: calc((100vw - 2rem) * 0.058);
     white-space: nowrap;
   }
 
