@@ -98,9 +98,11 @@ a:hover {
 
   /* Hero tracks title size (17.2vw × ~2.45 ≈ 42vw); caps with the 1440 box */
   .hero {
-    --hero-h: min(42vw, calc(1440px * 0.42), 720px);
+    --hero-h: max(320px, min(42vw, calc(1440px * 0.42), 720px));
+    width: var(--hero-h);
     height: var(--hero-h);
-    min-height: 320px;
+    min-height: 0;
+    margin-inline: auto;
     /* Pull the canvas up so a centered sphere still overlaps the title.
        The lift stays in CSS so arc peaks aren't pushed out of the camera view. */
     margin-top: calc(-1 * min(4vw, 1440px * 0.04) - var(--hero-h) * 0.18);
@@ -604,6 +606,8 @@ main {
     align-items: flex-start;
     position: relative;
     z-index: 2;
+    /* Letters stay on top of the sphere; drags pass through to spin it. */
+    pointer-events: none;
     width: 100%;
     white-space: normal;
     padding: 0;
