@@ -192,6 +192,19 @@ main {
   gap: 1rem;
 }
 
+.site-footer {
+  margin-top: 2rem;
+  padding: 1.25rem 0.75rem 0.5rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.site-footer p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 .card {
   display: grid;
   grid-template-columns: 168px 1fr;
