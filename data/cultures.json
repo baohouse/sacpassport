@@ -1,5 +1,24 @@
 [
   {
+    "id": "romanian",
+    "culture": "Romanian",
+    "event": "Romanian Festival",
+    "place": "Vernon Street Town Square",
+    "city": "Roseville",
+    "url": "https://www.romaniancenter.org/festival",
+    "urlLabel": "romaniancenter.org",
+    "when": "Sep 26, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-09-26",
+    "origin": {
+      "lat": 44.43,
+      "lng": 26.1
+    },
+    "flyer": "/flyers/romanian.jpg"
+  },
+  {
     "id": "greek",
     "culture": "Greek",
     "event": "Sacramento Greek Festival",
