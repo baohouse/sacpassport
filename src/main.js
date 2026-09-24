@@ -68,7 +68,6 @@ function points() {
 const GLOBE_R = 100;
 const ARC_PEAK = 0.18;
 const arcDash = { value: 0 };
-let arcGroup = null;
 
 function latLngUnit(lat, lng) {
   const phi = ((90 - lat) * Math.PI) / 180;
@@ -99,13 +98,13 @@ function surfaceArcCurve(startLat, startLng, endLat, endLng) {
   return curve;
 }
 
-function arcMaterial(selected) {
+function arcMaterial() {
   return new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
     uniforms: {
-      uColor: { value: new THREE.Color(selected ? OCEAN_DEEP : OCEAN) },
-      uOpacity: { value: selected ? 1 : 0.55 },
+      uColor: { value: new THREE.Color(OCEAN) },
+      uOpacity: { value: 0.55 },
       uDash: arcDash,
       uDashSize: { value: 0.45 },
       uGapSize: { value: 0.18 },
@@ -136,23 +135,19 @@ function arcMaterial(selected) {
 }
 
 function paintArcs() {
-  if (!arcGroup) {
-    arcGroup = new THREE.Group();
-    world.scene().add(arcGroup);
-  }
-  for (const child of [...arcGroup.children]) {
-    child.geometry?.dispose();
-    child.material?.dispose();
-    arcGroup.remove(child);
-  }
+  const group = new THREE.Group();
   for (const arc of arcs()) {
-    const selected = arc.id === currentId;
     const curve = surfaceArcCurve(arc.startLat, arc.startLng, arc.endLat, arc.endLng);
-    const geometry = new THREE.TubeGeometry(curve, 64, (selected ? 1.15 : 0.45) / 2, 6, false);
-    const mesh = new THREE.Mesh(geometry, arcMaterial(selected));
+    const geometry = new THREE.TubeGeometry(curve, 64, 0.45 / 2, 6, false);
+    const mesh = new THREE.Mesh(geometry, arcMaterial());
     mesh.renderOrder = 2;
-    arcGroup.add(mesh);
+    group.add(mesh);
   }
+  // customLayer lives on the globe object that scales and spins during intro.
+  world
+    .customThreeObject(() => group)
+    .customThreeObjectUpdate(() => {})
+    .customLayerData([group]);
 }
 
 function paintGlobe() {
@@ -164,7 +159,6 @@ function paintGlobe() {
       return pin.id === currentId ? OCEAN : INK;
     })
     .pointRadius((pin) => (pin.id === currentId || pin.id === 'sacramento' ? 0.55 : 0.28));
-  paintArcs();
 }
 
 const MONTH_NAMES = [
@@ -297,12 +291,6 @@ function selectCulture(id, scroll) {
   paintGlobe();
   for (const card of cardsEl.querySelectorAll('.card')) {
     card.classList.toggle('is-current', card.dataset.id === id);
-  }
-  const item = cultures.find((entry) => entry.id === id);
-  if (world && item?.origin && !reduceMotion) {
-    const lat = (item.origin.lat + SAC.lat) / 2;
-    const lng = (item.origin.lng + SAC.lng) / 2;
-    world.pointOfView({ lat, lng, altitude: 1.85 }, 700);
   }
   if (scroll) {
     document.getElementById(`card-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -480,6 +468,7 @@ function mountFlyerLightbox() {
 function mountGlobe() {
   try {
     world = Globe({ rendererConfig: { alpha: true } })(globeEl);
+    paintArcs();
     world
       .width(globeEl.clientWidth)
       .height(globeEl.clientHeight)
