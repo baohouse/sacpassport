@@ -1,0 +1,11 @@
+name = "sacpassport-meta"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+[[routes]]
+pattern = "sacpassport.com/*"
+zone_name = "sacpassport.com"
+
+[[routes]]
+pattern = "www.sacpassport.com/*"
+zone_name = "sacpassport.com"
