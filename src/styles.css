@@ -101,8 +101,10 @@ a:hover {
     --hero-h: min(42vw, calc(1440px * 0.42), 720px);
     height: var(--hero-h);
     min-height: 320px;
-    /* Collapse empty canvas under raised sphere — leave ~25% of prior sky under the mesh */
-    margin-bottom: calc(var(--hero-h) * -0.30);
+    /* -4vw pulls the globe into the title. Freeze it at the 1440 cap. */
+    margin-top: calc(-1 * min(4vw, 1440px * 0.04));
+    /* Collapse empty canvas under the sphere so the question stays snug */
+    margin-bottom: calc(var(--hero-h) * -0.38);
   }
 }
 

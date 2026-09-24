@@ -417,7 +417,7 @@ function mountGlobe() {
       .arcStartLng('startLng')
       .arcEndLat('endLat')
       .arcEndLng('endLng')
-      .arcAltitude(0.28)
+      .arcAltitude(0.18)
       .arcDashLength(0.45)
       .arcDashGap(0.18)
       .arcDashAnimateTime(reduceMotion ? 0 : 4800)
@@ -446,12 +446,12 @@ function mountGlobe() {
     const placeGlobe = () => {
       const phone = narrow.matches;
       // Positive globeOffset Y shifts the sphere down (API negates into viewOffset).
-      // Desktop: raise by 20% of hero/canvas height so the lift scales with resize.
+      // Lift so the top of the sphere sits over the title.
       const desktopY = 36 - globeEl.clientHeight * 0.20;
       // Phone: 10% of hero height down from SAC-centered box (CSS still centers the box).
       const phoneY = globeEl.clientHeight * 0.10;
       world.globeOffset(phone ? [0, phoneY] : [0, desktopY]);
-      world.pointOfView({ lat: 38.6, lng: -121.5, altitude: phone ? 2.05 : 2.4 });
+      world.pointOfView({ lat: 38.6, lng: -121.5, altitude: phone ? 2.05 : 2.5 });
     };
     placeGlobe();
     narrow.addEventListener('change', placeGlobe);
