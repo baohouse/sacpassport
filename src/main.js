@@ -65,18 +65,106 @@ function points() {
   return pins;
 }
 
+const GLOBE_R = 100;
+const ARC_PEAK = 0.18;
+const arcDash = { value: 0 };
+let arcGroup = null;
+
+function latLngUnit(lat, lng) {
+  const phi = ((90 - lat) * Math.PI) / 180;
+  const theta = ((90 - lng) * Math.PI) / 180;
+  const phiSin = Math.sin(phi);
+  return new THREE.Vector3(phiSin * Math.cos(theta), Math.cos(phi), phiSin * Math.sin(theta));
+}
+
+// Great-circle direction, lifted by sin(πt). Radius is the globe only at t = 0 and t = 1.
+function surfaceArcCurve(startLat, startLng, endLat, endLng) {
+  const start = latLngUnit(startLat, startLng);
+  const end = latLngUnit(endLat, endLng);
+  const omega = Math.acos(THREE.MathUtils.clamp(start.dot(end), -1, 1));
+  const curve = new THREE.Curve();
+  curve.getPoint = (t, target = new THREE.Vector3()) => {
+    let dir;
+    if (omega < 1e-4) {
+      dir = start.clone();
+    } else {
+      const sinO = Math.sin(omega);
+      dir = new THREE.Vector3()
+        .addScaledVector(start, Math.sin((1 - t) * omega) / sinO)
+        .addScaledVector(end, Math.sin(t * omega) / sinO);
+    }
+    const alt = ARC_PEAK * Math.sin(Math.PI * t);
+    return target.copy(dir).multiplyScalar(GLOBE_R * (1 + alt));
+  };
+  return curve;
+}
+
+function arcMaterial(selected) {
+  return new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    uniforms: {
+      uColor: { value: new THREE.Color(selected ? OCEAN_DEEP : OCEAN) },
+      uOpacity: { value: selected ? 1 : 0.55 },
+      uDash: arcDash,
+      uDashSize: { value: 0.45 },
+      uGapSize: { value: 0.18 },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 uColor;
+      uniform float uOpacity;
+      uniform float uDash;
+      uniform float uDashSize;
+      uniform float uGapSize;
+      varying vec2 vUv;
+      void main() {
+        float span = uDashSize + uGapSize;
+        float d = mod(vUv.x - uDash, span);
+        if (d < 0.0) d += span;
+        if (d > uDashSize) discard;
+        gl_FragColor = vec4(uColor, uOpacity);
+      }
+    `,
+  });
+}
+
+function paintArcs() {
+  if (!arcGroup) {
+    arcGroup = new THREE.Group();
+    world.scene().add(arcGroup);
+  }
+  for (const child of [...arcGroup.children]) {
+    child.geometry?.dispose();
+    child.material?.dispose();
+    arcGroup.remove(child);
+  }
+  for (const arc of arcs()) {
+    const selected = arc.id === currentId;
+    const curve = surfaceArcCurve(arc.startLat, arc.startLng, arc.endLat, arc.endLng);
+    const geometry = new THREE.TubeGeometry(curve, 64, (selected ? 1.15 : 0.45) / 2, 6, false);
+    const mesh = new THREE.Mesh(geometry, arcMaterial(selected));
+    mesh.renderOrder = 2;
+    arcGroup.add(mesh);
+  }
+}
+
 function paintGlobe() {
   if (!world) return;
   world
-    .arcsData(arcs())
-    .arcColor((arc) => (arc.id === currentId ? OCEAN_DEEP : 'rgba(21, 120, 176, 0.55)'))
-    .arcStroke((arc) => (arc.id === currentId ? 1.15 : 0.45))
     .pointsData(points())
     .pointColor((pin) => {
       if (pin.id === 'sacramento') return OCEAN_DEEP;
       return pin.id === currentId ? OCEAN : INK;
     })
     .pointRadius((pin) => (pin.id === currentId || pin.id === 'sacramento' ? 0.55 : 0.28));
+  paintArcs();
 }
 
 const MONTH_NAMES = [
@@ -413,15 +501,6 @@ function mountGlobe() {
       .polygonStrokeColor(() => INK)
       .polygonAltitude(0.004)
       .polygonLabel(() => '')
-      .arcStartLat('startLat')
-      .arcStartLng('startLng')
-      .arcEndLat('endLat')
-      .arcEndLng('endLng')
-      .arcAltitude(0.18)
-      .arcDashLength(0.45)
-      .arcDashGap(0.18)
-      .arcDashAnimateTime(reduceMotion ? 0 : 4800)
-      .arcsTransitionDuration(0)
       .pointAltitude(0.01)
       .pointsTransitionDuration(0);
 
@@ -446,16 +525,25 @@ function mountGlobe() {
     const placeGlobe = () => {
       const phone = narrow.matches;
       // Positive globeOffset Y shifts the sphere down (API negates into viewOffset).
-      // Lift so the top of the sphere sits over the title.
-      const desktopY = 36 - globeEl.clientHeight * 0.20;
+      // Keep the sphere near the center of the view so front-facing arc peaks stay in frame.
+      const desktopY = 24;
       // Phone: 10% of hero height down from SAC-centered box (CSS still centers the box).
       const phoneY = globeEl.clientHeight * 0.10;
       world.globeOffset(phone ? [0, phoneY] : [0, desktopY]);
-      world.pointOfView({ lat: 38.6, lng: -121.5, altitude: phone ? 2.05 : 2.5 });
+      world.pointOfView({ lat: 38.6, lng: -121.5, altitude: phone ? 2.05 : 2.7 });
     };
     placeGlobe();
     narrow.addEventListener('change', placeGlobe);
     paintGlobe();
+    if (!reduceMotion) {
+      let last = performance.now();
+      const tickDash = (now) => {
+        arcDash.value += ((now - last) / 1000) * (1000 / 4800);
+        last = now;
+        requestAnimationFrame(tickDash);
+      };
+      requestAnimationFrame(tickDash);
+    }
 
     const resize = () => {
       world.width(globeEl.clientWidth).height(globeEl.clientHeight);
