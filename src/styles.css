@@ -186,10 +186,141 @@ main {
   border-color: var(--ink);
 }
 
+.cultures-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4rem;
+  padding-inline: 0.7rem;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  width: 1rem;
+  height: 0.85rem;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.cultures-modal {
+  z-index: 85;
+  width: min(28rem, calc(100vw - 2rem));
+  max-height: min(80vh, 36rem);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: var(--filled);
+  color: var(--ink);
+  box-shadow: 0 12px 40px rgba(12, 47, 72, 0.18);
+}
+
+.cultures-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.cultures-modal::backdrop {
+  background: rgba(12, 47, 72, 0.45);
+}
+
+.cultures-modal-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: min(80vh, 36rem);
+  overflow: hidden;
+}
+
+.cultures-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 0.85rem 0.55rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.cultures-modal-title {
+  margin: 0;
+  font-family: "Noto Serif", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.cultures-modal-close {
+  width: 2.1rem;
+  height: 2.1rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cultures-modal-close:hover {
+  background: var(--sky);
+  border-color: var(--ocean);
+  color: var(--ocean-deep);
+}
+
+.cultures-modal-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.15rem 0.5rem;
+  padding: 0.65rem 0.65rem 0.85rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cultures-modal-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: left;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.cultures-modal-item:hover,
+.cultures-modal-item:focus-visible {
+  background: rgba(21, 120, 176, 0.12);
+  outline: none;
+}
+
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 1rem;
+}
+
+@media (min-width: 960px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .site-footer {
@@ -416,10 +547,6 @@ main {
 
   .passport {
     margin-top: 0.08em;
-  }
-
-  .cards {
-    grid-template-columns: 1fr;
   }
 
   .hero {

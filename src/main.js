@@ -14,7 +14,8 @@ const globeEl = document.querySelector('#globe');
 const fallbackEl = document.querySelector('#globe-fallback');
 const cardsEl = document.querySelector('#cards');
 const sortsEl = document.querySelector('.sorts');
-const sortButtons = [...document.querySelectorAll('.sorts button')];
+const sortButtons = [...document.querySelectorAll('.sorts button[data-sort]')];
+const culturesMenuBtn = document.querySelector('.cultures-menu-btn');
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -522,7 +523,116 @@ function mountSortsPin() {
   });
 }
 
+let culturesModal = null;
+let culturesModalClose = null;
+let culturesModalReturnFocus = null;
+let culturesModalBodyOverflowBefore = '';
+let culturesModalScrollLocked = false;
+
+function unlockCulturesModalScroll() {
+  if (!culturesModalScrollLocked) return;
+  if (culturesModalBodyOverflowBefore) {
+    document.body.style.overflow = culturesModalBodyOverflowBefore;
+  } else {
+    document.body.style.removeProperty('overflow');
+  }
+  culturesModalBodyOverflowBefore = '';
+  culturesModalScrollLocked = false;
+}
+
+function teardownCulturesModal() {
+  unlockCulturesModalScroll();
+  const restore = culturesModalReturnFocus;
+  culturesModalReturnFocus = null;
+  queueMicrotask(() => restore?.focus?.());
+}
+
+function closeCulturesModal() {
+  if (!culturesModal?.open) return;
+  teardownCulturesModal();
+  culturesModal.close();
+}
+
+function openCulturesModal() {
+  if (!culturesModal) return;
+  culturesModalReturnFocus = culturesMenuBtn;
+  if (!culturesModal.open) {
+    const prior = document.body.style.overflow;
+    culturesModalBodyOverflowBefore = prior === 'hidden' ? '' : prior;
+    document.body.style.overflow = 'hidden';
+    culturesModalScrollLocked = true;
+  }
+  culturesModal.showModal();
+  culturesModalClose?.focus();
+}
+
+function mountCulturesModal() {
+  document.querySelector('.cultures-modal')?.remove();
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'cultures-modal';
+  dialog.setAttribute('aria-labelledby', 'cultures-modal-title');
+
+  const panel = document.createElement('div');
+  panel.className = 'cultures-modal-panel';
+
+  const header = document.createElement('div');
+  header.className = 'cultures-modal-header';
+
+  const title = document.createElement('h2');
+  title.id = 'cultures-modal-title';
+  title.className = 'cultures-modal-title';
+  title.textContent = 'Cultures';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'cultures-modal-close';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.textContent = '×';
+
+  header.append(title, closeBtn);
+
+  const list = document.createElement('div');
+  list.className = 'cultures-modal-list';
+  list.setAttribute('role', 'list');
+
+  const byName = [...cultures].sort((a, b) => a.culture.localeCompare(b.culture));
+  for (const item of byName) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cultures-modal-item';
+    btn.setAttribute('role', 'listitem');
+    btn.textContent = item.culture;
+    btn.addEventListener('click', () => {
+      closeCulturesModal();
+      selectCulture(item.id, true);
+    });
+    list.append(btn);
+  }
+
+  panel.append(header, list);
+  dialog.append(panel);
+  document.body.append(dialog);
+
+  closeBtn.addEventListener('click', closeCulturesModal);
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) closeCulturesModal();
+  });
+  dialog.addEventListener('cancel', () => {
+    teardownCulturesModal();
+  });
+  dialog.addEventListener('close', () => {
+    teardownCulturesModal();
+  });
+
+  culturesModal = dialog;
+  culturesModalClose = closeBtn;
+}
+
+culturesMenuBtn?.addEventListener('click', openCulturesModal);
+
 mountFlyerLightbox();
+mountCulturesModal();
 render();
 mountGlobe();
 mountSortsPin();
