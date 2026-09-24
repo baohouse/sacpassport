@@ -43,7 +43,7 @@ a:hover {
 
 .stage {
   position: relative;
-  padding-top: 1.5rem;
+  padding-top: calc(1.5rem + env(safe-area-inset-top, 0px));
 }
 
 .site-title {
@@ -127,7 +127,7 @@ a:hover {
 main {
   position: relative;
   z-index: 3;
-  padding: 0.5rem 0 4rem;
+  padding: 0.5rem 0 calc(4.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 .question {
@@ -167,7 +167,7 @@ main {
   right: 0;
   z-index: 20;
   margin: 0;
-  padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+  padding: 0.65rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
   background: rgba(231, 243, 251, 0.96);
   box-shadow: 0 -1px 0 var(--rule);
 }
@@ -263,6 +263,7 @@ main {
   display: flex;
   flex-direction: column;
   max-height: min(80vh, 36rem);
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -285,6 +286,9 @@ main {
 }
 
 .cultures-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2.1rem;
   height: 2.1rem;
   margin: 0;
@@ -300,6 +304,12 @@ main {
   flex-shrink: 0;
 }
 
+.cultures-modal-close-mark {
+  display: block;
+  line-height: 1;
+  transform: translate(0, -1px);
+}
+
 .cultures-modal-close:hover {
   background: var(--sky);
   border-color: var(--ocean);
@@ -312,7 +322,45 @@ main {
   gap: 0.15rem 0.5rem;
   padding: 0.65rem 0.65rem 0.85rem;
   overflow-y: auto;
+  flex: 1;
+  min-height: 0;
   -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 720px) {
+  .cultures-modal {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    border-radius: 0;
+    border-inline: 0;
+  }
+
+  .cultures-modal-panel {
+    flex: 1;
+    height: 100%;
+    max-height: none;
+  }
+
+  .cultures-modal-list {
+    padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (min-width: 960px) {
+  .cultures-modal {
+    width: min(36rem, calc(100vw - 4rem));
+  }
+
+  .cultures-modal-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cultures-modal-item {
+    white-space: normal;
+  }
 }
 
 .cultures-modal-item {

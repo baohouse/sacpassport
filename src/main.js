@@ -669,7 +669,11 @@ function mountCulturesModal() {
   closeBtn.type = 'button';
   closeBtn.className = 'cultures-modal-close';
   closeBtn.setAttribute('aria-label', 'Close');
-  closeBtn.textContent = '×';
+  const closeMark = document.createElement('span');
+  closeMark.className = 'cultures-modal-close-mark';
+  closeMark.setAttribute('aria-hidden', 'true');
+  closeMark.textContent = '×';
+  closeBtn.append(closeMark);
 
   header.append(title, closeBtn);
 
