@@ -117,6 +117,8 @@ a:hover {
 
 #globe canvas {
   display: block;
+  /* Vertical swipes scroll the page. A sideways drag can still spin the globe. */
+  touch-action: pan-y;
 }
 
 .globe-fallback {

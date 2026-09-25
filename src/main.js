@@ -580,19 +580,58 @@ function mountGlobe() {
     placeGlobe();
     narrow.addEventListener('change', placeGlobe);
     paintGlobe();
-    if (!reduceMotion) {
-      let last = performance.now();
-      const tickDash = (now) => {
-        arcDash.value += ((now - last) / 1000) * (1000 / 4800);
-        last = now;
-        requestAnimationFrame(tickDash);
-      };
-      requestAnimationFrame(tickDash);
-    }
 
+    let globePlaying = true;
+    let dashFrame = 0;
+    let lastDash = performance.now();
+    const tickDash = (now) => {
+      dashFrame = 0;
+      if (!globePlaying) return;
+      arcDash.value += ((now - lastDash) / 1000) * (1000 / 4800);
+      lastDash = now;
+      dashFrame = requestAnimationFrame(tickDash);
+    };
+    const startDash = () => {
+      if (reduceMotion || dashFrame) return;
+      lastDash = performance.now();
+      dashFrame = requestAnimationFrame(tickDash);
+    };
+    const stopDash = () => {
+      if (!dashFrame) return;
+      cancelAnimationFrame(dashFrame);
+      dashFrame = 0;
+    };
+    const syncGlobePlay = (onScreen) => {
+      if (onScreen === globePlaying) return;
+      globePlaying = onScreen;
+      if (onScreen) {
+        world.resumeAnimation();
+        startDash();
+      } else {
+        stopDash();
+        world.pauseAnimation();
+      }
+    };
+    startDash();
+    const globeVisibility = new IntersectionObserver((entries) => {
+      syncGlobePlay(entries.some((entry) => entry.isIntersecting));
+    });
+    globeVisibility.observe(globeEl);
+
+    let globeW = globeEl.clientWidth;
+    let globeH = globeEl.clientHeight;
+    let resizeTimer = 0;
     const resize = () => {
-      world.width(globeEl.clientWidth).height(globeEl.clientHeight);
-      placeGlobe();
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        const nextW = globeEl.clientWidth;
+        const nextH = globeEl.clientHeight;
+        if (nextW === globeW && nextH === globeH) return;
+        globeW = nextW;
+        globeH = nextH;
+        world.width(nextW).height(nextH);
+        placeGlobe();
+      }, 150);
     };
     window.addEventListener('resize', resize);
   } catch (error) {
@@ -647,12 +686,17 @@ function mountSortsPin() {
   );
   observer.observe(sentinel);
 
+  let pinResizeTimer = 0;
   window.addEventListener('resize', () => {
     if (!pinned) return;
-    sortsEl.classList.remove('is-pinned');
-    const height = sortsEl.offsetHeight;
-    slot.style.height = `${height}px`;
-    sortsEl.classList.add('is-pinned');
+    window.clearTimeout(pinResizeTimer);
+    pinResizeTimer = window.setTimeout(() => {
+      if (!pinned) return;
+      sortsEl.classList.remove('is-pinned');
+      const height = sortsEl.offsetHeight;
+      slot.style.height = `${height}px`;
+      sortsEl.classList.add('is-pinned');
+    }, 150);
   });
 }
 
