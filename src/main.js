@@ -165,19 +165,19 @@ function paintGlobe() {
     .pointRadius((pin) => (pin.id === currentId || pin.id === 'sacramento' ? 0.55 : 0.28));
 }
 
-const MONTH_NAMES = [
-  'January',
-  'February',
-  'March',
-  'April',
+const MONTH_ABBR = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
   'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
 const MONTH_SHORT = {
@@ -212,7 +212,7 @@ function monthYearFromIso(iso) {
   const [year, month] = iso.split('-');
   const monthIndex = Number(month) - 1;
   if (monthIndex < 0 || monthIndex > 11) return null;
-  return `${MONTH_NAMES[monthIndex]} ${year}`;
+  return `${MONTH_ABBR[monthIndex]} ${year}`;
 }
 
 function monthYearFromLooseDate(text) {
@@ -223,7 +223,7 @@ function monthYearFromLooseDate(text) {
   if (!match) return null;
   const monthIndex = MONTH_SHORT[match[1].toLowerCase()];
   if (monthIndex == null) return null;
-  return `${MONTH_NAMES[monthIndex]} ${match[2]}`;
+  return `${MONTH_ABBR[monthIndex]} ${match[2]}`;
 }
 
 /** Month index emphasized by a season label ("Usually late May", "Labor Day weekend"). */
@@ -242,7 +242,7 @@ function monthIndexFromSeasonWhen(text) {
 function nextMonthYear(monthIndex, after = new Date()) {
   if (monthIndex == null || monthIndex < 0 || monthIndex > 11) return null;
   const year = monthIndex > after.getMonth() ? after.getFullYear() : after.getFullYear() + 1;
-  return `${MONTH_NAMES[monthIndex]} ${year}`;
+  return `${MONTH_ABBR[monthIndex]} ${year}`;
 }
 
 /** Display date for cards / plates, keyed off whenKind. */
@@ -320,14 +320,17 @@ function render() {
       const openBtn = document.createElement('button');
       openBtn.type = 'button';
       openBtn.className = 'plate-open';
-      openBtn.setAttribute('aria-label', `View flyer: ${item.event}`);
+      openBtn.setAttribute(
+        'aria-label',
+        item.video ? `Play video: ${item.event}` : `View flyer: ${item.event}`,
+      );
       const img = document.createElement('img');
       img.src = item.flyer;
       img.alt = `${item.event}, ${dateLabel}`;
       openBtn.append(img);
       openBtn.addEventListener('click', (event) => {
         event.stopPropagation();
-        openFlyerLightbox(img.src, img.alt, openBtn);
+        openFlyerLightbox(img.src, img.alt, openBtn, item.video);
       });
       plate.append(openBtn);
     }
@@ -344,7 +347,29 @@ function render() {
 
     const date = document.createElement('p');
     date.className = 'date';
-    date.textContent = dateLabel;
+    const moreDates = Array.isArray(item.dates) ? item.dates.filter((value) => value && value !== dateLabel) : [];
+    if (moreDates.length === 0) {
+      date.textContent = dateLabel;
+    } else {
+      date.append(document.createTextNode(`${dateLabel} + `));
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'dates-more';
+      toggle.textContent = 'multiple dates';
+      const list = document.createElement('span');
+      list.className = 'dates-all';
+      list.textContent = moreDates.join(', ');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-controls', `dates-${item.id}`);
+      list.id = `dates-${item.id}`;
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const open = !date.classList.contains('is-open');
+        date.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      date.append(toggle, list);
+    }
 
     const venue = document.createElement('p');
     venue.className = 'venue';
@@ -373,9 +398,10 @@ function render() {
       body.append(link);
     }
 
-    card.append(plate, body);
+    if (item.flyer) card.append(plate);
+    card.append(body);
     card.addEventListener('click', (eventTarget) => {
-      if (eventTarget.target.closest('a, .plate-open')) return;
+      if (eventTarget.target.closest('a, .plate-open, .dates-more')) return;
       selectCulture(item.id, false);
     });
     cardsEl.append(card);
@@ -384,6 +410,7 @@ function render() {
 
 let flyerLightbox = null;
 let flyerLightboxImg = null;
+let flyerLightboxVideo = null;
 let flyerLightboxClose = null;
 let flyerLightboxReturnFocus = null;
 let bodyOverflowBefore = '';
@@ -402,17 +429,36 @@ function teardownFlyerLightbox() {
   if (flyerLightboxImg) {
     flyerLightboxImg.removeAttribute('src');
     flyerLightboxImg.alt = '';
+    flyerLightboxImg.hidden = false;
+  }
+  if (flyerLightboxVideo) {
+    flyerLightboxVideo.pause();
+    flyerLightboxVideo.removeAttribute('src');
+    flyerLightboxVideo.load();
+    flyerLightboxVideo.hidden = true;
   }
   const restore = flyerLightboxReturnFocus;
   flyerLightboxReturnFocus = null;
   queueMicrotask(() => restore?.focus?.());
 }
 
-function openFlyerLightbox(src, alt, trigger) {
+function openFlyerLightbox(src, alt, trigger, videoSrc) {
   if (!flyerLightbox) return;
   flyerLightboxReturnFocus = trigger;
-  flyerLightboxImg.src = src;
-  flyerLightboxImg.alt = alt || 'Flyer';
+  if (videoSrc) {
+    flyerLightboxImg.hidden = true;
+    flyerLightboxImg.removeAttribute('src');
+    flyerLightboxVideo.hidden = false;
+    flyerLightboxVideo.src = videoSrc;
+    flyerLightboxVideo.play().catch(() => {});
+  } else {
+    flyerLightboxVideo.hidden = true;
+    flyerLightboxVideo.pause();
+    flyerLightboxVideo.removeAttribute('src');
+    flyerLightboxImg.hidden = false;
+    flyerLightboxImg.src = src;
+    flyerLightboxImg.alt = alt || 'Flyer';
+  }
   if (!flyerLightbox.open) {
     const prior = document.body.style.overflow;
     bodyOverflowBefore = prior === 'hidden' ? '' : prior;
@@ -442,7 +488,12 @@ function mountFlyerLightbox() {
   const img = document.createElement('img');
   img.alt = '';
 
-  frame.append(closeBtn, img);
+  const video = document.createElement('video');
+  video.controls = true;
+  video.playsInline = true;
+  video.hidden = true;
+
+  frame.append(closeBtn, img, video);
   dialog.append(frame);
   document.body.append(dialog);
 
@@ -466,6 +517,7 @@ function mountFlyerLightbox() {
 
   flyerLightbox = dialog;
   flyerLightboxImg = img;
+  flyerLightboxVideo = video;
   flyerLightboxClose = closeBtn;
 }
 

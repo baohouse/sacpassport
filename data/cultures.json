@@ -641,5 +641,31 @@
       "lng": 149.13
     },
     "flyer": "/flyers/australian.jpg"
+  },
+  {
+    "id": "spanish",
+    "culture": "Spanish",
+    "event": "Flamenco Dinner Show",
+    "place": "Tapa the World",
+    "city": "Sacramento",
+    "url": "https://www.tapatheworld.com/events",
+    "urlLabel": "tapatheworld.com",
+    "when": "Dec 7, 2026",
+    "whenKind": "confirmed",
+    "dates": [
+      "Mar 23, 2026",
+      "Jun 29, 2026",
+      "Aug 3, 2026",
+      "Dec 7, 2026"
+    ],
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-12-07",
+    "origin": {
+      "lat": 40.42,
+      "lng": -3.7
+    },
+    "flyer": "/flyers/spanish.jpg",
+    "video": "/videos/spanish.mp4"
   }
 ]

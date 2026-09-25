@@ -442,6 +442,10 @@ main {
   border-color: rgba(21, 120, 176, 0.55);
 }
 
+.card:not(:has(.plate)) {
+  grid-template-columns: 1fr;
+}
+
 .plate {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -508,13 +512,19 @@ main {
   place-items: center;
 }
 
-.flyer-lightbox-frame img {
+.flyer-lightbox-frame img,
+.flyer-lightbox-frame video {
   display: block;
   max-width: 100vw;
   max-height: 100vh;
   width: auto;
   height: auto;
   object-fit: contain;
+}
+
+.flyer-lightbox-frame img[hidden],
+.flyer-lightbox-frame video[hidden] {
+  display: none;
 }
 
 .flyer-lightbox-close {
@@ -561,6 +571,32 @@ main {
 .date {
   margin: 0.2rem 0 0;
   color: var(--ink-soft);
+}
+
+.dates-more {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ocean);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.dates-more:hover {
+  color: var(--ocean-deep);
+}
+
+.dates-all {
+  display: none;
+  margin-top: 0.35rem;
+  color: var(--ink);
+}
+
+.date.is-open .dates-all {
+  display: block;
 }
 
 .venue {
