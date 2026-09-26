@@ -838,5 +838,24 @@
       "lng": 2.35
     },
     "flyer": "/flyers/french-2024.jpg"
+  },
+  {
+    "id": "indonesian",
+    "culture": "Indonesian",
+    "event": "Pasar Rakyat",
+    "place": "Unitarian Universalist Society of Sacramento",
+    "city": "Sacramento",
+    "url": "https://www.facebook.com/groups/380578895485218/",
+    "urlLabel": "facebook.com",
+    "when": "August 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Aug 29, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-08-29",
+    "origin": {
+      "lat": -6.21,
+      "lng": 106.85
+    },
+    "flyer": "/flyers/indonesian-2026.jpg"
   }
 ]
