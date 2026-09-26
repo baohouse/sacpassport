@@ -35,7 +35,7 @@
       "lat": 37.98,
       "lng": 23.73
     },
-    "flyer": "/flyers/greek-2026.jpg"
+    "flyer": "/flyers/greek-2026b.jpg"
   },
   {
     "id": "german",
@@ -684,7 +684,8 @@
     "origin": {
       "lat": 33.89,
       "lng": 35.5
-    }
+    },
+    "flyer": "/flyers/lebanese-2026.jpg"
   },
   {
     "id": "thai",
@@ -702,6 +703,7 @@
     "origin": {
       "lat": 13.75,
       "lng": 100.5
-    }
+    },
+    "flyer": "/flyers/thai-2026.jpg"
   }
 ]
