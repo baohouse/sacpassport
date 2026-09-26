@@ -781,5 +781,62 @@
       "lng": 76.27
     },
     "flyer": "/flyers/malayali-2026.jpg"
+  },
+  {
+    "id": "slavic",
+    "culture": "Slavic",
+    "event": "Yarmarka",
+    "place": "Southside Park",
+    "city": "Sacramento",
+    "url": "https://yarmarka.org/",
+    "urlLabel": "yarmarka.org",
+    "when": "May 2027",
+    "whenKind": "estimate",
+    "lastHeld": "May 16, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-05-16",
+    "origin": {
+      "lat": 55.75,
+      "lng": 37.62
+    },
+    "flyer": "/flyers/slavic-2025.jpg"
+  },
+  {
+    "id": "caribbean",
+    "culture": "Caribbean",
+    "event": "Caribbean Currents Festival",
+    "place": "Robert T. Matsui Waterfront Park",
+    "city": "Sacramento",
+    "url": "https://cbiec.org/",
+    "urlLabel": "cbiec.org",
+    "when": "June 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jun 28, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-06-28",
+    "origin": {
+      "lat": 18.0,
+      "lng": -76.8
+    },
+    "flyer": "/flyers/caribbean-2026.jpg"
+  },
+  {
+    "id": "french",
+    "culture": "French",
+    "event": "Bastille Day Festival",
+    "place": "CLARA Auditorium",
+    "city": "Sacramento",
+    "url": "https://www.afsacramento.org/",
+    "urlLabel": "afsacramento.org",
+    "when": "July 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jul 13, 2024",
+    "sortRank": 1,
+    "sortDate": "2027-07-10",
+    "origin": {
+      "lat": 48.86,
+      "lng": 2.35
+    },
+    "flyer": "/flyers/french-2024.jpg"
   }
 ]
