@@ -705,5 +705,41 @@
       "lng": 100.5
     },
     "flyer": "/flyers/thai-2026.jpg"
+  },
+  {
+    "id": "bengali",
+    "culture": "Bengali",
+    "event": "Durga Puja",
+    "place": "Masonic Center",
+    "city": "Folsom",
+    "url": "https://aantorik.org/events",
+    "urlLabel": "aantorik.org",
+    "when": "Oct 16–18, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-16",
+    "origin": {
+      "lat": 22.57,
+      "lng": 88.36
+    }
+  },
+  {
+    "id": "tamil",
+    "culture": "Tamil",
+    "event": "Pongal",
+    "place": "Sacramento Tamil Mandrum",
+    "city": "Sacramento",
+    "url": "https://www.sactamil.org/",
+    "urlLabel": "sactamil.org",
+    "when": "February 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Feb 14, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-02-14",
+    "origin": {
+      "lat": 13.08,
+      "lng": 80.27
+    }
   }
 ]
