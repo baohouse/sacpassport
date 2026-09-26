@@ -534,6 +534,9 @@ main {
   top: 0.5rem;
   right: 0.5rem;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
   margin: 0;
@@ -546,6 +549,12 @@ main {
   font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
+}
+
+.flyer-lightbox-close-mark {
+  display: block;
+  line-height: 1;
+  transform: translate(0, -1px);
 }
 
 .flyer-lightbox-close:hover {

@@ -483,7 +483,11 @@ function mountFlyerLightbox() {
   closeBtn.type = 'button';
   closeBtn.className = 'flyer-lightbox-close';
   closeBtn.setAttribute('aria-label', 'Close');
-  closeBtn.textContent = '×';
+  const closeMark = document.createElement('span');
+  closeMark.className = 'flyer-lightbox-close-mark';
+  closeMark.setAttribute('aria-hidden', 'true');
+  closeMark.textContent = '×';
+  closeBtn.append(closeMark);
 
   const img = document.createElement('img');
   img.alt = '';

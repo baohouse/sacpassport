@@ -184,7 +184,7 @@
       "lat": 14.6,
       "lng": 120.98
     },
-    "flyer": "/flyers/filipino-2025.jpg"
+    "flyer": "/flyers/filipino-2026.jpg"
   },
   {
     "id": "japanese",
@@ -857,5 +857,43 @@
       "lng": 106.85
     },
     "flyer": "/flyers/indonesian-2026.jpg"
+  },
+  {
+    "id": "ethiopian",
+    "culture": "Ethiopian",
+    "event": "Ethiopian New Year",
+    "place": "Holy Trinity Ethiopian Orthodox Church",
+    "city": "Elk Grove",
+    "url": "https://www.holytrinityeotc.org/",
+    "urlLabel": "holytrinityeotc.org",
+    "when": "September 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Sep 13, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-09-12",
+    "origin": {
+      "lat": 9.03,
+      "lng": 38.74
+    },
+    "flyer": "/flyers/ethiopian-2026.jpg"
+  },
+  {
+    "id": "sudanese",
+    "culture": "Sudanese",
+    "event": "Sudan Art & Culture Show",
+    "place": "Town & Country Event Hall",
+    "city": "Rancho Cordova",
+    "url": "https://www.sacsags.com/",
+    "urlLabel": "sacsags.com",
+    "when": "Oct 17, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-17",
+    "origin": {
+      "lat": 15.5,
+      "lng": 32.53
+    },
+    "flyer": "/flyers/sudanese-2026.jpg"
   }
 ]
