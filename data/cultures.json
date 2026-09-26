@@ -895,5 +895,62 @@
       "lng": 32.53
     },
     "flyer": "/flyers/sudanese-2026.jpg"
+  },
+  {
+    "id": "mongolian",
+    "culture": "Mongolian",
+    "event": "Naadam",
+    "place": "William B. Pond Recreation Area",
+    "city": "Carmichael",
+    "url": "https://www.facebook.com/events/1797814991625582/",
+    "urlLabel": "facebook.com",
+    "when": "July 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jul 12, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-07-12",
+    "origin": {
+      "lat": 47.92,
+      "lng": 106.91
+    },
+    "flyer": "/flyers/mongolian-2026.jpg"
+  },
+  {
+    "id": "persian",
+    "culture": "Persian",
+    "event": "Nowruz",
+    "place": "Town & Country Event Center",
+    "city": "Rancho Cordova",
+    "url": "https://www.iacec.org/",
+    "urlLabel": "iacec.org",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Mar 16, 2025",
+    "sortRank": 1,
+    "sortDate": "2027-03-20",
+    "origin": {
+      "lat": 35.69,
+      "lng": 51.39
+    },
+    "flyer": "/flyers/persian-2025.jpg"
+  },
+  {
+    "id": "cambodian",
+    "culture": "Cambodian",
+    "event": "Khmer New Year",
+    "place": "Wat Khmer Lodi",
+    "city": "Lodi",
+    "url": "https://www.facebook.com/profile.php?id=61556779079615",
+    "urlLabel": "facebook.com",
+    "when": "April 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Apr 3–5, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-04-03",
+    "origin": {
+      "lat": 11.56,
+      "lng": 104.93
+    },
+    "flyer": "/flyers/cambodian-2026.jpg"
   }
 ]
