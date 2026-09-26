@@ -462,10 +462,6 @@ main {
   box-sizing: border-box;
 }
 
-.plate.plate-wide {
-  aspect-ratio: 5 / 3;
-}
-
 .plate img {
   position: absolute;
   inset: 0;
@@ -473,10 +469,6 @@ main {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.plate.plate-wide img {
-  object-fit: contain;
 }
 
 .plate-open {

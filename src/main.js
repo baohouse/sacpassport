@@ -327,11 +327,6 @@ function render() {
       const img = document.createElement('img');
       img.src = item.flyer;
       img.alt = `${item.event}, ${dateLabel}`;
-      const markWidePlate = () => {
-        if (img.naturalWidth > img.naturalHeight) plate.classList.add('plate-wide');
-      };
-      if (img.complete) markWidePlate();
-      else img.addEventListener('load', markWidePlate);
       openBtn.append(img);
       openBtn.addEventListener('click', (event) => {
         event.stopPropagation();
