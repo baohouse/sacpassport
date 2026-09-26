@@ -710,7 +710,7 @@
     "id": "bengali",
     "culture": "Bengali",
     "event": "Durga Puja",
-    "place": "Masonic Center",
+    "place": "Masonic Center, 1000 Duchow Way",
     "city": "Folsom",
     "url": "https://aantorik.org/events",
     "urlLabel": "aantorik.org",
@@ -722,7 +722,8 @@
     "origin": {
       "lat": 22.57,
       "lng": 88.36
-    }
+    },
+    "flyer": "/flyers/bengali-2026.jpg"
   },
   {
     "id": "tamil",
