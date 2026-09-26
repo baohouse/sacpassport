@@ -667,5 +667,41 @@
     },
     "flyer": "/flyers/spanish.jpg",
     "video": "/videos/spanish.mp4"
+  },
+  {
+    "id": "lebanese",
+    "culture": "Lebanese",
+    "event": "Sacramento Lebanese Festival",
+    "place": "Our Lady of the Rosary Church",
+    "city": "Sacramento",
+    "url": "https://www.olorsac.com/saclebfest",
+    "urlLabel": "olorsac.com",
+    "when": "May 2027",
+    "whenKind": "estimate",
+    "lastHeld": "May 22–24, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-05-22",
+    "origin": {
+      "lat": 33.89,
+      "lng": 35.5
+    }
+  },
+  {
+    "id": "thai",
+    "culture": "Thai",
+    "event": "Songkran Festival",
+    "place": "Wat Sacramento Buddhavanaram",
+    "city": "Elverta",
+    "url": "https://www.watsacramento.org/",
+    "urlLabel": "watsacramento.org",
+    "when": "April 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Apr 12, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-04-12",
+    "origin": {
+      "lat": 13.75,
+      "lng": 100.5
+    }
   }
 ]
