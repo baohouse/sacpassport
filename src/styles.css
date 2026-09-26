@@ -322,9 +322,9 @@ main {
 
 .cultures-modal-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.15rem 0.5rem;
-  padding: 0.65rem 0.65rem 0.85rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.1rem 0.25rem;
+  padding: 0.4rem 0.45rem 0.55rem;
   overflow-y: auto;
   flex: 1;
   min-height: 0;
@@ -362,19 +362,24 @@ main {
   .cultures-modal {
     width: min(30rem, calc(100vw - 4rem));
   }
+}
+
+@media (min-width: 721px) {
+  .cultures-modal {
+    width: min(40rem, calc(100vw - 4rem));
+  }
 
   .cultures-modal-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.1rem 0.25rem;
-    padding: 0.4rem 0.45rem 0.55rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 .cultures-modal-item {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   margin: 0;
-  padding: 0.55rem 0.65rem;
+  padding: 0.12rem 0.4rem;
   border: 0;
   border-radius: 10px;
   background: transparent;
@@ -383,18 +388,10 @@ main {
   font-size: 0.95rem;
   text-align: left;
   line-height: 1.25;
+  white-space: normal;
+  /* Two text lines plus this vertical padding. Longer names may grow the row. */
+  min-height: calc(2 * 1.25em + 0.24rem);
   cursor: pointer;
-}
-
-@media (min-width: 480px) {
-  .cultures-modal-item {
-    display: flex;
-    align-items: center;
-    white-space: normal;
-    padding: 0.12rem 0.4rem;
-    /* Two text lines plus this vertical padding, same height on every button. */
-    height: calc(2 * 1.25em + 0.24rem);
-  }
 }
 
 .cultures-modal-item:hover,
