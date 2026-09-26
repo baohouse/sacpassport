@@ -743,5 +743,43 @@
       "lng": 80.27
     },
     "flyer": "/flyers/tamil-2026.jpg"
+  },
+  {
+    "id": "marathi",
+    "culture": "Marathi",
+    "event": "Ganeshotsav",
+    "place": "Orangevale Community Center",
+    "city": "Orangevale",
+    "url": "https://mmsac.org/event/series/mmsac-ganeshotsav-2026",
+    "urlLabel": "mmsac.org",
+    "when": "Sep 26, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-09-26",
+    "origin": {
+      "lat": 18.52,
+      "lng": 73.86
+    },
+    "flyer": "/flyers/marathi-2026.jpg"
+  },
+  {
+    "id": "malayali",
+    "culture": "Malayali",
+    "event": "Onam",
+    "place": "Hiram Johnson High School",
+    "city": "Sacramento",
+    "url": "https://www.sargam.us/onam",
+    "urlLabel": "sargam.us",
+    "when": "August 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Aug 22, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-08-22",
+    "origin": {
+      "lat": 9.93,
+      "lng": 76.27
+    },
+    "flyer": "/flyers/malayali-2026.jpg"
   }
 ]
