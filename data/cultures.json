@@ -728,19 +728,20 @@
   {
     "id": "tamil",
     "culture": "Tamil",
-    "event": "Pongal",
-    "place": "Sacramento Tamil Mandrum",
-    "city": "Sacramento",
-    "url": "https://www.sactamil.org/",
-    "urlLabel": "sactamil.org",
-    "when": "February 2027",
+    "event": "Tamil New Year",
+    "place": "Folsom High School, 1999 Prairie City Road",
+    "city": "Folsom",
+    "url": "https://www.instagram.com/stm_tamil/p/DYDO0zYknoz/",
+    "urlLabel": "instagram.com",
+    "when": "May 2027",
     "whenKind": "estimate",
-    "lastHeld": "Feb 14, 2026",
+    "lastHeld": "May 9, 2026",
     "sortRank": 1,
-    "sortDate": "2027-02-14",
+    "sortDate": "2027-05-09",
     "origin": {
       "lat": 13.08,
       "lng": 80.27
-    }
+    },
+    "flyer": "/flyers/tamil-2026.jpg"
   }
 ]
