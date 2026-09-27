@@ -72,6 +72,20 @@
         "lastHeld": null,
         "sortRank": 0,
         "sortDate": "2026-10-09"
+      },
+      {
+        "id": "german-oktoberfest-party",
+        "event": "Sacramento Oktoberfest Party",
+        "place": "Der Biergarten",
+        "city": "Sacramento",
+        "placeId": "ChIJuYBsycPQmoARooTVpC3_Ih4",
+        "url": "https://beergardensacramento.com/sacramento-oktoberfest-party/",
+        "urlLabel": "beergardensacramento.com",
+        "when": "September 2027",
+        "whenKind": "estimate",
+        "lastHeld": "Sep 26, 2026",
+        "sortRank": 1,
+        "sortDate": "2027-09-26"
       }
     ]
   },
