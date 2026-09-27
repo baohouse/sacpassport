@@ -2,7 +2,7 @@ import Globe from 'globe.gl';
 import * as THREE from 'three';
 import { feature } from 'topojson-client';
 import land from 'world-atlas/countries-110m.json';
-import cultures from '../data/cultures.json';
+import rawCultures from '../data/cultures.json';
 
 const SAC = { lat: 38.5816, lng: -121.4944 };
 const INK = 'rgba(18, 72, 110, 0.72)';
@@ -244,6 +244,94 @@ function nextMonthYear(monthIndex, after = new Date()) {
   const year = monthIndex > after.getMonth() ? after.getFullYear() : after.getFullYear() + 1;
   return `${MONTH_ABBR[monthIndex]} ${year}`;
 }
+
+function isoDate(year, monthIndex, day) {
+  return `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+function localTodayIso(now = new Date()) {
+  return isoDate(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+/** "Sep 26, 2026" · "Oct 2–4, 2026" · "Oct 30–Nov 1, 2026" → first and last day as ISO. */
+function dateSpanFromLabel(text) {
+  const match = String(text || '').match(
+    /^([A-Za-z]+)\.?\s+(\d{1,2})(?:\s*[–-]\s*(?:([A-Za-z]+)\.?\s+)?(\d{1,2}))?,\s*(\d{4})$/,
+  );
+  if (!match) return null;
+  const startMonth = MONTH_SHORT[match[1].toLowerCase()];
+  const endMonth = match[3] ? MONTH_SHORT[match[3].toLowerCase()] : startMonth;
+  if (startMonth == null || endMonth == null) return null;
+  const year = Number(match[5]);
+  const startDay = Number(match[2]);
+  const endDay = match[4] ? Number(match[4]) : startDay;
+  return { start: isoDate(year, startMonth, startDay), end: isoDate(year, endMonth, endDay) };
+}
+
+/** Same month and day, one year at a time, until it is today or later. */
+function rollIsoForward(iso, todayIso) {
+  const [year, month, day] = iso.split('-').map(Number);
+  let nextYear = year;
+  let next = iso;
+  while (next < todayIso) {
+    nextYear += 1;
+    const lastDay = new Date(nextYear, month, 0).getDate();
+    next = isoDate(nextYear, month - 1, Math.min(day, lastDay));
+  }
+  return next;
+}
+
+/**
+ * The JSON keeps the last dates we typed in. After a confirmed date ends, show that
+ * event as next year's estimate until a new flyer lands. Past estimates roll a year.
+ */
+function rollPastDates(item, todayIso = localTodayIso()) {
+  if (item.whenKind === 'confirmed') {
+    if (Array.isArray(item.dates) && item.dates.length) {
+      const spans = item.dates.map((label) => ({ label, span: dateSpanFromLabel(label) }));
+      const upcoming = spans.filter(({ span }) => span && span.end >= todayIso);
+      if (upcoming.length) {
+        return {
+          ...item,
+          when: upcoming[0].label,
+          sortDate: upcoming[0].span.start,
+          dates: upcoming.map(({ label }) => label),
+        };
+      }
+      const last = spans.filter(({ span }) => span).pop();
+      if (!last) return item;
+      return rollConfirmedToEstimate({ ...item, when: last.label, dates: undefined }, last.span, todayIso);
+    }
+    const span = dateSpanFromLabel(item.when) ||
+      (item.sortDate ? { start: item.sortDate, end: item.sortDate } : null);
+    if (!span || span.end >= todayIso) return item;
+    return rollConfirmedToEstimate(item, span, todayIso);
+  }
+
+  if ((item.whenKind === 'estimate' || item.whenKind === 'season') && item.sortDate) {
+    if (item.sortDate >= todayIso) return item;
+    const sortDate = rollIsoForward(item.sortDate, todayIso);
+    const rolled = { ...item, sortDate };
+    if (item.whenKind === 'estimate') rolled.when = monthYearFromIso(sortDate);
+    return rolled;
+  }
+
+  return item;
+}
+
+function rollConfirmedToEstimate(item, span, todayIso) {
+  const sortDate = rollIsoForward(span.start, todayIso);
+  return {
+    ...item,
+    when: monthYearFromIso(sortDate),
+    whenKind: 'estimate',
+    lastHeld: item.when,
+    sortRank: 1,
+    sortDate,
+  };
+}
+
+const cultures = rawCultures.map((item) => rollPastDates(item));
 
 /** Display date for cards / plates, keyed off whenKind. */
 function formatDateLabel(item) {
