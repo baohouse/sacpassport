@@ -43,7 +43,7 @@ function ordered() {
     const primary = cultures.find((item) => item.id === moreCultureId);
     return [primary, ...(alternatesById.get(moreCultureId) || [])].filter(Boolean).sort(byUpcoming);
   }
-  const list = [...cultures];
+  const list = [...cultures, ...soonAlternates()];
   if (sortMode === 'name') {
     list.sort((a, b) => a.culture.localeCompare(b.culture));
     return list;
@@ -352,6 +352,15 @@ const alternatesById = new Map(
     ]),
 );
 
+/** Confirmed alternates starting this calendar month or next also get a card on the main list. */
+function soonAlternates(now = new Date()) {
+  const cutoff = new Date(now.getFullYear(), now.getMonth() + 2, 0);
+  const cutoffIso = isoDate(cutoff.getFullYear(), cutoff.getMonth(), cutoff.getDate());
+  return [...alternatesById.values()]
+    .flat()
+    .filter((alt) => alt.whenKind === 'confirmed' && alt.sortDate && alt.sortDate <= cutoffIso);
+}
+
 /** Display date for cards / plates, keyed off whenKind. */
 function formatDateLabel(item) {
   switch (item.whenKind) {
@@ -450,6 +459,13 @@ function showCultureEvents(id) {
   paintGlobe();
   render();
   (document.querySelector('.sorts-slot') || sortsEl).scrollIntoView({ block: 'start' });
+}
+
+function openCultureEvents(id) {
+  if (moreCultureId !== id) {
+    history.pushState({ sacpassportMore: id }, '', moreHash(id));
+  }
+  showCultureEvents(id);
 }
 
 function showAllCultures() {
@@ -578,15 +594,15 @@ function render() {
       body.append(link);
     }
 
-    if (!moreCultureId && alternatesById.has(item.id)) {
+    const cultureId = item.parentId || item.id;
+    if (!moreCultureId && alternatesById.has(cultureId)) {
       const more = document.createElement('a');
       more.className = 'card-more';
-      more.href = moreHash(item.id);
+      more.href = moreHash(cultureId);
       more.textContent = `More ${item.culture} events`;
       more.addEventListener('click', (event) => {
         event.preventDefault();
-        history.pushState({ sacpassportMore: item.id }, '', moreHash(item.id));
-        showCultureEvents(item.id);
+        openCultureEvents(cultureId);
       });
       body.append(more);
     }
@@ -986,7 +1002,11 @@ function mountCulturesModal() {
     btn.textContent = item.culture;
     btn.addEventListener('click', () => {
       closeCulturesModal();
-      selectCulture(item.id, true);
+      if (alternatesById.has(item.id)) {
+        openCultureEvents(item.id);
+      } else {
+        selectCulture(item.id, true);
+      }
     });
     list.append(btn);
   }
