@@ -393,9 +393,15 @@ function formatDateLabel(item) {
   }
 }
 
-function mapsSearchUrl(place, city) {
-  const query = [place, city].filter(Boolean).join(', ');
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+/**
+ * With a placeId Google opens that exact place; the query is only its fallback.
+ * mapPoint drops a pin for venues Google has no listing for, like a closed-off city block.
+ */
+function mapsUrl({ place, city, placeId, mapPoint }) {
+  const base = 'https://www.google.com/maps/search/?api=1&query=';
+  if (mapPoint) return `${base}${mapPoint.lat},${mapPoint.lng}`;
+  const url = `${base}${encodeURIComponent([place, city].filter(Boolean).join(', '))}`;
+  return placeId ? `${url}&query_place_id=${encodeURIComponent(placeId)}` : url;
 }
 
 function urlHostnameLabel(url) {
@@ -574,7 +580,7 @@ function render() {
 
     const mapLink = document.createElement('a');
     mapLink.className = 'venue-map';
-    mapLink.href = mapsSearchUrl(item.place, item.city);
+    mapLink.href = mapsUrl(item);
     mapLink.target = '_blank';
     mapLink.rel = 'noopener noreferrer';
     mapLink.setAttribute('aria-label', 'Open in Google Maps');
