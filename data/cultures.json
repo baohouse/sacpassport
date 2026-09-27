@@ -54,7 +54,22 @@
       "lat": 52.52,
       "lng": 13.4
     },
-    "flyer": "/flyers/german.jpg"
+    "flyer": "/flyers/german.jpg",
+    "alternates": [
+      {
+        "id": "german-saktoberfest",
+        "event": "Saktoberfest",
+        "place": "The Cove at Cal Expo",
+        "city": "Sacramento",
+        "url": "https://calexpo.com/event/saktoberfest/",
+        "urlLabel": "calexpo.com",
+        "when": "Oct 9–10, 2026",
+        "whenKind": "confirmed",
+        "lastHeld": null,
+        "sortRank": 0,
+        "sortDate": "2026-10-09"
+      }
+    ]
   },
   {
     "id": "fijian",
@@ -184,7 +199,22 @@
       "lat": 14.6,
       "lng": 120.98
     },
-    "flyer": "/flyers/filipino-2026.jpg"
+    "flyer": "/flyers/filipino-2026.jpg",
+    "alternates": [
+      {
+        "id": "filipino-bayanihan",
+        "event": "Bayanihan Festival",
+        "place": "District 56",
+        "city": "Elk Grove",
+        "url": "https://sites.google.com/blpapa.org/blpapa/events/bayanihan-festival",
+        "urlLabel": "blpapa.org",
+        "when": "Sep 27, 2026",
+        "whenKind": "confirmed",
+        "lastHeld": null,
+        "sortRank": 0,
+        "sortDate": "2026-09-27"
+      }
+    ]
   },
   {
     "id": "japanese",

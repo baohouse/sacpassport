@@ -21,27 +21,34 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
 let sortMode = 'upcoming';
 let currentId = null;
+let currentCardId = null;
+let moreCultureId = null;
 let world = null;
 
 const countries = feature(land, land.objects.countries).features.filter(
   (shape) => String(shape.id) !== '010',
 );
 
+function byUpcoming(a, b) {
+  const monthA = (a.sortDate || '9999').slice(0, 7);
+  const monthB = (b.sortDate || '9999').slice(0, 7);
+  const byMonth = monthA.localeCompare(monthB);
+  if (byMonth !== 0) return byMonth;
+  if (a.sortRank !== b.sortRank) return a.sortRank - b.sortRank;
+  return (a.sortDate || '9999').localeCompare(b.sortDate || '9999');
+}
+
 function ordered() {
+  if (moreCultureId) {
+    const primary = cultures.find((item) => item.id === moreCultureId);
+    return [primary, ...(alternatesById.get(moreCultureId) || [])].filter(Boolean).sort(byUpcoming);
+  }
   const list = [...cultures];
   if (sortMode === 'name') {
     list.sort((a, b) => a.culture.localeCompare(b.culture));
     return list;
   }
-  list.sort((a, b) => {
-    const monthA = (a.sortDate || '9999').slice(0, 7);
-    const monthB = (b.sortDate || '9999').slice(0, 7);
-    const byMonth = monthA.localeCompare(monthB);
-    if (byMonth !== 0) return byMonth;
-    if (a.sortRank !== b.sortRank) return a.sortRank - b.sortRank;
-    return (a.sortDate || '9999').localeCompare(b.sortDate || '9999');
-  });
-  return list;
+  return list.sort(byUpcoming);
 }
 
 function arcs() {
@@ -333,6 +340,18 @@ function rollConfirmedToEstimate(item, span, todayIso) {
 
 const cultures = rawCultures.map((item) => rollPastDates(item));
 
+/** Alternates inherit culture + origin from the primary card; they are shown only in that culture's view. */
+const alternatesById = new Map(
+  rawCultures
+    .filter((item) => Array.isArray(item.alternates) && item.alternates.length > 0)
+    .map((item) => [
+      item.id,
+      item.alternates.map((alt) =>
+        rollPastDates({ ...alt, culture: item.culture, origin: item.origin, parentId: item.id }),
+      ),
+    ]),
+);
+
 /** Display date for cards / plates, keyed off whenKind. */
 function formatDateLabel(item) {
   switch (item.whenKind) {
@@ -378,27 +397,97 @@ function urlHostnameLabel(url) {
   }
 }
 
-function selectCulture(id, scroll) {
+function selectCulture(id, scroll, cardId = id) {
+  if (scroll && moreCultureId && moreCultureId !== id) showAllCultures();
   currentId = id;
+  currentCardId = cardId;
   paintGlobe();
   for (const card of cardsEl.querySelectorAll('.card')) {
-    card.classList.toggle('is-current', card.dataset.id === id);
+    card.classList.toggle('is-current', card.dataset.id === cardId);
   }
   if (scroll) {
-    document.getElementById(`card-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(`card-${cardId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
+
+const moreHashPrefix = '#more-';
+
+function moreHash(id) {
+  return `${moreHashPrefix}${id}`;
+}
+
+function cultureIdFromHash() {
+  if (!location.hash.startsWith(moreHashPrefix)) return null;
+  const id = decodeURIComponent(location.hash.slice(moreHashPrefix.length));
+  return alternatesById.has(id) ? id : null;
+}
+
+let cardsBack = null;
+
+function mountCardsBack() {
+  cardsBack = document.createElement('a');
+  cardsBack.className = 'cards-back';
+  cardsBack.href = './';
+  cardsBack.textContent = '← Back';
+  cardsBack.hidden = true;
+  cardsBack.addEventListener('click', (event) => {
+    event.preventDefault();
+    const id = moreCultureId;
+    if (history.state?.sacpassportMore) {
+      history.back();
+      return;
+    }
+    showAllCultures();
+    if (id) document.getElementById(`card-${id}`)?.scrollIntoView({ block: 'start' });
+  });
+  sortsEl.prepend(cardsBack);
+}
+
+function showCultureEvents(id) {
+  moreCultureId = id;
+  currentId = id;
+  currentCardId = null;
+  paintGlobe();
+  render();
+  (document.querySelector('.sorts-slot') || sortsEl).scrollIntoView({ block: 'start' });
+}
+
+function showAllCultures() {
+  moreCultureId = null;
+  if (location.hash.startsWith(moreHashPrefix)) {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  render();
+}
+
+window.addEventListener('popstate', () => {
+  const id = cultureIdFromHash();
+  if (id === moreCultureId) return;
+  const leaving = moreCultureId;
+  if (id) {
+    showCultureEvents(id);
+  } else {
+    showAllCultures();
+    if (leaving) {
+      currentCardId = leaving;
+      selectCulture(leaving, false);
+      document.getElementById(`card-${leaving}`)?.scrollIntoView({ block: 'start' });
+    }
+  }
+});
 
 function render() {
   const list = ordered();
   cardsEl.replaceChildren();
+  cardsEl.classList.toggle('is-culture-view', Boolean(moreCultureId));
+  if (cardsBack) cardsBack.hidden = !moreCultureId;
 
   for (const item of list) {
     const card = document.createElement('article');
     card.className = 'card';
     card.id = `card-${item.id}`;
     card.dataset.id = item.id;
-    if (item.id === currentId) card.classList.add('is-current');
+    if (item.id === currentCardId) card.classList.add('is-current');
 
     const dateLabel = formatDateLabel(item);
 
@@ -421,6 +510,9 @@ function render() {
         openFlyerLightbox(img.src, img.alt, openBtn, item.video);
       });
       plate.append(openBtn);
+    } else {
+      plate.classList.add('plate-empty');
+      plate.setAttribute('aria-hidden', 'true');
     }
 
     const body = document.createElement('div');
@@ -486,11 +578,23 @@ function render() {
       body.append(link);
     }
 
-    if (item.flyer) card.append(plate);
-    card.append(body);
+    if (!moreCultureId && alternatesById.has(item.id)) {
+      const more = document.createElement('a');
+      more.className = 'card-more';
+      more.href = moreHash(item.id);
+      more.textContent = `More ${item.culture} events`;
+      more.addEventListener('click', (event) => {
+        event.preventDefault();
+        history.pushState({ sacpassportMore: item.id }, '', moreHash(item.id));
+        showCultureEvents(item.id);
+      });
+      body.append(more);
+    }
+
+    card.append(plate, body);
     card.addEventListener('click', (eventTarget) => {
       if (eventTarget.target.closest('a, .plate-open, .dates-more')) return;
-      selectCulture(item.id, false);
+      selectCulture(item.parentId || item.id, false, item.id);
     });
     cardsEl.append(card);
   }
@@ -738,6 +842,10 @@ for (const button of sortButtons) {
     for (const peer of sortButtons) {
       peer.setAttribute('aria-pressed', peer === button ? 'true' : 'false');
     }
+    if (moreCultureId) {
+      showAllCultures();
+      return;
+    }
     render();
   });
 }
@@ -906,6 +1014,9 @@ culturesMenuBtn?.addEventListener('click', openCulturesModal);
 
 mountFlyerLightbox();
 mountCulturesModal();
+mountCardsBack();
+moreCultureId = cultureIdFromHash();
+if (moreCultureId) currentId = moreCultureId;
 render();
 mountGlobe();
 mountSortsPin();

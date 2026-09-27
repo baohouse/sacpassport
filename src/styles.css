@@ -441,10 +441,6 @@ main {
   border-color: rgba(21, 120, 176, 0.55);
 }
 
-.card:not(:has(.plate)) {
-  grid-template-columns: 1fr;
-}
-
 .plate {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -457,6 +453,10 @@ main {
     #e3f2fb;
   border: 1px solid var(--rule);
   box-sizing: border-box;
+}
+
+.plate.plate-empty {
+  background: #e9f4fb;
 }
 
 .plate img {
@@ -636,6 +636,22 @@ main {
   overflow-wrap: anywhere;
 }
 
+.card-more {
+  display: block;
+  width: fit-content;
+  margin-top: 0.45rem;
+}
+
+.sorts .cards-back {
+  align-self: center;
+  margin-right: 0.25rem;
+  white-space: nowrap;
+}
+
+.cards-back[hidden] {
+  display: none;
+}
+
 @media (max-width: 720px) {
   /*
     Stacked SAC / PASSPORT; size so PASSPORT ink ≈ 94–97% of inner width
@@ -712,5 +728,9 @@ main {
 
   .card {
     grid-template-columns: 1fr;
+  }
+
+  .plate.plate-empty {
+    display: none;
   }
 }

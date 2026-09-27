@@ -60,9 +60,16 @@ function location(item) {
   return place;
 }
 
+function withAlternates(cultures) {
+  return cultures.flatMap((item) => [
+    item,
+    ...(item.alternates || []).map((alt) => ({ ...alt, culture: item.culture })),
+  ]);
+}
+
 export function eventNodes(cultures, today = '2026-09-23') {
   const nodes = [];
-  for (const item of cultures) {
+  for (const item of withAlternates(cultures)) {
     const dates = schemaDates(item);
     if (!dates) continue;
     const upcoming = item.whenKind === 'confirmed' && dates.start >= today;
