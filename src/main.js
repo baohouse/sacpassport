@@ -25,9 +25,7 @@ let currentCardId = null;
 let moreCultureId = null;
 let world = null;
 
-const countries = feature(land, land.objects.countries).features.filter(
-  (shape) => String(shape.id) !== '010',
-);
+const countries = feature(land, land.objects.countries).features;
 
 function byUpcoming(a, b) {
   const monthA = (a.sortDate || '9999').slice(0, 7);
