@@ -43,7 +43,18 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
     steps:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Purge Cloudflare app shell
+        if: ${{ env.CF_TOKEN != '' }}
+        run: |
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE/purge_cache" \
+            -H "Authorization: Bearer $CF_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"files":["https://sacpassport.com/","https://sacpassport.com/index.html","https://sacpassport.com/sw.js","https://sacpassport.com/manifest.webmanifest","https://www.sacpassport.com/","https://www.sacpassport.com/sw.js"]}'

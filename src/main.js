@@ -3,6 +3,23 @@ import * as THREE from 'three';
 import { feature } from 'topojson-client';
 import land from 'world-atlas/countries-110m.json';
 import rawCultures from '../data/cultures.json';
+import { registerSW } from 'virtual:pwa-register';
+
+// autoUpdate reloads the page once a new service worker takes control, so a
+// deploy shows up on the next check instead of waiting for a second visit.
+registerSW({
+  immediate: true,
+  onRegisteredSW(_url, registration) {
+    if (!registration) return;
+    const check = () => {
+      if (navigator.onLine) registration.update().catch(() => {});
+    };
+    setInterval(check, 30 * 60 * 1000);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') check();
+    });
+  },
+});
 
 const SAC = { lat: 38.5816, lng: -121.4944 };
 const INK = 'rgba(18, 72, 110, 0.72)';

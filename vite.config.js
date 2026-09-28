@@ -21,6 +21,7 @@ export default defineConfig({
     eventSchemaPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: false,
       includeAssets: [
         'robots.txt',
         'sitemap.xml',
@@ -68,6 +69,9 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,png,txt,xml,webmanifest}'],
         globIgnores: ['**/flyers/**', '**/og.png'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
         runtimeCaching: [
           {
             urlPattern: /\/flyers\/.*\.(?:png|jpe?g|webp)$/i,
