@@ -1051,5 +1051,141 @@
       "lng": 104.93
     },
     "flyer": "/flyers/cambodian-2026.jpg"
+  },
+  {
+    "id": "afghan",
+    "culture": "Afghan",
+    "event": "Eid-ul-Fitr & Nowruz Celebration",
+    "place": "Unitarian Universalist Society of Sacramento",
+    "city": "Sacramento",
+    "placeId": "ChIJhyNt-1PamoARl_1_k7KepMA",
+    "url": "https://openingdoorsinc.org/",
+    "urlLabel": "openingdoorsinc.org",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Apr 4, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-03-27",
+    "origin": {
+      "lat": 34.53,
+      "lng": 69.17
+    },
+    "flyer": "/flyers/afghan-2026.jpg"
+  },
+  {
+    "id": "nicaraguan",
+    "culture": "Nicaraguan",
+    "event": "Festival Nicaragüense",
+    "place": "El Patio Nica d'Lira",
+    "city": "Sacramento",
+    "placeId": "ChIJyzEiVYfRmoARV6zltelONZA",
+    "url": "https://elpationicadlira.com/",
+    "urlLabel": "elpationicadlira.com",
+    "when": "April 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Apr 26, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-04-25",
+    "origin": {
+      "lat": 12.13,
+      "lng": -86.25
+    },
+    "flyer": "/flyers/nicaraguan-2026.jpg",
+    "alternates": [
+      {
+        "id": "nicaraguan-patio-nica-aniversario",
+        "event": "El Patio Nica Anniversary Party",
+        "place": "El Patio Nica d'Lira",
+        "city": "Sacramento",
+        "placeId": "ChIJyzEiVYfRmoARV6zltelONZA",
+        "url": "https://elpationicadlira.com/",
+        "urlLabel": "elpationicadlira.com",
+        "when": "September 2027",
+        "whenKind": "estimate",
+        "lastHeld": "Sep 26, 2026",
+        "sortRank": 1,
+        "sortDate": "2027-09-25"
+      }
+    ]
+  },
+  {
+    "id": "moldovan",
+    "culture": "Moldovan",
+    "event": "Mărțișor Festival",
+    "place": "Citrus Venue",
+    "city": "Citrus Heights",
+    "placeId": "ChIJFySBLwDfmoAR_xPhJqDgWHQ",
+    "url": "https://casamareinc.org/",
+    "urlLabel": "casamareinc.org",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Mar 6, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-03-05",
+    "origin": {
+      "lat": 47.01,
+      "lng": 28.86
+    },
+    "flyer": "/flyers/moldovan-2026.jpg"
+  },
+  {
+    "id": "bosnian",
+    "culture": "Bosnian",
+    "event": "Dzemat Sacramento Family Night",
+    "place": "Dzemat Sacramento",
+    "city": "Roseville",
+    "placeId": "ChIJNdAEgB_fmoARkN-Gfp5A9ho",
+    "url": "https://www.dzematsacramento.com/",
+    "urlLabel": "dzematsacramento.com",
+    "when": "November 2026",
+    "whenKind": "estimate",
+    "lastHeld": "May 23, 2026",
+    "sortRank": 1,
+    "sortDate": "2026-11-21",
+    "origin": {
+      "lat": 43.86,
+      "lng": 18.41
+    },
+    "flyer": "/flyers/bosnian-family-night-2026.jpg"
+  },
+  {
+    "id": "chaldean",
+    "culture": "Chaldean",
+    "event": "Chaldean Middle Eastern Festival",
+    "place": "Our Lady of Perpetual Help Chaldean Church",
+    "city": "Orangevale",
+    "placeId": "ChIJBwhCsFfgmoARltaBzjR_gwo",
+    "url": "https://www.facebook.com/chaldeanfestivalsac/",
+    "urlLabel": "facebook.com",
+    "when": "June 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jun 6, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-06-05",
+    "origin": {
+      "lat": 33.31,
+      "lng": 44.37
+    },
+    "flyer": "/flyers/chaldean-2026.jpg"
+  },
+  {
+    "id": "lao",
+    "culture": "Lao",
+    "event": "Lao New Year (Boun Pi Mai)",
+    "place": "Wat Lao Saophuth",
+    "city": "Sacramento",
+    "placeId": "ChIJZZs0dj7EmoARz3NlQUWpb_4",
+    "url": "https://www.facebook.com/watlao.saophuth/",
+    "urlLabel": "facebook.com",
+    "when": "April 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Apr 25–26, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-04-24",
+    "origin": {
+      "lat": 17.97,
+      "lng": 102.63
+    },
+    "flyer": "/flyers/lao-2026.jpg"
   }
 ]
