@@ -425,6 +425,10 @@ main {
   overflow-wrap: anywhere;
 }
 
+.site-footer p + p {
+  margin-top: 0.6rem;
+}
+
 .card {
   display: grid;
   min-width: 0;

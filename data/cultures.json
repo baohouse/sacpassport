@@ -1187,5 +1187,315 @@
       "lng": 102.63
     },
     "flyer": "/flyers/lao-2026.jpg"
+  },
+  {
+    "id": "turkish",
+    "culture": "Turkish",
+    "event": "San Francisco Turkish Festival",
+    "place": "Embarcadero Plaza",
+    "city": "San Francisco",
+    "placeId": "ChIJWS0hyGaAhYARrci3Bdxh0fI",
+    "url": "https://turkfestsf.org/",
+    "urlLabel": "turkfestsf.org",
+    "when": "September 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Sep 12–13, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-09-11",
+    "origin": {
+      "lat": 39.93,
+      "lng": 32.86
+    },
+    "region": "bay",
+    "flyer": "/flyers/turkish-2026.jpg"
+  },
+  {
+    "id": "swedish",
+    "culture": "Swedish",
+    "event": "SWEA Christmas Fair",
+    "place": "Cathedral of Saint Mary of the Assumption",
+    "city": "San Francisco",
+    "placeId": "ChIJY2eH8L2AhYARx7eYYhTWTKU",
+    "url": "https://sanfrancisco.swea.org/",
+    "urlLabel": "sanfrancisco.swea.org",
+    "when": "Dec 5, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-12-05",
+    "origin": {
+      "lat": 59.33,
+      "lng": 18.07
+    },
+    "region": "bay",
+    "flyer": "/flyers/swedish-2025.jpg"
+  },
+  {
+    "id": "basque",
+    "culture": "Basque",
+    "event": "San Francisco Basque Picnic",
+    "place": "Penngrove Park",
+    "city": "Penngrove",
+    "placeId": "ChIJR5sBRdG0hYARBlvZz-4HXbA",
+    "url": "https://basqueclub.com/",
+    "urlLabel": "basqueclub.com",
+    "when": "June 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jun 7, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-06-06",
+    "origin": {
+      "lat": 43.26,
+      "lng": -2.93
+    },
+    "region": "bay",
+    "flyer": "/flyers/basque-2026.jpg"
+  },
+  {
+    "id": "czech",
+    "culture": "Czech",
+    "event": "Czech and Slovak Festival",
+    "place": "Orinda Community Center",
+    "city": "Orinda",
+    "placeId": "ChIJzxkBatl8hYARo2fcPjpJf48",
+    "url": "https://www.sokolsf.org/",
+    "urlLabel": "sokolsf.org",
+    "when": "Oct 3, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-03",
+    "origin": {
+      "lat": 50.08,
+      "lng": 14.44
+    },
+    "region": "bay",
+    "flyer": "/flyers/czech-slovak-2026.jpg"
+  },
+  {
+    "id": "kurdish",
+    "culture": "Kurdish",
+    "event": "Newroz Celebration",
+    "place": "Saroyan Hall",
+    "city": "San Francisco",
+    "placeId": "ChIJ4bhRBE18j4ARIA1Ls9ImgA8",
+    "url": "https://www.californiakurdish.org/",
+    "urlLabel": "californiakurdish.org",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Mar 22, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-03-21",
+    "origin": {
+      "lat": 36.19,
+      "lng": 44.01
+    },
+    "region": "bay",
+    "flyer": "/flyers/kurdish-2026.jpg"
+  },
+  {
+    "id": "nepali",
+    "culture": "Nepali",
+    "event": "The Grand Dashain Mela",
+    "place": "Nepali Community Center",
+    "city": "Richmond",
+    "placeId": "ChIJcZkI7Mx3hYARDXETDW8ZduQ",
+    "url": "https://nancusa.org/",
+    "urlLabel": "nancusa.org",
+    "when": "Oct 10, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-10",
+    "origin": {
+      "lat": 27.72,
+      "lng": 85.32
+    },
+    "region": "bay",
+    "flyer": "/flyers/nepali-2026.jpg"
+  },
+  {
+    "id": "taiwanese",
+    "culture": "Taiwanese",
+    "event": "Taiwanese American Cultural Festival",
+    "place": "Union Square",
+    "city": "San Francisco",
+    "placeId": "ChIJu0D9046AhYARurZMmbXZQf4",
+    "url": "https://www.tap-sf.org/tacf",
+    "urlLabel": "tap-sf.org",
+    "when": "May 2027",
+    "whenKind": "estimate",
+    "lastHeld": "May 9, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-05-08",
+    "origin": {
+      "lat": 25.03,
+      "lng": 121.57
+    },
+    "region": "bay",
+    "flyer": "/flyers/taiwanese-2026.jpg"
+  },
+  {
+    "id": "burmese",
+    "culture": "Burmese",
+    "event": "Bay Area Community Thingyan",
+    "place": "Tennyson High School",
+    "city": "Hayward",
+    "placeId": "ChIJTQcJPw6Uj4ARjfVjd8E-QGI",
+    "url": "https://www.onemyanmarcommunity.org/",
+    "urlLabel": "onemyanmarcommunity.org",
+    "when": "May 2027",
+    "whenKind": "estimate",
+    "lastHeld": "May 24, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-05-23",
+    "origin": {
+      "lat": 19.76,
+      "lng": 96.08
+    },
+    "region": "bay",
+    "flyer": "/flyers/burmese-2026.jpg"
+  },
+  {
+    "id": "belarusian",
+    "culture": "Belarusian",
+    "event": "Belarus Freedom Day (Dzień Voli)",
+    "place": "Sugarloaf Open Space",
+    "city": "Walnut Creek",
+    "placeId": "ChIJrZofhIqKj4ARyh6StIENfqI",
+    "url": "https://linktr.ee/freebelarusf",
+    "urlLabel": "linktr.ee",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Mar 29, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-03-28",
+    "origin": {
+      "lat": 53.9,
+      "lng": 27.56
+    },
+    "region": "bay",
+    "flyer": "/flyers/belarusian-2026.jpg"
+  },
+  {
+    "id": "tibetan",
+    "culture": "Tibetan",
+    "event": "Losar Concert",
+    "place": "Longfellow Middle School",
+    "city": "Berkeley",
+    "placeId": "ChIJV1w3N49-hYARCynts24NhEA",
+    "url": "https://tanc.org/",
+    "urlLabel": "tanc.org",
+    "when": "April 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Apr 18, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-04-17",
+    "origin": {
+      "lat": 29.65,
+      "lng": 91.13
+    },
+    "region": "bay",
+    "flyer": "/flyers/tibetan-2026.jpg"
+  },
+  {
+    "id": "finnish",
+    "culture": "Finnish",
+    "event": "Finnish Independence Celebration",
+    "place": "Finnish Hall",
+    "city": "Berkeley",
+    "placeId": "ChIJN9y5CMB-hYARg4w1tAd3-C8",
+    "url": "https://www.finnishhall.org/finn-events",
+    "urlLabel": "finnishhall.org",
+    "when": "December 2026",
+    "whenKind": "estimate",
+    "lastHeld": "Dec 6, 2025",
+    "sortRank": 1,
+    "sortDate": "2026-12-05",
+    "origin": {
+      "lat": 60.17,
+      "lng": 24.94
+    },
+    "region": "bay",
+    "alternates": [
+      {
+        "id": "finnish-vappu",
+        "event": "Vappu Spring Festival",
+        "place": "Finnish Hall",
+        "city": "Berkeley",
+        "placeId": "ChIJN9y5CMB-hYARg4w1tAd3-C8",
+        "url": "https://www.finnishhall.org/finn-events",
+        "urlLabel": "finnishhall.org",
+        "when": "May 2027",
+        "whenKind": "estimate",
+        "lastHeld": "May 3, 2026",
+        "sortRank": 1,
+        "sortDate": "2027-05-02"
+      }
+    ],
+    "flyer": "/flyers/finnish-2025.jpg"
+  },
+  {
+    "id": "chilean",
+    "culture": "Chilean",
+    "event": "Fonda Chilena",
+    "place": "La Peña Cultural Center",
+    "city": "Berkeley",
+    "placeId": "ChIJXevQU39-hYAR-HkCRkL0da0",
+    "url": "https://lapena.org/",
+    "urlLabel": "lapena.org",
+    "when": "September 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Sep 20, 2025",
+    "sortRank": 1,
+    "sortDate": "2027-09-18",
+    "origin": {
+      "lat": -33.45,
+      "lng": -70.67
+    },
+    "region": "bay",
+    "flyer": "/flyers/chilean-2025.jpg"
+  },
+  {
+    "id": "maya",
+    "culture": "Maya",
+    "event": "Bay Area Maya Festival",
+    "place": "City College of San Francisco Mission Campus",
+    "city": "San Francisco",
+    "placeId": "ChIJvQ5tD3Z_j4ARicpdWd5rdyU",
+    "url": "https://bayareamayafest.org/",
+    "urlLabel": "bayareamayafest.org",
+    "when": "Oct 3, 2026",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2026-10-03",
+    "origin": {
+      "lat": 20.68,
+      "lng": -88.57
+    },
+    "region": "bay",
+    "flyer": "/flyers/maya-2026.jpg"
+  },
+  {
+    "id": "moroccan",
+    "culture": "Moroccan",
+    "event": "Mimouna",
+    "place": "Jewish Community Center of San Francisco",
+    "city": "San Francisco",
+    "placeId": "ChIJXS6-VzOHhYARd7uawbWEhlM",
+    "url": "https://www.jccsf.org/",
+    "urlLabel": "jccsf.org",
+    "when": "May 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Apr 11, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-05-01",
+    "origin": {
+      "lat": 34.03,
+      "lng": -5
+    },
+    "region": "bay",
+    "flyer": "/flyers/moroccan-2026.jpg"
   }
 ]

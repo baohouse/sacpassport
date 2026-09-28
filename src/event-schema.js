@@ -74,6 +74,7 @@ export function eventNodes(cultures, today = '2026-09-23') {
     if (!dates) continue;
     const upcoming = item.whenKind === 'confirmed' && dates.start >= today;
     const where = item.city ? `${item.place}, ${item.city}` : item.place;
+    const area = item.region === 'bay' ? 'the San Francisco Bay Area' : 'Greater Sacramento';
     const node = {
       '@type': 'Event',
       name: item.event,
@@ -81,8 +82,8 @@ export function eventNodes(cultures, today = '2026-09-23') {
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       location: location(item),
       description: upcoming
-        ? `${item.culture} festival in Greater Sacramento: ${item.event} at ${where}.`
-        : `${item.culture} festival in Greater Sacramento: ${item.event} at ${where}. Last held ${item.lastHeld}.`,
+        ? `${item.culture} festival in ${area}: ${item.event} at ${where}.`
+        : `${item.culture} festival in ${area}: ${item.event} at ${where}. Last held ${item.lastHeld}.`,
     };
     if (dates.end) node.endDate = dates.end;
     if (upcoming) node.eventStatus = 'https://schema.org/EventScheduled';
