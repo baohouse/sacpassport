@@ -419,6 +419,15 @@ function mapsUrl({ place, city, placeId, mapPoint }) {
   return placeId ? `${url}&query_place_id=${encodeURIComponent(placeId)}` : url;
 }
 
+function trackCard(name, item, extra = {}) {
+  window.gtag?.('event', name, {
+    culture: item.culture,
+    culture_id: item.parentId || item.id,
+    card_id: item.id,
+    ...extra,
+  });
+}
+
 function urlHostnameLabel(url) {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
@@ -544,6 +553,7 @@ function render() {
       openBtn.append(img);
       openBtn.addEventListener('click', (event) => {
         event.stopPropagation();
+        trackCard('flyer_open', item, { media: item.video ? 'video' : 'image' });
         openFlyerLightbox(img.src, img.alt, openBtn, item.video);
       });
       plate.append(openBtn);
@@ -601,6 +611,7 @@ function render() {
     mapLink.setAttribute('aria-label', 'Open in Google Maps');
     mapLink.innerHTML =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+    mapLink.addEventListener('click', () => trackCard('map_click', item));
     venue.append(mapLink);
 
     body.append(title, event, date, venue);
@@ -612,6 +623,7 @@ function render() {
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
       link.textContent = item.urlLabel || urlHostnameLabel(item.url);
+      link.addEventListener('click', () => trackCard('event_link_click', item, { link_url: item.url }));
       body.append(link);
     }
 
@@ -623,6 +635,7 @@ function render() {
       more.textContent = `More ${item.culture} events`;
       more.addEventListener('click', (event) => {
         event.preventDefault();
+        trackCard('culture_more', item);
         openCultureEvents(cultureId);
       });
       body.append(more);
