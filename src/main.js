@@ -412,11 +412,108 @@ function formatDateLabel(item) {
  * With a placeId Google opens that exact place; the query is only its fallback.
  * mapPoint drops a pin for venues Google has no listing for, like a closed-off city block.
  */
-function mapsUrl({ place, city, placeId, mapPoint }) {
+function googleMapsUrl({ place, city, placeId, mapPoint }) {
   const base = 'https://www.google.com/maps/search/?api=1&query=';
   if (mapPoint) return `${base}${mapPoint.lat},${mapPoint.lng}`;
   const url = `${base}${encodeURIComponent([place, city].filter(Boolean).join(', '))}`;
   return placeId ? `${url}&query_place_id=${encodeURIComponent(placeId)}` : url;
+}
+
+/** Apple Maps has no use for Google place IDs, so it searches the venue name and city. */
+function appleMapsUrl({ place, city, mapPoint }) {
+  if (mapPoint) {
+    return `https://maps.apple.com/?ll=${mapPoint.lat},${mapPoint.lng}&q=${encodeURIComponent(place || 'Event')}`;
+  }
+  const query = [place, city, 'CA'].filter(Boolean).join(', ');
+  return `https://maps.apple.com/?q=${encodeURIComponent(query)}`;
+}
+
+const MAPS_APPS = {
+  apple: { label: 'Apple Maps', url: appleMapsUrl },
+  google: { label: 'Google Maps', url: googleMapsUrl },
+};
+const MAPS_APP_KEY = 'sacpassport.mapsApp';
+const LONG_PRESS_MS = 550;
+const mapLinkItems = new WeakMap();
+let sessionMapsApp = null;
+
+function getMapsApp() {
+  try {
+    const value = localStorage.getItem(MAPS_APP_KEY);
+    return value in MAPS_APPS ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function setMapsApp(app) {
+  try {
+    localStorage.setItem(MAPS_APP_KEY, app);
+  } catch {
+    // Storage can be off (private mode); the choice then lasts for this page only.
+  }
+  sessionMapsApp = app;
+  for (const link of cardsEl.querySelectorAll('.venue-map')) syncMapLink(link);
+}
+
+function preferredMapsApp() {
+  return getMapsApp() || sessionMapsApp;
+}
+
+function syncMapLink(link) {
+  const item = mapLinkItems.get(link);
+  if (!item) return;
+  const app = preferredMapsApp();
+  link.href = MAPS_APPS[app || 'google'].url(item);
+  const venue = item.city ? `${item.place}, ${item.city}` : item.place;
+  const appLabel = app ? MAPS_APPS[app].label : 'maps';
+  link.setAttribute('aria-label', `${venue}, open in ${appLabel}`);
+  link.title = app ? `Open in ${appLabel} · hold to change` : 'Open in maps';
+}
+
+function bindLongPress(el, onLongPress) {
+  let timer = 0;
+  let startX = 0;
+  let startY = 0;
+  let fired = false;
+  const cancel = () => {
+    window.clearTimeout(timer);
+    timer = 0;
+  };
+  el.addEventListener('pointerdown', (event) => {
+    fired = false;
+    if (event.button !== 0) return;
+    startX = event.clientX;
+    startY = event.clientY;
+    cancel();
+    timer = window.setTimeout(() => {
+      timer = 0;
+      fired = true;
+      onLongPress();
+    }, LONG_PRESS_MS);
+  });
+  el.addEventListener('pointermove', (event) => {
+    if (timer && Math.hypot(event.clientX - startX, event.clientY - startY) > 10) cancel();
+  });
+  el.addEventListener('pointerup', cancel);
+  el.addEventListener('pointercancel', cancel);
+  el.addEventListener('pointerleave', cancel);
+  // Android long-press and desktop right-click both land here.
+  el.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+    cancel();
+    if (!fired) onLongPress();
+  });
+  el.addEventListener(
+    'click',
+    (event) => {
+      if (!fired) return;
+      fired = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    },
+    true,
+  );
 }
 
 function trackCard(name, item, extra = {}) {
@@ -601,17 +698,30 @@ function render() {
     const venue = document.createElement('p');
     venue.className = 'venue';
     const venueLabel = item.city ? `${item.place}, ${item.city}` : item.place;
-    venue.append(document.createTextNode(venueLabel));
 
     const mapLink = document.createElement('a');
     mapLink.className = 'venue-map';
-    mapLink.href = mapsUrl(item);
     mapLink.target = '_blank';
     mapLink.rel = 'noopener noreferrer';
-    mapLink.setAttribute('aria-label', 'Open in Google Maps');
     mapLink.innerHTML =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
-    mapLink.addEventListener('click', () => trackCard('map_click', item));
+    const venueText = document.createElement('span');
+    venueText.className = 'venue-name';
+    venueText.textContent = venueLabel;
+    mapLink.append(venueText);
+    mapLinkItems.set(mapLink, item);
+    syncMapLink(mapLink);
+    mapLink.addEventListener('click', (event) => {
+      const app = preferredMapsApp();
+      if (!app) {
+        event.preventDefault();
+        openMapsChooser(item, mapLink, true);
+        return;
+      }
+      mapLink.href = MAPS_APPS[app].url(item);
+      trackCard('map_click', item, { maps_app: app });
+    });
+    bindLongPress(mapLink, () => openMapsChooser(item, mapLink, false));
     venue.append(mapLink);
 
     body.append(title, event, date, venue);
@@ -812,7 +922,7 @@ function mountGlobe() {
         { capture: true, passive: true },
       );
     }
-    const narrow = window.matchMedia('(max-width: 720px)');
+    const narrow = window.matchMedia('(width < 720px)');
     const placeGlobe = () => {
       const phone = narrow.matches;
       // Positive globeOffset Y shifts the sphere down (API negates into viewOffset).
@@ -864,22 +974,31 @@ function mountGlobe() {
     });
     globeVisibility.observe(globeEl);
 
+    // iOS home-screen launch can report a wide vw for the first frames without a
+    // window resize afterward, so follow the box itself rather than the window.
     let globeW = globeEl.clientWidth;
     let globeH = globeEl.clientHeight;
-    let resizeTimer = 0;
+    let resizeFrame = 0;
     const resize = () => {
-      window.clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(() => {
+      if (resizeFrame) return;
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = 0;
         const nextW = globeEl.clientWidth;
         const nextH = globeEl.clientHeight;
-        if (nextW === globeW && nextH === globeH) return;
+        if (!nextW || !nextH || (nextW === globeW && nextH === globeH)) return;
         globeW = nextW;
         globeH = nextH;
         world.width(nextW).height(nextH);
         placeGlobe();
-      }, 150);
+      });
     };
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(globeEl);
+    }
     window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', resize);
+    window.addEventListener('pageshow', resize);
+    window.visualViewport?.addEventListener('resize', resize);
   } catch (error) {
     console.error(error);
     fallbackEl.hidden = false;
@@ -1066,8 +1185,143 @@ function mountCulturesModal() {
 
 culturesMenuBtn?.addEventListener('click', openCulturesModal);
 
+const MAPS_ICONS = {
+  apple:
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M15 4.5 9 2.4 3.6 4.3a1 1 0 0 0-.6.9v15.1a.6.6 0 0 0 .8.6L9 19l6 2.1 5.4-1.9a1 1 0 0 0 .6-.9V3.2a.6.6 0 0 0-.8-.6L15 4.5zM10 4.8l4 1.4v13l-4-1.4v-13z"/></svg>',
+  google:
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
+};
+
+let mapsChooser = null;
+let mapsChooserVenue = null;
+let mapsChooserHint = null;
+let mapsChooserOptions = [];
+let mapsChooserItem = null;
+let mapsChooserNavigate = false;
+let mapsChooserReturnFocus = null;
+let mapsChooserBodyOverflowBefore = '';
+let mapsChooserScrollLocked = false;
+
+function teardownMapsChooser() {
+  if (mapsChooserScrollLocked) {
+    if (mapsChooserBodyOverflowBefore) document.body.style.overflow = mapsChooserBodyOverflowBefore;
+    else document.body.style.removeProperty('overflow');
+    mapsChooserBodyOverflowBefore = '';
+    mapsChooserScrollLocked = false;
+  }
+  mapsChooserItem = null;
+  const restore = mapsChooserReturnFocus;
+  mapsChooserReturnFocus = null;
+  queueMicrotask(() => restore?.focus?.({ preventScroll: true }));
+}
+
+function closeMapsChooser() {
+  if (!mapsChooser?.open) return;
+  mapsChooser.close();
+}
+
+function openMapsChooser(item, trigger, navigate) {
+  if (!mapsChooser || mapsChooser.open) return;
+  mapsChooserItem = item;
+  mapsChooserNavigate = navigate;
+  mapsChooserReturnFocus = trigger;
+  mapsChooserVenue.textContent = item.city ? `${item.place}, ${item.city}` : item.place;
+  mapsChooserHint.textContent = navigate
+    ? 'We’ll remember this. Hold the map pin anytime to change it.'
+    : 'Hold the map pin anytime to change this.';
+  const current = preferredMapsApp();
+  for (const option of mapsChooserOptions) {
+    option.setAttribute('aria-pressed', option.dataset.app === current ? 'true' : 'false');
+  }
+  const prior = document.body.style.overflow;
+  mapsChooserBodyOverflowBefore = prior === 'hidden' ? '' : prior;
+  document.body.style.overflow = 'hidden';
+  mapsChooserScrollLocked = true;
+  mapsChooser.showModal();
+  const focusTarget = mapsChooserOptions.find((option) => option.dataset.app === current)
+    || mapsChooser.querySelector('.cultures-modal-close');
+  focusTarget?.focus();
+}
+
+function chooseMapsApp(app) {
+  const item = mapsChooserItem;
+  const navigate = mapsChooserNavigate;
+  setMapsApp(app);
+  window.gtag?.('event', 'maps_app_choose', { maps_app: app, from: navigate ? 'first_tap' : 'hold' });
+  closeMapsChooser();
+  if (navigate && item) {
+    trackCard('map_click', item, { maps_app: app });
+    window.open(MAPS_APPS[app].url(item), '_blank', 'noopener,noreferrer');
+  }
+}
+
+function mountMapsChooser() {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'maps-chooser';
+  dialog.setAttribute('aria-labelledby', 'maps-chooser-title');
+  dialog.setAttribute('aria-describedby', 'maps-chooser-venue');
+
+  const handle = document.createElement('div');
+  handle.className = 'maps-chooser-handle';
+  handle.setAttribute('aria-hidden', 'true');
+
+  const header = document.createElement('div');
+  header.className = 'maps-chooser-header';
+  const title = document.createElement('h2');
+  title.id = 'maps-chooser-title';
+  title.className = 'maps-chooser-title';
+  title.textContent = 'Open directions in';
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'cultures-modal-close';
+  closeBtn.setAttribute('aria-label', 'Close');
+  const closeMark = document.createElement('span');
+  closeMark.className = 'cultures-modal-close-mark';
+  closeMark.setAttribute('aria-hidden', 'true');
+  closeMark.textContent = '×';
+  closeBtn.append(closeMark);
+  header.append(title, closeBtn);
+
+  const venue = document.createElement('p');
+  venue.id = 'maps-chooser-venue';
+  venue.className = 'maps-chooser-venue';
+
+  const options = document.createElement('div');
+  options.className = 'maps-chooser-options';
+  const appleFirst = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+  const order = appleFirst ? ['apple', 'google'] : ['google', 'apple'];
+  mapsChooserOptions = order.map((app) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `maps-chooser-option maps-chooser-option--${app}`;
+    btn.dataset.app = app;
+    btn.innerHTML = `<span class="maps-chooser-icon">${MAPS_ICONS[app]}</span><span class="maps-chooser-label"></span><span class="maps-chooser-check" aria-hidden="true">✓</span>`;
+    btn.querySelector('.maps-chooser-label').textContent = MAPS_APPS[app].label;
+    btn.addEventListener('click', () => chooseMapsApp(app));
+    options.append(btn);
+    return btn;
+  });
+
+  const hint = document.createElement('p');
+  hint.className = 'maps-chooser-hint';
+
+  dialog.append(handle, header, venue, options, hint);
+  document.body.append(dialog);
+
+  closeBtn.addEventListener('click', closeMapsChooser);
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) closeMapsChooser();
+  });
+  dialog.addEventListener('close', teardownMapsChooser);
+
+  mapsChooser = dialog;
+  mapsChooserVenue = venue;
+  mapsChooserHint = hint;
+}
+
 mountFlyerLightbox();
 mountCulturesModal();
+mountMapsChooser();
 mountCardsBack();
 moreCultureId = cultureIdFromHash();
 if (moreCultureId) currentId = moreCultureId;

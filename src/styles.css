@@ -79,7 +79,7 @@ a:hover {
   margin-top: -4vw;
 }
 
-@media (min-width: 721px) {
+@media (width >= 720px) {
   /* Title + globe share a 1440px layout box; side padding stays inside the cap */
   .stage {
     max-width: 1440px;
@@ -111,8 +111,11 @@ a:hover {
 }
 
 #globe {
+  position: relative;
   width: 100%;
   height: 100%;
+  /* The canvas has fixed px dimensions; a stale size must not widen the page. */
+  overflow: hidden;
 }
 
 #globe canvas {
@@ -331,7 +334,7 @@ main {
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 479px) {
+@media (width < 480px) {
   .cultures-modal {
     width: 100%;
     max-width: none;
@@ -353,7 +356,7 @@ main {
   }
 }
 
-@media (min-width: 480px) {
+@media (width >= 480px) {
   .cultures-modal,
   .cultures-modal-panel {
     max-height: min(90vh, 52rem);
@@ -364,7 +367,7 @@ main {
   }
 }
 
-@media (min-width: 721px) {
+@media (width >= 720px) {
   .cultures-modal {
     width: min(40rem, calc(100vw - 4rem));
   }
@@ -406,7 +409,7 @@ main {
   gap: 1rem;
 }
 
-@media (min-width: 960px) {
+@media (width >= 768px) {
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -439,6 +442,13 @@ main {
   border: 1px solid var(--rule);
   border-radius: 14px;
   scroll-margin-top: 1rem;
+}
+
+@media (width >= 768px) {
+  /* Narrower plates while two columns are tight; back to 168px by ~990px. */
+  .card {
+    grid-template-columns: clamp(128px, 17vw, 168px) minmax(0, 1fr);
+  }
 }
 
 .card.is-current {
@@ -563,9 +573,17 @@ main {
 }
 
 .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
   min-width: 0;
   line-height: 1.2;
   overflow-wrap: anywhere;
+}
+
+.card-body > * {
+  max-width: 100%;
 }
 
 .card h2 {
@@ -617,21 +635,201 @@ main {
 
 .venue-map {
   display: inline;
-  margin-left: 0.2em;
-  color: var(--ocean);
+  color: inherit;
   text-decoration: none;
-  vertical-align: baseline;
+  /* Holding the venue opens the maps picker, not iOS's link preview or text selection. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .venue-map:hover {
-  color: var(--ocean-deep);
+  color: inherit;
 }
 
 .venue-map svg {
+  display: inline-block;
   width: 0.95em;
   height: 0.95em;
-  display: inline-block;
+  /* The pin glyph sits inset in its 24px viewBox; pull it flush with the text edge. */
+  margin: 0 0.2em 0 -0.1em;
   vertical-align: -0.12em;
+  color: var(--ocean);
+}
+
+.venue-map:hover svg {
+  color: var(--ocean-deep);
+}
+
+.maps-chooser {
+  z-index: 90;
+  width: min(24rem, calc(100vw - 2rem));
+  margin: auto;
+  padding: 0 0 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: var(--filled);
+  color: var(--ink);
+  box-shadow: 0 12px 40px rgba(12, 47, 72, 0.18);
+}
+
+.maps-chooser::backdrop {
+  background: rgba(12, 47, 72, 0.45);
+}
+
+.maps-chooser-handle {
+  display: none;
+}
+
+.maps-chooser-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 0.85rem 0 1rem;
+}
+
+.maps-chooser-title {
+  margin: 0;
+  font-family: "Noto Serif", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.maps-chooser-venue {
+  margin: 0.15rem 1rem 0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.maps-chooser-options {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.maps-chooser-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.02rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.maps-chooser-option:hover,
+.maps-chooser-option:focus-visible {
+  border-color: var(--ocean);
+  background: var(--sky);
+  outline: none;
+}
+
+.maps-chooser-option[aria-pressed="true"] {
+  border-color: var(--ocean);
+}
+
+.maps-chooser-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  flex-shrink: 0;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.maps-chooser-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.maps-chooser-option--apple .maps-chooser-icon {
+  background: linear-gradient(160deg, #5ac8fa, #34c759);
+}
+
+.maps-chooser-option--google .maps-chooser-icon {
+  background: linear-gradient(160deg, #4285f4, #34a853);
+}
+
+.maps-chooser-label {
+  flex: 1;
+}
+
+.maps-chooser-check {
+  visibility: hidden;
+  color: var(--ocean);
+  font-weight: 600;
+}
+
+.maps-chooser-option[aria-pressed="true"] .maps-chooser-check {
+  visibility: visible;
+}
+
+.maps-chooser-hint {
+  margin: 0.75rem 1rem 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+@media (width < 720px) {
+  .maps-chooser {
+    width: 100%;
+    max-width: none;
+    margin: auto 0 0;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    border-width: 1px 0 0;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .maps-chooser[open] {
+    animation: maps-sheet-up 220ms ease-out;
+  }
+
+  .maps-chooser-handle {
+    display: block;
+    width: 2.5rem;
+    height: 0.3rem;
+    margin: 0.5rem auto 0;
+    border-radius: 999px;
+    background: var(--rule);
+  }
+
+  .maps-chooser-header {
+    padding-top: 0.35rem;
+  }
+
+  .maps-chooser-option {
+    padding-block: 0.85rem;
+  }
+}
+
+@keyframes maps-sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .maps-chooser[open] {
+    animation: none;
+  }
 }
 
 .card-url {
@@ -643,7 +841,9 @@ main {
 .card-more {
   display: block;
   width: fit-content;
-  margin-top: 0.45rem;
+  /* Sits on the card's bottom edge; the padding keeps a gap when the text is tallest. */
+  margin-top: auto;
+  padding-top: 0.45rem;
 }
 
 .sorts .cards-back {
@@ -656,7 +856,7 @@ main {
   display: none;
 }
 
-@media (max-width: 720px) {
+@media (width < 720px) {
   /*
     Stacked SAC / PASSPORT; size so PASSPORT ink ≈ 94–97% of inner width
     (stage pad 0.7rem each side). Globe sits behind the title, vertically
@@ -731,10 +931,13 @@ main {
   }
 
   .card {
-    grid-template-columns: 1fr;
+    grid-template-columns: clamp(104px, 34vw, 168px) minmax(0, 1fr);
+    align-items: start;
+    gap: 0.85rem;
+    padding: 0.75rem;
   }
 
-  .plate.plate-empty {
-    display: none;
+  .card h2 {
+    font-size: 1.3rem;
   }
 }
