@@ -1153,6 +1153,7 @@ function mountCulturesModal() {
     btn.className = 'cultures-modal-item';
     btn.setAttribute('role', 'listitem');
     btn.textContent = item.culture;
+    btn.title = item.culture;
     btn.addEventListener('click', () => {
       closeCulturesModal();
       if (alternatesById.has(item.id)) {

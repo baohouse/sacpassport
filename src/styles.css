@@ -378,11 +378,11 @@ main {
 }
 
 .cultures-modal-item {
-  display: flex;
-  align-items: center;
+  display: block;
   width: 100%;
+  min-width: 0;
   margin: 0;
-  padding: 0.12rem 0.4rem;
+  padding: 0.3rem 0.4rem;
   border: 0;
   border-radius: 10px;
   background: transparent;
@@ -391,9 +391,9 @@ main {
   font-size: 0.95rem;
   text-align: left;
   line-height: 1.25;
-  white-space: normal;
-  /* Two text lines plus this vertical padding. Longer names may grow the row. */
-  min-height: calc(2 * 1.25em + 0.24rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   cursor: pointer;
 }
 
