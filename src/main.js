@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { feature } from 'topojson-client';
 import land from 'world-atlas/countries-110m.json';
 import rawCultures from '../data/cultures.json';
+import tradeData from '../data/trade.json';
 import { registerSW } from 'virtual:pwa-register';
 
 // autoUpdate reloads the page once a new service worker takes control, so a
@@ -61,21 +62,135 @@ function hasRestaurants(item) {
   return Array.isArray(item.restaurants) && item.restaurants.length > 0;
 }
 
-function ordered() {
-  if (viewMode === 'restaurants') {
-    const list = cultures.filter(hasRestaurants);
-    return sortMode === 'name' ? list.sort((a, b) => a.culture.localeCompare(b.culture)) : list.sort(byUpcoming);
+const cultureCountByCountry = new Map();
+for (const country of Object.values(tradeData.cultures)) {
+  cultureCountByCountry.set(country, (cultureCountByCountry.get(country) || 0) + 1);
+}
+
+function tradeFor(item) {
+  const country = tradeData.cultures[item.parentId || item.id];
+  const figures = country && tradeData.countries[country];
+  if (!figures) return null;
+  return {
+    country,
+    ...figures,
+    total: figures.exports + figures.imports,
+    shared: cultureCountByCountry.get(country) > 1,
+  };
+}
+
+// Cultures tied to the same country share one figure, so they sit together:
+// the country's lead culture first, then the rest A–Z.
+function byTrade(a, b) {
+  const tradeA = tradeFor(a);
+  const tradeB = tradeFor(b);
+  if (!tradeA || !tradeB) {
+    if (tradeA || tradeB) return tradeA ? -1 : 1;
+  } else if (tradeA.country !== tradeB.country) {
+    return tradeB.total - tradeA.total || tradeA.country.localeCompare(tradeB.country);
+  } else {
+    const leadA = (a.parentId || a.id) === tradeA.lead;
+    const leadB = (b.parentId || b.id) === tradeB.lead;
+    if (leadA !== leadB) return leadA ? -1 : 1;
   }
+  return a.culture.localeCompare(b.culture) || byUpcoming(a, b);
+}
+
+function sortList(list) {
+  if (sortMode === 'name') return list.sort((a, b) => a.culture.localeCompare(b.culture));
+  if (sortMode === 'trade') return list.sort(byTrade);
+  return list.sort(byUpcoming);
+}
+
+function ordered() {
+  if (viewMode === 'restaurants') return sortList(cultures.filter(hasRestaurants));
   if (moreCultureId) {
     const primary = cultures.find((item) => item.id === moreCultureId);
     return [primary, ...(alternatesById.get(moreCultureId) || [])].filter(Boolean).sort(byUpcoming);
   }
-  const list = [...cultures, ...soonAlternates()];
-  if (sortMode === 'name') {
-    list.sort((a, b) => a.culture.localeCompare(b.culture));
-    return list;
+  return sortList([...cultures, ...soonAlternates()]);
+}
+
+function formatMillions(millions) {
+  if (millions >= 1000) return `$${(millions / 1000).toFixed(1)}B`;
+  if (millions >= 10) return `$${Math.round(millions)}M`;
+  if (millions >= 0.05) return `$${millions.toFixed(1)}M`;
+  return 'under $0.1M';
+}
+
+let openTradeTip = null;
+
+function closeTradeTip() {
+  if (!openTradeTip) return;
+  openTradeTip.tip.hidden = true;
+  openTradeTip.button.setAttribute('aria-expanded', 'false');
+  openTradeTip = null;
+}
+
+document.addEventListener('click', (event) => {
+  if (openTradeTip && !event.target.closest('.trade-info, .trade-tip')) closeTradeTip();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && openTradeTip) {
+    const { button } = openTradeTip;
+    closeTradeTip();
+    button.focus();
   }
-  return list.sort(byUpcoming);
+});
+
+/** Culture name for a card title; in Trade sort it carries an info button with California's trade figure. */
+function cardTitle(item) {
+  const title = document.createElement('h2');
+  title.textContent = item.culture;
+  const trade = sortMode === 'trade' && !moreCultureId ? tradeFor(item) : null;
+  if (!trade) return title;
+
+  title.classList.add('has-trade');
+  const tipId = `trade-${item.parentId || item.id}-${item.id}`;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'trade-info';
+  button.setAttribute('aria-label', `California trade with ${trade.country}`);
+  button.setAttribute('aria-expanded', 'false');
+  button.setAttribute('aria-controls', tipId);
+  button.textContent = 'i';
+
+  const tip = document.createElement('span');
+  tip.className = 'trade-tip';
+  tip.id = tipId;
+  tip.setAttribute('role', 'tooltip');
+  tip.hidden = true;
+  const heading = document.createElement('strong');
+  heading.textContent = `California & ${trade.country}, ${tradeData.year}`;
+  const total = document.createElement('span');
+  total.textContent = `${formatMillions(trade.total)} in goods traded`;
+  const split = document.createElement('span');
+  split.className = 'trade-tip-split';
+  split.textContent = `Imports ${formatMillions(trade.imports)} · Exports ${formatMillions(trade.exports)}`;
+  tip.append(heading, total, split);
+  if (trade.shared) {
+    const note = document.createElement('span');
+    note.className = 'trade-tip-note';
+    note.textContent = `Shared with other cultures tied to ${trade.country}`;
+    tip.append(note);
+  }
+
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const wasOpen = openTradeTip?.tip === tip;
+    closeTradeTip();
+    if (wasOpen) return;
+    tip.hidden = false;
+    tip.style.removeProperty('--tip-shift');
+    const overflow = tip.getBoundingClientRect().right - (document.documentElement.clientWidth - 8);
+    if (overflow > 0) tip.style.setProperty('--tip-shift', `${-overflow}px`);
+    button.setAttribute('aria-expanded', 'true');
+    openTradeTip = { tip, button };
+    trackCard('trade_info', item, { country: trade.country });
+  });
+
+  title.append(button, tip);
+  return title;
 }
 
 function arcs() {
@@ -679,8 +794,7 @@ function restaurantCard(item) {
   const body = document.createElement('div');
   body.className = 'card-body';
 
-  const title = document.createElement('h2');
-  title.textContent = item.culture;
+  const title = cardTitle(item);
 
   const list = document.createElement('ol');
   list.className = 'restaurants';
@@ -700,7 +814,7 @@ function restaurantCard(item) {
   body.append(title, list);
   card.append(body);
   card.addEventListener('click', (eventTarget) => {
-    if (eventTarget.target.closest('a')) return;
+    if (eventTarget.target.closest('a, .trade-info, .trade-tip')) return;
     selectCulture(item.id, false);
   });
   return card;
@@ -708,6 +822,7 @@ function restaurantCard(item) {
 
 function render() {
   const list = ordered();
+  openTradeTip = null;
   cardsEl.replaceChildren();
   cardsEl.classList.toggle('is-culture-view', Boolean(moreCultureId));
   if (cardsBack) cardsBack.hidden = !moreCultureId;
@@ -754,8 +869,7 @@ function render() {
     const body = document.createElement('div');
     body.className = 'card-body';
 
-    const title = document.createElement('h2');
-    title.textContent = item.culture;
+    const title = cardTitle(item);
 
     const event = document.createElement('p');
     event.className = 'event';
@@ -820,7 +934,7 @@ function render() {
 
     card.append(plate, body);
     card.addEventListener('click', (eventTarget) => {
-      if (eventTarget.target.closest('a, .plate-open, .dates-more')) return;
+      if (eventTarget.target.closest('a, .plate-open, .dates-more, .trade-info, .trade-tip')) return;
       selectCulture(item.parentId || item.id, false, item.id);
     });
     cardsEl.append(card);

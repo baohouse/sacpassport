@@ -463,7 +463,8 @@ main {
 
 .site-footer p {
   margin: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .site-footer p + p {
@@ -647,6 +648,83 @@ main {
   font-size: 1.46rem;
   font-weight: 600;
   letter-spacing: -0.02em;
+}
+
+.card h2.has-trade {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.trade-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid var(--ocean);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ocean);
+  font: italic 600 0.75rem/1 "Noto Serif", Georgia, serif;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.trade-info[aria-expanded="true"],
+.trade-info:hover {
+  background: var(--ocean);
+  color: var(--filled);
+}
+
+/* Enlarges the tap target without growing the icon. */
+.trade-info::before {
+  content: "";
+  position: absolute;
+  inset: -0.55rem;
+}
+
+.trade-tip {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: max-content;
+  max-width: min(17rem, calc(100vw - 2rem));
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--filled);
+  box-shadow: 0 8px 24px rgba(12, 47, 72, 0.22);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.3;
+  overflow-wrap: normal;
+  transform: translateX(var(--tip-shift, 0));
+}
+
+.trade-tip[hidden] {
+  display: none;
+}
+
+.trade-tip strong {
+  font-weight: 600;
+}
+
+.trade-tip-split,
+.trade-tip-note {
+  opacity: 0.8;
+  font-size: 0.82rem;
 }
 
 .event {

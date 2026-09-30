@@ -1,0 +1,288 @@
+{
+  "year": 2025,
+  "unit": "millions of US dollars, goods only",
+  "source": "U.S. Census Bureau, state exports and imports by country",
+  "countries": {
+    "Afghanistan": {
+      "exports": 2.4,
+      "imports": 6.9
+    },
+    "Armenia": {
+      "exports": 22.3,
+      "imports": 20.5
+    },
+    "Australia": {
+      "exports": 4157.3,
+      "imports": 2931.6
+    },
+    "Belarus": {
+      "exports": 2.1,
+      "imports": 0.9
+    },
+    "Bosnia and Herzegovina": {
+      "exports": 3.6,
+      "imports": 7.0
+    },
+    "Brazil": {
+      "exports": 1853.0,
+      "imports": 5752.9
+    },
+    "Burma": {
+      "exports": 5.5,
+      "imports": 222.8
+    },
+    "Cambodia": {
+      "exports": 100.2,
+      "imports": 4445.7
+    },
+    "Chile": {
+      "exports": 1885.6,
+      "imports": 1608.8
+    },
+    "China": {
+      "exports": 10259.6,
+      "imports": 76083.1
+    },
+    "Colombia": {
+      "exports": 576.1,
+      "imports": 1403.7
+    },
+    "Croatia": {
+      "exports": 38.9,
+      "imports": 39.8
+    },
+    "Czech Republic": {
+      "exports": 535.9,
+      "imports": 447.0
+    },
+    "Egypt": {
+      "exports": 176.4,
+      "imports": 267.1
+    },
+    "El Salvador": {
+      "exports": 552.6,
+      "imports": 155.7
+    },
+    "Ethiopia": {
+      "exports": 29.3,
+      "imports": 132.1
+    },
+    "Fiji": {
+      "exports": 41.3,
+      "imports": 108.9
+    },
+    "Finland": {
+      "exports": 326.6,
+      "imports": 241.7
+    },
+    "France": {
+      "exports": 2991.2,
+      "imports": 3910.9
+    },
+    "Germany": {
+      "exports": 5940.7,
+      "imports": 12803.5
+    },
+    "Greece": {
+      "exports": 111.5,
+      "imports": 181.7
+    },
+    "India": {
+      "exports": 4616.4,
+      "imports": 10053.7,
+      "lead": "indian"
+    },
+    "Indonesia": {
+      "exports": 845.3,
+      "imports": 9888.5
+    },
+    "Iran": {
+      "exports": 7.3,
+      "imports": 0.0
+    },
+    "Iraq": {
+      "exports": 115.4,
+      "imports": 3890.5
+    },
+    "Ireland": {
+      "exports": 2451.1,
+      "imports": 1883.6
+    },
+    "Italy": {
+      "exports": 2133.9,
+      "imports": 5468.4
+    },
+    "Japan": {
+      "exports": 11008.9,
+      "imports": 28876.9
+    },
+    "Korea, South": {
+      "exports": 9283.2,
+      "imports": 29460.3
+    },
+    "Laos": {
+      "exports": 3.9,
+      "imports": 1121.1
+    },
+    "Lebanon": {
+      "exports": 109.3,
+      "imports": 62.0
+    },
+    "Mexico": {
+      "exports": 34868.6,
+      "imports": 61461.8
+    },
+    "Moldova": {
+      "exports": 7.1,
+      "imports": 4.9
+    },
+    "Mongolia": {
+      "exports": 62.2,
+      "imports": 12.5
+    },
+    "Morocco": {
+      "exports": 367.1,
+      "imports": 218.6
+    },
+    "Nepal": {
+      "exports": 7.0,
+      "imports": 20.4
+    },
+    "Nicaragua": {
+      "exports": 213.2,
+      "imports": 476.4
+    },
+    "Nigeria": {
+      "exports": 133.4,
+      "imports": 190.7
+    },
+    "Pakistan": {
+      "exports": 241.4,
+      "imports": 568.2
+    },
+    "Peru": {
+      "exports": 571.9,
+      "imports": 1595.6
+    },
+    "Philippines": {
+      "exports": 1380.6,
+      "imports": 5138.7
+    },
+    "Poland": {
+      "exports": 682.5,
+      "imports": 543.0
+    },
+    "Portugal": {
+      "exports": 74.6,
+      "imports": 510.4
+    },
+    "Romania": {
+      "exports": 128.2,
+      "imports": 229.2
+    },
+    "Serbia": {
+      "exports": 17.7,
+      "imports": 31.1
+    },
+    "Spain": {
+      "exports": 1650.4,
+      "imports": 1396.7,
+      "lead": "spanish"
+    },
+    "Sudan": {
+      "exports": 0.1,
+      "imports": 0.0
+    },
+    "Sweden": {
+      "exports": 1331.8,
+      "imports": 663.8
+    },
+    "Taiwan": {
+      "exports": 14231.9,
+      "imports": 63456.0
+    },
+    "Thailand": {
+      "exports": 2350.4,
+      "imports": 20538.3
+    },
+    "Turkey": {
+      "exports": 1894.9,
+      "imports": 1041.6
+    },
+    "Ukraine": {
+      "exports": 276.0,
+      "imports": 69.5
+    },
+    "United Kingdom": {
+      "exports": 5664.3,
+      "imports": 4043.8
+    },
+    "Vietnam": {
+      "exports": 2537.3,
+      "imports": 56327.0
+    }
+  },
+  "cultures": {
+    "afghan": "Afghanistan",
+    "armenian": "Armenia",
+    "australian": "Australia",
+    "basque": "Spain",
+    "belarusian": "Belarus",
+    "bengali": "India",
+    "bosnian": "Bosnia and Herzegovina",
+    "brazilian": "Brazil",
+    "burmese": "Burma",
+    "cambodian": "Cambodia",
+    "chaldean": "Iraq",
+    "chilean": "Chile",
+    "chinese": "China",
+    "colombian": "Colombia",
+    "croatian": "Croatia",
+    "czech": "Czech Republic",
+    "egyptian": "Egypt",
+    "ethiopian": "Ethiopia",
+    "fijian": "Fiji",
+    "filipino": "Philippines",
+    "finnish": "Finland",
+    "french": "France",
+    "german": "Germany",
+    "greek": "Greece",
+    "indian": "India",
+    "indonesian": "Indonesia",
+    "irish": "Ireland",
+    "italian": "Italy",
+    "japanese": "Japan",
+    "korean": "Korea, South",
+    "lao": "Laos",
+    "lebanese": "Lebanon",
+    "malayali": "India",
+    "marathi": "India",
+    "mexican": "Mexico",
+    "moldovan": "Moldova",
+    "mongolian": "Mongolia",
+    "moroccan": "Morocco",
+    "nepali": "Nepal",
+    "nicaraguan": "Nicaragua",
+    "nigerian": "Nigeria",
+    "pakistani": "Pakistan",
+    "persian": "Iran",
+    "peruvian": "Peru",
+    "polish": "Poland",
+    "portuguese": "Portugal",
+    "punjabi": "India",
+    "romanian": "Romania",
+    "salvadoran": "El Salvador",
+    "scottish": "United Kingdom",
+    "serbian": "Serbia",
+    "sikh": "India",
+    "spanish": "Spain",
+    "sudanese": "Sudan",
+    "swedish": "Sweden",
+    "taiwanese": "Taiwan",
+    "tamil": "India",
+    "thai": "Thailand",
+    "turkish": "Turkey",
+    "ukrainian": "Ukraine",
+    "vietnamese": "Vietnam"
+  }
+}
