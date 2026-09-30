@@ -37,7 +37,24 @@
       "lat": 37.98,
       "lng": 23.73
     },
-    "flyer": "/flyers/greek-2026b.jpg"
+    "flyer": "/flyers/greek-2026b.jpg",
+    "restaurants": [
+      {
+        "name": "Mati Modern Greek",
+        "city": "Roseville",
+        "placeId": "ChIJA8pvniofm4ARjl4rN_8G838"
+      },
+      {
+        "name": "Yianni's Bar & Grill",
+        "city": "Carmichael",
+        "placeId": "ChIJNVedSTzcmoARdsdH2YT4g18"
+      },
+      {
+        "name": "Mykonos Gyros",
+        "city": "Sacramento",
+        "placeId": "ChIJM4Q7UgPbmoARR_gjBfq34xA"
+      }
+    ]
   },
   {
     "id": "german",
@@ -87,6 +104,23 @@
         "sortRank": 1,
         "sortDate": "2027-09-26"
       }
+    ],
+    "restaurants": [
+      {
+        "name": "Der Biergarten",
+        "city": "Sacramento",
+        "placeId": "ChIJuYBsycPQmoARooTVpC3_Ih4"
+      },
+      {
+        "name": "Kathrin's Biergarten",
+        "city": "Rocklin",
+        "placeId": "ChIJu4HldBsfm4ARzgPRWtavDm4"
+      },
+      {
+        "name": "Prost Beer Hall",
+        "city": "Elk Grove",
+        "placeId": "ChIJEaAvd77HmoAR7oxd-K23mdA"
+      }
     ]
   },
   {
@@ -107,7 +141,24 @@
       "lat": -18.14,
       "lng": 178.44
     },
-    "flyer": "/flyers/fijian-2026.jpg"
+    "flyer": "/flyers/fijian-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Pasifika Foods",
+        "city": "Sacramento",
+        "placeId": "ChIJv2LPBjTXmoARr4oiEel6bsw"
+      },
+      {
+        "name": "Sonny D's Pizza & Fiji Bakery",
+        "city": "Sacramento",
+        "placeId": "ChIJJcJS3UjPmoARol_u_HjJuMQ"
+      },
+      {
+        "name": "Tandoori Grill",
+        "city": "Sacramento",
+        "placeId": "ChIJ7dbDfnrFmoARHAhuhTKbC8U"
+      }
+    ]
   },
   {
     "id": "native",
@@ -164,7 +215,14 @@
       "lat": 19.45,
       "lng": 103.18
     },
-    "flyer": "/flyers/hmong.jpg"
+    "flyer": "/flyers/hmong.jpg",
+    "restaurants": [
+      {
+        "name": "Cocomilk Cafe",
+        "city": "Sacramento",
+        "placeId": "ChIJ5WSewrHFmoARtO1NdWLRYEA"
+      }
+    ]
   },
   {
     "id": "korean",
@@ -184,7 +242,24 @@
       "lat": 37.57,
       "lng": 126.98
     },
-    "flyer": "/flyers/korean-2026.jpg"
+    "flyer": "/flyers/korean-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Oz Korean BBQ",
+        "city": "Sacramento",
+        "placeId": "ChIJ1xxhHbfcmoARcGTkEu0WyCM"
+      },
+      {
+        "name": "Doma Korean Restaurant",
+        "city": "Sacramento",
+        "placeId": "ChIJxXcBeGjdmoARee_eAaVacw8"
+      },
+      {
+        "name": "Hankki Korean Restaurant",
+        "city": "Sacramento",
+        "placeId": "ChIJ2e9eKwDbmoARvLtgyohWwkQ"
+      }
+    ]
   },
   {
     "id": "portuguese",
@@ -240,6 +315,18 @@
         "sortRank": 0,
         "sortDate": "2026-09-27"
       }
+    ],
+    "restaurants": [
+      {
+        "name": "Bilao Filipino Kitchen",
+        "city": "Sacramento",
+        "placeId": "ChIJWyvZtMLPmoARWM6enSF6LK8"
+      },
+      {
+        "name": "South Villa Restaurant",
+        "city": "Sacramento",
+        "placeId": "ChIJJT4IkHzFmoARI-Qs2YnWQ6k"
+      }
     ]
   },
   {
@@ -260,7 +347,24 @@
       "lat": 35.68,
       "lng": 139.65
     },
-    "flyer": "/flyers/japanese.png"
+    "flyer": "/flyers/japanese.png",
+    "restaurants": [
+      {
+        "name": "Kru",
+        "city": "Sacramento",
+        "placeId": "ChIJeUdtocHQmoARYu_i60Vn6qM"
+      },
+      {
+        "name": "Mikuni",
+        "city": "Sacramento",
+        "placeId": "ChIJLyEzANrQmoAReKPOf69Slwc"
+      },
+      {
+        "name": "Ryujin Ramen House",
+        "city": "Sacramento",
+        "placeId": "ChIJVyUXteDQmoARASKzoRmPDkc"
+      }
+    ]
   },
   {
     "id": "indian",
@@ -280,7 +384,24 @@
       "lat": 28.61,
       "lng": 77.21
     },
-    "flyer": "/flyers/indian.png"
+    "flyer": "/flyers/indian.png",
+    "restaurants": [
+      {
+        "name": "Ziyafath's Hyderabadi",
+        "city": "Sacramento",
+        "placeId": "ChIJz952bWbXmoARJC6lOnexKfo"
+      },
+      {
+        "name": "Love's Yummy Cuisine",
+        "city": "Citrus Heights",
+        "placeId": "ChIJSf3X_A3fmoARhshjzlnIlq4"
+      },
+      {
+        "name": "Taj Grill",
+        "city": "Folsom",
+        "placeId": "ChIJN833QtbhmoARjpht0SEV9E8"
+      }
+    ]
   },
   {
     "id": "ukrainian",
@@ -300,7 +421,14 @@
       "lat": 50.45,
       "lng": 30.52
     },
-    "flyer": "/flyers/ukrainian.jpg"
+    "flyer": "/flyers/ukrainian.jpg",
+    "restaurants": [
+      {
+        "name": "Elena's Kitchen",
+        "city": "North Highlands",
+        "placeId": "ChIJd6k66fXemoARjOX4yKSLaHs"
+      }
+    ]
   },
   {
     "id": "polish",
@@ -340,7 +468,24 @@
       "lat": 21.31,
       "lng": -157.86
     },
-    "flyer": "/flyers/hawaiian.jpg"
+    "flyer": "/flyers/hawaiian.jpg",
+    "restaurants": [
+      {
+        "name": "Pasifika Foods",
+        "city": "Sacramento",
+        "placeId": "ChIJv2LPBjTXmoARr4oiEel6bsw"
+      },
+      {
+        "name": "Poke Noke",
+        "city": "Sacramento",
+        "placeId": "ChIJQ4vszlnamoARMuhKRDuZGNA"
+      },
+      {
+        "name": "Tasty Hawaiian BBQ",
+        "city": "Sacramento",
+        "placeId": "ChIJq8Me-1vXmoARsIa4hnSrIFY"
+      }
+    ]
   },
   {
     "id": "peruvian",
@@ -360,7 +505,24 @@
       "lat": -12.05,
       "lng": -77.04
     },
-    "flyer": "/flyers/peruvian.jpg"
+    "flyer": "/flyers/peruvian.jpg",
+    "restaurants": [
+      {
+        "name": "Chicha Peruvian Kitchen",
+        "city": "Sacramento",
+        "placeId": "ChIJWberic3RmoARDkcvBWOVZjo"
+      },
+      {
+        "name": "La Huaca",
+        "city": "Roseville",
+        "placeId": "ChIJpd6Y1SjgmoAR7j7tblz7YeA"
+      },
+      {
+        "name": "Paititi Peruvian Bistro",
+        "city": "Sacramento",
+        "placeId": "ChIJicrciZrRmoARmzOCdXuxIYA"
+      }
+    ]
   },
   {
     "id": "iu-mien",
@@ -400,7 +562,24 @@
       "lat": 39.9,
       "lng": 116.41
     },
-    "flyer": "/flyers/chinese.png"
+    "flyer": "/flyers/chinese.png",
+    "restaurants": [
+      {
+        "name": "Frank Fat's",
+        "city": "Sacramento",
+        "placeId": "ChIJxb2CSynRmoARmhwsEie2GnI"
+      },
+      {
+        "name": "Journey to the Dumpling",
+        "city": "Sacramento",
+        "placeId": "ChIJ36hMwoHRmoAR00yATsJOT4w"
+      },
+      {
+        "name": "Yang Kee Dumpling",
+        "city": "Davis",
+        "placeId": "ChIJaY0DEhcphYARjTEXK2B8jqE"
+      }
+    ]
   },
   {
     "id": "nigerian",
@@ -420,7 +599,14 @@
       "lat": 6.52,
       "lng": 3.38
     },
-    "flyer": "/flyers/nigerian.jpg"
+    "flyer": "/flyers/nigerian.jpg",
+    "restaurants": [
+      {
+        "name": "Naija Cuisine",
+        "city": "Sacramento",
+        "placeId": "ChIJq0ZUBADRmoARgtXQZ0KgLE8"
+      }
+    ]
   },
   {
     "id": "mexican",
@@ -440,7 +626,24 @@
       "lat": 19.43,
       "lng": -99.13
     },
-    "flyer": "/flyers/mexican.jpg"
+    "flyer": "/flyers/mexican.jpg",
+    "restaurants": [
+      {
+        "name": "El Tapatio",
+        "city": "Citrus Heights",
+        "placeId": "ChIJzf6nERjemoAR5bMjk6Icoco"
+      },
+      {
+        "name": "Tres Hermanas",
+        "city": "Sacramento",
+        "placeId": "ChIJ_8PWLsLQmoAR8IDKgRP6hm4"
+      },
+      {
+        "name": "El Novillero",
+        "city": "Sacramento",
+        "placeId": "ChIJM8MK0EbQmoARlLVNm-EHfWE"
+      }
+    ]
   },
   {
     "id": "brazilian",
@@ -463,7 +666,24 @@
       "lat": -22.91,
       "lng": -43.17
     },
-    "flyer": "/flyers/brazilian.jpg"
+    "flyer": "/flyers/brazilian.jpg",
+    "restaurants": [
+      {
+        "name": "Tropeiro's Grill",
+        "city": "Sacramento",
+        "placeId": "ChIJO0ZCbWnRmoARWO6lIiZt5cw"
+      },
+      {
+        "name": "Galpão Gaucho",
+        "city": "Roseville",
+        "placeId": "ChIJPReTsIMfm4ARp1_i61fIVzI"
+      },
+      {
+        "name": "Fogão Gaúcho",
+        "city": "Elk Grove",
+        "placeId": "ChIJU7I8FmvHmoARhXJDM3wGb3k"
+      }
+    ]
   },
   {
     "id": "colombian",
@@ -483,7 +703,14 @@
       "lat": 4.71,
       "lng": -74.07
     },
-    "flyer": "/flyers/colombian.jpg"
+    "flyer": "/flyers/colombian.jpg",
+    "restaurants": [
+      {
+        "name": "Divina Colombian Café",
+        "city": "Sacramento",
+        "placeId": "ChIJewdGLpXPmoARP5DYfreTjTw"
+      }
+    ]
   },
   {
     "id": "salvadoran",
@@ -503,7 +730,19 @@
       "lat": 13.69,
       "lng": -89.19
     },
-    "flyer": "/flyers/salvadoran-2024.jpg"
+    "flyer": "/flyers/salvadoran-2024.jpg",
+    "restaurants": [
+      {
+        "name": "Pupuseria La Familiar",
+        "city": "Sacramento",
+        "placeId": "ChIJ4y5O0XHFmoARkgVo3fg2E1s"
+      },
+      {
+        "name": "Pupusería El Chivazo",
+        "city": "Sacramento",
+        "placeId": "ChIJH6YWbQDXmoARTAla4P522G4"
+      }
+    ]
   },
   {
     "id": "armenian",
@@ -523,7 +762,14 @@
       "lat": 40.18,
       "lng": 44.51
     },
-    "flyer": "/flyers/armenian.jpg"
+    "flyer": "/flyers/armenian.jpg",
+    "restaurants": [
+      {
+        "name": "Yerevan Bar and Restaurant",
+        "city": "Carmichael",
+        "placeId": "ChIJfQZNLOrfmoAR8omLiRv264A"
+      }
+    ]
   },
   {
     "id": "punjabi",
@@ -543,7 +789,19 @@
       "lat": 30.73,
       "lng": 76.78
     },
-    "flyer": "/flyers/punjabi.png"
+    "flyer": "/flyers/punjabi.png",
+    "restaurants": [
+      {
+        "name": "Sanja Punjab Foods",
+        "city": "Antelope",
+        "placeId": "ChIJidEwa-onm4AR2tU7ND2umbw"
+      },
+      {
+        "name": "Balle Balle Punjabi Dhaba",
+        "city": "Lodi",
+        "placeId": "ChIJq3MDJ5-nmoARxy2Ld__pOqk"
+      }
+    ]
   },
   {
     "id": "egyptian",
@@ -583,7 +841,24 @@
       "lat": 41.9,
       "lng": 12.5
     },
-    "flyer": "/flyers/italian.jpg"
+    "flyer": "/flyers/italian.jpg",
+    "restaurants": [
+      {
+        "name": "Cacio",
+        "city": "Sacramento",
+        "placeId": "ChIJDzWM5rrPmoARJkn7s6O8ufg"
+      },
+      {
+        "name": "Sampino's Towne Foods",
+        "city": "Sacramento",
+        "placeId": "ChIJRVA9ddHQmoARfNgPA_wSrrU"
+      },
+      {
+        "name": "Via Roma Pizzeria con Cucina",
+        "city": "Rocklin",
+        "placeId": "ChIJfdBINBYim4ARXUhW4S1Zrd4"
+      }
+    ]
   },
   {
     "id": "serbian",
@@ -643,7 +918,24 @@
       "lat": 53.35,
       "lng": -6.26
     },
-    "flyer": "/flyers/irish.jpg"
+    "flyer": "/flyers/irish.jpg",
+    "restaurants": [
+      {
+        "name": "Father Paddy's Pub",
+        "city": "Woodland",
+        "placeId": "ChIJ6Q3Xo-XQhIARS5UqrBQ1hGk"
+      },
+      {
+        "name": "Pitch and Fiddle",
+        "city": "Sacramento",
+        "placeId": "ChIJo2q0ohXbmoARfuI0uaVnHC8"
+      },
+      {
+        "name": "The Boxing Donkey",
+        "city": "Roseville",
+        "placeId": "ChIJRcFkFzggm4ARTJCFs0930UI"
+      }
+    ]
   },
   {
     "id": "sikh",
@@ -703,7 +995,24 @@
       "lat": 33.68,
       "lng": 73.05
     },
-    "flyer": "/flyers/pakistani.jpg"
+    "flyer": "/flyers/pakistani.jpg",
+    "restaurants": [
+      {
+        "name": "Dumpokht",
+        "city": "Woodland",
+        "placeId": "ChIJxwry1WfRhIARUgqV440yjKk"
+      },
+      {
+        "name": "Curry Kabab Paradise",
+        "city": "West Sacramento",
+        "placeId": "ChIJrc69ZznUmoARqQbtmtYUHzg"
+      },
+      {
+        "name": "Kabob Chutney Grill",
+        "city": "Sacramento",
+        "placeId": "ChIJQ8YSbrfZmoAR-HhnVhxPi9M"
+      }
+    ]
   },
   {
     "id": "australian",
@@ -723,7 +1032,14 @@
       "lat": -35.28,
       "lng": 149.13
     },
-    "flyer": "/flyers/australian.jpg"
+    "flyer": "/flyers/australian.jpg",
+    "restaurants": [
+      {
+        "name": "Camp Cove",
+        "city": "Sacramento",
+        "placeId": "ChIJV3w5ldnRmoARJqwmlKnL1Ng"
+      }
+    ]
   },
   {
     "id": "spanish",
@@ -750,7 +1066,24 @@
       "lng": -3.7
     },
     "flyer": "/flyers/spanish.jpg",
-    "video": "/videos/spanish.mp4"
+    "video": "/videos/spanish.mp4",
+    "restaurants": [
+      {
+        "name": "Tapa the World",
+        "city": "Sacramento",
+        "placeId": "ChIJ0yfYkcTQmoARIA4LNBhmC84"
+      },
+      {
+        "name": "Aioli Bodega Española",
+        "city": "Sacramento",
+        "placeId": "ChIJ7V-ootvQmoARpyecgtbBeTk"
+      },
+      {
+        "name": "Telefèric Barcelona",
+        "city": "Roseville",
+        "placeId": "ChIJuS7bGwAhm4ARZbrQ6tVpqcg"
+      }
+    ]
   },
   {
     "id": "lebanese",
@@ -770,7 +1103,14 @@
       "lat": 33.89,
       "lng": 35.5
     },
-    "flyer": "/flyers/lebanese-2026.jpg"
+    "flyer": "/flyers/lebanese-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Wally's Cafe",
+        "city": "Rocklin",
+        "placeId": "ChIJYxw4vBcim4ARyS9KfC9mgDY"
+      }
+    ]
   },
   {
     "id": "thai",
@@ -790,7 +1130,24 @@
       "lat": 13.75,
       "lng": 100.5
     },
-    "flyer": "/flyers/thai-2026.jpg"
+    "flyer": "/flyers/thai-2026.jpg",
+    "restaurants": [
+      {
+        "name": "House of Thai Rice & Noodle",
+        "city": "North Highlands",
+        "placeId": "ChIJs20G7uvYmoARtyp5oMNAP0k"
+      },
+      {
+        "name": "Tong Thai Bistro",
+        "city": "Folsom",
+        "placeId": "ChIJgQxqzHzlmoARvZ53GA_Zum8"
+      },
+      {
+        "name": "Thai Time",
+        "city": "Sacramento",
+        "placeId": "ChIJgdNbWsnRmoARr7PdF7YHJQQ"
+      }
+    ]
   },
   {
     "id": "bengali",
@@ -810,7 +1167,14 @@
       "lat": 22.57,
       "lng": 88.36
     },
-    "flyer": "/flyers/bengali-2026.jpg"
+    "flyer": "/flyers/bengali-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Bangla Bazar & Restaurant",
+        "city": "Fair Oaks",
+        "placeId": "ChIJRTrVzOLhmoARGgXYUWzwztQ"
+      }
+    ]
   },
   {
     "id": "tamil",
@@ -830,7 +1194,14 @@
       "lat": 13.08,
       "lng": 80.27
     },
-    "flyer": "/flyers/tamil-2026.jpg"
+    "flyer": "/flyers/tamil-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Porottas South Indian Cuisine",
+        "city": "Roseville",
+        "placeId": "ChIJB2CNzgohm4ARJrTK0vQbBeQ"
+      }
+    ]
   },
   {
     "id": "marathi",
@@ -890,7 +1261,19 @@
       "lat": 55.75,
       "lng": 37.62
     },
-    "flyer": "/flyers/slavic-2025.jpg"
+    "flyer": "/flyers/slavic-2025.jpg",
+    "restaurants": [
+      {
+        "name": "Elena's Kitchen",
+        "city": "North Highlands",
+        "placeId": "ChIJd6k66fXemoARjOX4yKSLaHs"
+      },
+      {
+        "name": "Teremok",
+        "city": "Sacramento",
+        "placeId": "ChIJ-2gpMtjemoARBI1W67qFuXw"
+      }
+    ]
   },
   {
     "id": "caribbean",
@@ -910,7 +1293,24 @@
       "lat": 18,
       "lng": -76.8
     },
-    "flyer": "/flyers/caribbean-2026.jpg"
+    "flyer": "/flyers/caribbean-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Rockyaad Jamaican Restaurant",
+        "city": "Carmichael",
+        "placeId": "ChIJ-QqKdETfmoARvDeQDJ_VIPA"
+      },
+      {
+        "name": "The Trini Table",
+        "city": "Sacramento",
+        "placeId": "ChIJYRocZnnbmoARN7UWAHVw0Oo"
+      },
+      {
+        "name": "Calabash Caribbean",
+        "city": "Sacramento",
+        "placeId": "ChIJR1HLWrnXmoARUbsNW-HawkU"
+      }
+    ]
   },
   {
     "id": "french",
@@ -930,7 +1330,24 @@
       "lat": 48.86,
       "lng": 2.35
     },
-    "flyer": "/flyers/french-2024.jpg"
+    "flyer": "/flyers/french-2024.jpg",
+    "restaurants": [
+      {
+        "name": "Plan B",
+        "city": "Sacramento",
+        "placeId": "ChIJnzXQCAzbmoARJ0Zxn9LpBYk"
+      },
+      {
+        "name": "Le Castel",
+        "city": "Roseville",
+        "placeId": "ChIJ4dnH4egfm4ARUpUFkCGpI1o"
+      },
+      {
+        "name": "Franquette",
+        "city": "West Sacramento",
+        "placeId": "ChIJ5y-w6zvRmoARnM51MEUKq-0"
+      }
+    ]
   },
   {
     "id": "indonesian",
@@ -950,7 +1367,14 @@
       "lat": -6.21,
       "lng": 106.85
     },
-    "flyer": "/flyers/indonesian-2026.jpg"
+    "flyer": "/flyers/indonesian-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Bali Kitchen",
+        "city": "Sacramento",
+        "placeId": "ChIJe9r5wszWmoARXeMfnTkb_50"
+      }
+    ]
   },
   {
     "id": "ethiopian",
@@ -970,7 +1394,24 @@
       "lat": 9.03,
       "lng": 38.74
     },
-    "flyer": "/flyers/ethiopian-2026.jpg"
+    "flyer": "/flyers/ethiopian-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Gursha Ethiopian Cuisine",
+        "city": "Roseville",
+        "placeId": "ChIJK5KbFknfmoARSMPoPrU6l_w"
+      },
+      {
+        "name": "Kind Bean Café",
+        "city": "Sacramento",
+        "placeId": "ChIJyfcOSiXdmoARVeXtl579wJk"
+      },
+      {
+        "name": "Abyssinia",
+        "city": "Sacramento",
+        "placeId": "ChIJ1W0PUkvamoAR-Y8WVHC_Uf4"
+      }
+    ]
   },
   {
     "id": "sudanese",
@@ -1030,7 +1471,24 @@
       "lat": 35.69,
       "lng": 51.39
     },
-    "flyer": "/flyers/persian-2025.jpg"
+    "flyer": "/flyers/persian-2025.jpg",
+    "restaurants": [
+      {
+        "name": "Shahrzad Fine Persian Cuisine",
+        "city": "Rancho Cordova",
+        "placeId": "ChIJE9pr9WDdmoARpBBOfWgnUkU"
+      },
+      {
+        "name": "Persian Kabab & Grill",
+        "city": "Citrus Heights",
+        "placeId": "ChIJuRAMuzfemoARWPbs5757CGo"
+      },
+      {
+        "name": "Maydoon",
+        "city": "Sacramento",
+        "placeId": "ChIJJ-4_rb3RmoAR6udSok0JDKk"
+      }
+    ]
   },
   {
     "id": "cambodian",
@@ -1050,7 +1508,14 @@
       "lat": 11.56,
       "lng": 104.93
     },
-    "flyer": "/flyers/cambodian-2026.jpg"
+    "flyer": "/flyers/cambodian-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Taste of Angkor",
+        "city": "Sacramento",
+        "placeId": "ChIJD0w7JGPPmoARBhvCjR5Cgok"
+      }
+    ]
   },
   {
     "id": "afghan",
@@ -1070,7 +1535,24 @@
       "lat": 34.53,
       "lng": 69.17
     },
-    "flyer": "/flyers/afghan-2026.jpg"
+    "flyer": "/flyers/afghan-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Aria Afghan Restaurant",
+        "city": "North Highlands",
+        "placeId": "ChIJR5xht-7YmoARNlqnccya0BQ"
+      },
+      {
+        "name": "Lapis Grill",
+        "city": "Carmichael",
+        "placeId": "ChIJQ0zk18jdmoARRGPfum6_gAY"
+      },
+      {
+        "name": "House of Shah",
+        "city": "Woodland",
+        "placeId": "ChIJRZB9SeTQhIARKRj--AI089M"
+      }
+    ]
   },
   {
     "id": "nicaraguan",
@@ -1106,6 +1588,13 @@
         "sortRank": 1,
         "sortDate": "2027-09-25"
       }
+    ],
+    "restaurants": [
+      {
+        "name": "El Patio Nica d' Lira",
+        "city": "Sacramento",
+        "placeId": "ChIJyzEiVYfRmoARV6zltelONZA"
+      }
     ]
   },
   {
@@ -1126,7 +1615,14 @@
       "lat": 47.01,
       "lng": 28.86
     },
-    "flyer": "/flyers/moldovan-2026.jpg"
+    "flyer": "/flyers/moldovan-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Noroc",
+        "city": "Carmichael",
+        "placeId": "ChIJZcvN3mXfmoARsxvKYu6XB-s"
+      }
+    ]
   },
   {
     "id": "bosnian",
@@ -1166,7 +1662,14 @@
       "lat": 33.31,
       "lng": 44.37
     },
-    "flyer": "/flyers/chaldean-2026.jpg"
+    "flyer": "/flyers/chaldean-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Sumer Nights",
+        "city": "Sacramento",
+        "placeId": "ChIJbWNYKM_bmoAR5vAWKnaVYQA"
+      }
+    ]
   },
   {
     "id": "lao",
@@ -1186,7 +1689,24 @@
       "lat": 17.97,
       "lng": 102.63
     },
-    "flyer": "/flyers/lao-2026.jpg"
+    "flyer": "/flyers/lao-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Manna Thai & Lao",
+        "city": "North Highlands",
+        "placeId": "ChIJL4FI8eHYmoAR_OC0_v_VdKc"
+      },
+      {
+        "name": "Cocomilk Cafe",
+        "city": "Sacramento",
+        "placeId": "ChIJ5WSewrHFmoARtO1NdWLRYEA"
+      },
+      {
+        "name": "The Spot Lao Restaurant & Bar",
+        "city": "Sacramento",
+        "placeId": "ChIJvSgUuVDFmoAReLB4JXItzNE"
+      }
+    ]
   },
   {
     "id": "turkish",
@@ -1207,7 +1727,19 @@
       "lng": 32.86
     },
     "region": "bay",
-    "flyer": "/flyers/turkish-2026.jpg"
+    "flyer": "/flyers/turkish-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Bosphorus Turkish Cuisine",
+        "city": "Rocklin",
+        "placeId": "ChIJaSBntjwhm4AR6H8qtMTvoQY"
+      },
+      {
+        "name": "Anatolian Table",
+        "city": "Rocklin",
+        "placeId": "ChIJH1rkSCcim4ARroJobAs23Tc"
+      }
+    ]
   },
   {
     "id": "swedish",
@@ -1270,7 +1802,14 @@
       "lng": 14.44
     },
     "region": "bay",
-    "flyer": "/flyers/czech-slovak-2026.jpg"
+    "flyer": "/flyers/czech-slovak-2026.jpg",
+    "restaurants": [
+      {
+        "name": "La Trattoria Bohemia",
+        "city": "Sacramento",
+        "placeId": "ChIJH4TzoZDQmoARf_RHICLvT0g"
+      }
+    ]
   },
   {
     "id": "kurdish",
@@ -1312,7 +1851,24 @@
       "lng": 85.32
     },
     "region": "bay",
-    "flyer": "/flyers/nepali-2026.jpg"
+    "flyer": "/flyers/nepali-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Himalaya MoMo",
+        "city": "Sacramento",
+        "placeId": "ChIJu1vj-cQpm4ARW1QZDWJG5wk"
+      },
+      {
+        "name": "Namaste Sacramandu",
+        "city": "Sacramento",
+        "placeId": "ChIJdT6ClDHbmoARmAh_n7TsvOw"
+      },
+      {
+        "name": "Everest Curry",
+        "city": "Sacramento",
+        "placeId": "ChIJIfYnQT7RmoAR29f53shu1lg"
+      }
+    ]
   },
   {
     "id": "taiwanese",
@@ -1333,7 +1889,14 @@
       "lng": 121.57
     },
     "region": "bay",
-    "flyer": "/flyers/taiwanese-2026.jpg"
+    "flyer": "/flyers/taiwanese-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Taiwan Best Mart",
+        "city": "Sacramento",
+        "placeId": "ChIJ2-h0rSPRmoARPCwUgqPzRcg"
+      }
+    ]
   },
   {
     "id": "burmese",
@@ -1354,7 +1917,24 @@
       "lng": 96.08
     },
     "region": "bay",
-    "flyer": "/flyers/burmese-2026.jpg"
+    "flyer": "/flyers/burmese-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Burma Light",
+        "city": "Folsom",
+        "placeId": "ChIJ-RzTqfLlmoARmOkE0gFj52s"
+      },
+      {
+        "name": "Chef Burma",
+        "city": "Sacramento",
+        "placeId": "ChIJwe3uKdjRmoARIVNiRUzrgaU"
+      },
+      {
+        "name": "Green Elephant",
+        "city": "Loomis",
+        "placeId": "ChIJ151QUrUem4ARa6M2V07p4Ds"
+      }
+    ]
   },
   {
     "id": "belarusian",
@@ -1496,6 +2076,13 @@
       "lng": -5
     },
     "region": "bay",
-    "flyer": "/flyers/moroccan-2026.jpg"
+    "flyer": "/flyers/moroccan-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Casablanca Moroccan Restaurant",
+        "city": "Sacramento",
+        "placeId": "ChIJuUF2JQzbmoARB0w0AN25nnY"
+      }
+    ]
   }
 ]

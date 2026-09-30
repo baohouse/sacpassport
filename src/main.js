@@ -31,11 +31,15 @@ const globeEl = document.querySelector('#globe');
 const fallbackEl = document.querySelector('#globe-fallback');
 const cardsEl = document.querySelector('#cards');
 const sortsEl = document.querySelector('.sorts');
-const sortButtons = [...document.querySelectorAll('.sorts button[data-sort]')];
+const viewSelect = document.querySelector('.view-select');
+const sortSelect = document.querySelector('.sort-select');
 const culturesMenuBtn = document.querySelector('.cultures-menu-btn');
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const RESTAURANTS_HASH = '#restaurants';
+
+let viewMode = location.hash === RESTAURANTS_HASH ? 'restaurants' : 'events';
 let sortMode = 'upcoming';
 let currentId = null;
 let currentCardId = null;
@@ -53,7 +57,15 @@ function byUpcoming(a, b) {
   return (a.sortDate || '9999').localeCompare(b.sortDate || '9999');
 }
 
+function hasRestaurants(item) {
+  return Array.isArray(item.restaurants) && item.restaurants.length > 0;
+}
+
 function ordered() {
+  if (viewMode === 'restaurants') {
+    const list = cultures.filter(hasRestaurants);
+    return sortMode === 'name' ? list.sort((a, b) => a.culture.localeCompare(b.culture)) : list.sort(byUpcoming);
+  }
   if (moreCultureId) {
     const primary = cultures.find((item) => item.id === moreCultureId);
     return [primary, ...(alternatesById.get(moreCultureId) || [])].filter(Boolean).sort(byUpcoming);
@@ -605,6 +617,14 @@ function showAllCultures() {
 
 window.addEventListener('popstate', () => {
   const id = cultureIdFromHash();
+  const hashView = location.hash === RESTAURANTS_HASH ? 'restaurants' : 'events';
+  if (hashView !== viewMode) {
+    viewMode = hashView;
+    moreCultureId = id;
+    syncViewControls();
+    render();
+    return;
+  }
   if (id === moreCultureId) return;
   const leaving = moreCultureId;
   if (id) {
@@ -619,11 +639,83 @@ window.addEventListener('popstate', () => {
   }
 });
 
+const PIN_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+
+/** `item` needs place + city (+ placeId / mapPoint) for the maps URL and culture + id for analytics. */
+function mapLinkFor(item, trackExtra = {}) {
+  const mapLink = document.createElement('a');
+  mapLink.className = 'venue-map';
+  mapLink.target = '_blank';
+  mapLink.rel = 'noopener noreferrer';
+  mapLink.innerHTML = PIN_SVG;
+  const venueText = document.createElement('span');
+  venueText.className = 'venue-name';
+  venueText.textContent = item.city ? `${item.place}, ${item.city}` : item.place;
+  mapLink.append(venueText);
+  mapLinkItems.set(mapLink, item);
+  syncMapLink(mapLink);
+  mapLink.addEventListener('click', (event) => {
+    const app = preferredMapsApp();
+    if (!app) {
+      event.preventDefault();
+      openMapsChooser(item, mapLink, true, trackExtra);
+      return;
+    }
+    mapLink.href = MAPS_APPS[app].url(item);
+    trackCard('map_click', item, { maps_app: app, ...trackExtra });
+  });
+  bindLongPress(mapLink, () => openMapsChooser(item, mapLink, false, trackExtra));
+  return mapLink;
+}
+
+function restaurantCard(item) {
+  const card = document.createElement('article');
+  card.className = 'card card--restaurants';
+  card.id = `card-${item.id}`;
+  card.dataset.id = item.id;
+  if (item.id === currentCardId) card.classList.add('is-current');
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+
+  const title = document.createElement('h2');
+  title.textContent = item.culture;
+
+  const list = document.createElement('ol');
+  list.className = 'restaurants';
+  for (const restaurant of item.restaurants.slice(0, 3)) {
+    const row = document.createElement('li');
+    const place = {
+      place: restaurant.name,
+      city: restaurant.city,
+      placeId: restaurant.placeId,
+      culture: item.culture,
+      id: item.id,
+    };
+    row.append(mapLinkFor(place, { kind: 'restaurant', restaurant: restaurant.name }));
+    list.append(row);
+  }
+
+  body.append(title, list);
+  card.append(body);
+  card.addEventListener('click', (eventTarget) => {
+    if (eventTarget.target.closest('a')) return;
+    selectCulture(item.id, false);
+  });
+  return card;
+}
+
 function render() {
   const list = ordered();
   cardsEl.replaceChildren();
   cardsEl.classList.toggle('is-culture-view', Boolean(moreCultureId));
   if (cardsBack) cardsBack.hidden = !moreCultureId;
+
+  if (viewMode === 'restaurants') {
+    for (const item of list) cardsEl.append(restaurantCard(item));
+    return;
+  }
 
   for (const item of list) {
     const card = document.createElement('article');
@@ -697,32 +789,7 @@ function render() {
 
     const venue = document.createElement('p');
     venue.className = 'venue';
-    const venueLabel = item.city ? `${item.place}, ${item.city}` : item.place;
-
-    const mapLink = document.createElement('a');
-    mapLink.className = 'venue-map';
-    mapLink.target = '_blank';
-    mapLink.rel = 'noopener noreferrer';
-    mapLink.innerHTML =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
-    const venueText = document.createElement('span');
-    venueText.className = 'venue-name';
-    venueText.textContent = venueLabel;
-    mapLink.append(venueText);
-    mapLinkItems.set(mapLink, item);
-    syncMapLink(mapLink);
-    mapLink.addEventListener('click', (event) => {
-      const app = preferredMapsApp();
-      if (!app) {
-        event.preventDefault();
-        openMapsChooser(item, mapLink, true);
-        return;
-      }
-      mapLink.href = MAPS_APPS[app].url(item);
-      trackCard('map_click', item, { maps_app: app });
-    });
-    bindLongPress(mapLink, () => openMapsChooser(item, mapLink, false));
-    venue.append(mapLink);
+    venue.append(mapLinkFor(item));
 
     body.append(title, event, date, venue);
 
@@ -1005,19 +1072,56 @@ function mountGlobe() {
   }
 }
 
-for (const button of sortButtons) {
-  button.addEventListener('click', () => {
-    sortMode = button.dataset.sort;
-    for (const peer of sortButtons) {
-      peer.setAttribute('aria-pressed', peer === button ? 'true' : 'false');
-    }
-    if (moreCultureId) {
-      showAllCultures();
-      return;
-    }
-    render();
-  });
+const fieldSizingSupported = CSS.supports?.('field-sizing', 'content');
+let measureCtx = null;
+
+function fitSelect(select) {
+  if (!select || fieldSizingSupported) return;
+  const style = getComputedStyle(select);
+  measureCtx ??= document.createElement('canvas').getContext('2d');
+  measureCtx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+  const text = select.selectedOptions[0]?.textContent ?? '';
+  const chrome =
+    parseFloat(style.paddingLeft) +
+    parseFloat(style.paddingRight) +
+    parseFloat(style.borderLeftWidth) +
+    parseFloat(style.borderRightWidth);
+  select.style.width = `${Math.ceil(measureCtx.measureText(text).width + chrome)}px`;
 }
+
+function fitSelects() {
+  fitSelect(viewSelect);
+  fitSelect(sortSelect);
+}
+
+document.fonts?.ready.then(fitSelects);
+
+sortSelect?.addEventListener('change', () => {
+  fitSelect(sortSelect);
+  sortMode = sortSelect.value;
+  if (moreCultureId) {
+    showAllCultures();
+    return;
+  }
+  render();
+});
+
+function syncViewControls() {
+  if (viewSelect) viewSelect.value = viewMode;
+  fitSelects();
+  fillCulturesList();
+}
+
+viewSelect?.addEventListener('change', () => {
+  viewMode = viewSelect.value;
+  moreCultureId = null;
+  currentCardId = null;
+  const hash = viewMode === 'restaurants' ? RESTAURANTS_HASH : '';
+  history.replaceState(null, '', location.pathname + location.search + hash);
+  window.gtag?.('event', 'view_change', { view: viewMode });
+  syncViewControls();
+  render();
+});
 
 function mountSortsPin() {
   if (!sortsEl) return;
@@ -1071,6 +1175,7 @@ function mountSortsPin() {
 
 let culturesModal = null;
 let culturesModalClose = null;
+let culturesModalList = null;
 let culturesModalReturnFocus = null;
 let culturesModalBodyOverflowBefore = '';
 let culturesModalScrollLocked = false;
@@ -1145,25 +1250,7 @@ function mountCulturesModal() {
   const list = document.createElement('div');
   list.className = 'cultures-modal-list';
   list.setAttribute('role', 'list');
-
-  const byName = [...cultures].sort((a, b) => a.culture.localeCompare(b.culture));
-  for (const item of byName) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'cultures-modal-item';
-    btn.setAttribute('role', 'listitem');
-    btn.textContent = item.culture;
-    btn.title = item.culture;
-    btn.addEventListener('click', () => {
-      closeCulturesModal();
-      if (alternatesById.has(item.id)) {
-        openCultureEvents(item.id);
-      } else {
-        selectCulture(item.id, true);
-      }
-    });
-    list.append(btn);
-  }
+  culturesModalList = list;
 
   panel.append(header, list);
   dialog.append(panel);
@@ -1184,6 +1271,32 @@ function mountCulturesModal() {
   culturesModalClose = closeBtn;
 }
 
+function fillCulturesList() {
+  if (!culturesModalList) return;
+  const restaurants = viewMode === 'restaurants';
+  const byName = cultures
+    .filter((item) => !restaurants || hasRestaurants(item))
+    .sort((a, b) => a.culture.localeCompare(b.culture));
+  culturesModalList.replaceChildren();
+  for (const item of byName) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cultures-modal-item';
+    btn.setAttribute('role', 'listitem');
+    btn.textContent = item.culture;
+    btn.title = item.culture;
+    btn.addEventListener('click', () => {
+      closeCulturesModal();
+      if (!restaurants && alternatesById.has(item.id)) {
+        openCultureEvents(item.id);
+      } else {
+        selectCulture(item.id, true);
+      }
+    });
+    culturesModalList.append(btn);
+  }
+}
+
 culturesMenuBtn?.addEventListener('click', openCulturesModal);
 
 const MAPS_ICONS = {
@@ -1198,6 +1311,7 @@ let mapsChooserVenue = null;
 let mapsChooserHint = null;
 let mapsChooserOptions = [];
 let mapsChooserItem = null;
+let mapsChooserTrackExtra = {};
 let mapsChooserNavigate = false;
 let mapsChooserReturnFocus = null;
 let mapsChooserBodyOverflowBefore = '';
@@ -1221,9 +1335,10 @@ function closeMapsChooser() {
   mapsChooser.close();
 }
 
-function openMapsChooser(item, trigger, navigate) {
+function openMapsChooser(item, trigger, navigate, trackExtra = {}) {
   if (!mapsChooser || mapsChooser.open) return;
   mapsChooserItem = item;
+  mapsChooserTrackExtra = trackExtra;
   mapsChooserNavigate = navigate;
   mapsChooserReturnFocus = trigger;
   mapsChooserVenue.textContent = item.city ? `${item.place}, ${item.city}` : item.place;
@@ -1247,11 +1362,12 @@ function openMapsChooser(item, trigger, navigate) {
 function chooseMapsApp(app) {
   const item = mapsChooserItem;
   const navigate = mapsChooserNavigate;
+  const trackExtra = mapsChooserTrackExtra;
   setMapsApp(app);
   window.gtag?.('event', 'maps_app_choose', { maps_app: app, from: navigate ? 'first_tap' : 'hold' });
   closeMapsChooser();
   if (navigate && item) {
-    trackCard('map_click', item, { maps_app: app });
+    trackCard('map_click', item, { maps_app: app, ...trackExtra });
     window.open(MAPS_APPS[app].url(item), '_blank', 'noopener,noreferrer');
   }
 }
@@ -1324,6 +1440,7 @@ mountFlyerLightbox();
 mountCulturesModal();
 mountMapsChooser();
 mountCardsBack();
+syncViewControls();
 moreCultureId = cultureIdFromHash();
 if (moreCultureId) currentId = moreCultureId;
 render();

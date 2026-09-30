@@ -195,6 +195,44 @@ main {
   border-color: var(--ink);
 }
 
+.pill-select {
+  position: relative;
+  display: inline-flex;
+}
+
+.pill-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.35rem 1.9rem 0.35rem 0.85rem;
+  background: var(--ink);
+  color: var(--filled);
+  font: inherit;
+  line-height: 1.5;
+  cursor: pointer;
+  field-sizing: content;
+}
+
+.pill-select select:focus-visible {
+  outline: 2px solid var(--ocean);
+  outline-offset: 2px;
+}
+
+.pill-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.8rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 1.5px solid var(--filled);
+  border-bottom: 1.5px solid var(--filled);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
 .cultures-menu-btn {
   display: inline-flex;
   align-items: center;
@@ -449,6 +487,23 @@ main {
   .card {
     grid-template-columns: clamp(128px, 17vw, 168px) minmax(0, 1fr);
   }
+}
+
+.card.card--restaurants {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.restaurants {
+  margin: 0.2rem 0 0;
+  padding: 0 0 0 1.35rem;
+}
+
+.restaurants li + li {
+  margin-top: 0.35rem;
+}
+
+.restaurants li::marker {
+  color: var(--ink-soft);
 }
 
 .card.is-current {

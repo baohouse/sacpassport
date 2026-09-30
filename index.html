@@ -61,9 +61,19 @@
     <main class="wrap">
       <h2 class="question">Where would you like to staycation?</h2>
 
-      <div class="sorts" role="group" aria-label="Sort cultures">
-        <button type="button" data-sort="upcoming" aria-pressed="true">Upcoming</button>
-        <button type="button" data-sort="name" aria-pressed="false">A–Z</button>
+      <div class="sorts" role="group" aria-label="View and sort cultures">
+        <span class="pill-select">
+          <select class="view-select" aria-label="Show">
+            <option value="events">Events</option>
+            <option value="restaurants">Restaurants</option>
+          </select>
+        </span>
+        <span class="pill-select">
+          <select class="sort-select" aria-label="Sort">
+            <option value="upcoming">Date</option>
+            <option value="name">A–Z</option>
+          </select>
+        </span>
         <button type="button" class="cultures-menu-btn" aria-label="All cultures" aria-haspopup="dialog">
           <span class="hamburger" aria-hidden="true">
             <span></span><span></span><span></span>
@@ -99,7 +109,8 @@
         </p>
         <p>
           Events are mainly in Greater Sacramento, except for cultures whose main
-          event can only be found in the San Francisco Bay Area.
+          event can only be found in the San Francisco Bay Area. Restaurants are
+          in Greater Sacramento only.
         </p>
       </footer>
     </main>
