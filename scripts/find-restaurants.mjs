@@ -126,6 +126,7 @@ const QUERIES = {
   chilean: ['Chilean restaurant'],
   maya: ['Yucatecan restaurant', 'Guatemalan restaurant'],
   moroccan: ['Moroccan restaurant'],
+  vietnamese: ['Vietnamese restaurant', 'pho', 'bun bo Hue', 'com tam'],
 };
 
 // Google cuisine types that count as this culture's food. Candidates with a match list
@@ -172,6 +173,7 @@ const TYPE_MATCH = {
   moroccan: /moroccan/,
   basque: /basque/,
   swedish: /scandinavian|swedish/,
+  vietnamese: /vietnamese/,
 };
 const EATERY = /restaurant|cafe|bakery|deli|pub|diner|bistro|meal_takeaway|food_court|bar_and_grill/;
 

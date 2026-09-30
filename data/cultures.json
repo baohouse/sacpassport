@@ -2084,5 +2084,42 @@
         "placeId": "ChIJuUF2JQzbmoARB0w0AN25nnY"
       }
     ]
+  },
+  {
+    "id": "vietnamese",
+    "culture": "Vietnamese",
+    "event": "Elk Grove Lunar New Year Tết Festival",
+    "place": "Elk Grove Park",
+    "city": "Elk Grove",
+    "placeId": "ChIJN735t9jFmoARGREBg6xSlLY",
+    "url": "https://eglny.com/",
+    "urlLabel": "eglny.com",
+    "when": "Feb 13–14, 2027",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2027-02-13",
+    "origin": {
+      "lat": 10.78,
+      "lng": 106.7
+    },
+    "flyer": "/flyers/vietnamese-2026.jpg",
+    "restaurants": [
+      {
+        "name": "Saigon Alley Kitchen + Bar",
+        "city": "Sacramento",
+        "placeId": "ChIJLdq251jRmoAROYjabxJqVhU"
+      },
+      {
+        "name": "Hanoi 36 Streets",
+        "city": "Sacramento",
+        "placeId": "ChIJTdVdnQbRmoARn1_mfv1xyGg"
+      },
+      {
+        "name": "Saigon Oi",
+        "city": "Sacramento",
+        "placeId": "ChIJe3cPw5rFmoARy_nl4qmXAuA"
+      }
+    ]
   }
 ]
