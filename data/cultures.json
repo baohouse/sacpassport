@@ -2086,6 +2086,45 @@
     ]
   },
   {
+    "id": "chinese-american",
+    "culture": "Chinese American",
+    "event": "Bok Kai Parade & Festival",
+    "place": "Bok Kai Temple",
+    "city": "Marysville",
+    "placeId": "ChIJHQtazA5Tm4ARoVHwbnAOL7Q",
+    "url": "https://www.bokkaitemple.com/bokkai-weekend",
+    "urlLabel": "bokkaitemple.com",
+    "when": "March 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Mar 21–22, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-03-13",
+    "origin": {
+      "lat": 22.25,
+      "lng": 112.79
+    },
+    "flyer": "/flyers/chinese-american-2026.jpg",
+    "alternates": [
+      {
+        "id": "chinese-american-locke-new-year",
+        "event": "Chinese New Year in Locke",
+        "place": "Main Street",
+        "city": "Locke",
+        "mapPoint": {
+          "lat": 38.25059,
+          "lng": -121.50968
+        },
+        "url": "https://locke-foundation.org/",
+        "urlLabel": "locke-foundation.org",
+        "when": "February 2027",
+        "whenKind": "estimate",
+        "lastHeld": "Feb 14, 2026",
+        "sortRank": 1,
+        "sortDate": "2027-02-13"
+      }
+    ]
+  },
+  {
     "id": "vietnamese",
     "culture": "Vietnamese",
     "event": "Elk Grove Lunar New Year Tết Festival",
