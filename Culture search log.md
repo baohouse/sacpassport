@@ -25,6 +25,16 @@ None.
 
 Bao leaned toward Locke as primary for proximity, then chose Bok Kai as the main card (October 1, 2026): thousands over two days, 146 years running, and about 50 parade entries, against Locke’s “hundreds” over four hours in its 10th year. Locke’s Asian Pacific Spring Festival (May 9, 2026) lists taiko and is a multi-culture bill, so it stays off.
 
+**Black American** (Bao, October 1, 2026). Raised by the Chinese American card: Black Americans, descendants of people enslaved in the United States, are a people of their own, apart from the Nigerian, Ethiopian, Sudanese, and Caribbean cards. Its food is soul food. The host-country “American” row below stays closed; this card is the exception. The name follows how the events bill themselves (“Black” throughout; the Sacramento Bee’s Juneteenth coverage says “Black American history”). No `trade.json` entry. Origin pin: Galveston, Texas, where Juneteenth began, and the Texas–Louisiana corridor that much of Sacramento’s Black community came from in the Great Migration (Bao to confirm).
+
+- Main: 23rd Annual Sacramento Juneteenth Festival, Sacramento Juneteenth Inc., June 19–20, 2026, William Land Park. Friday night “Gospel Under the Stars” (five gospel acts); Saturday a 9 a.m. Soul Parade, then two stages of live music (The L.S.B. Band, Pickles & Chips, Prophesy, and others), Richard Henry’s “Forgive Yes, Forget Never” history exhibit, arts and educational theater, food trucks, and “Over 80+ Food and Ware Vendors.” The poster names food without naming dishes, as on the Locke alternate; the Black Food Festival alternate covers soul food by name. Free; about 5,000 attend. SJI’s calendar lists the 24th festival as “June 20–21, 2027,” a Sunday–Monday, so the card estimates June 2027 with `sortDate` Saturday, June 19 (Juneteenth itself). Flyer: `public/flyers/black-american-2026.jpg`, the 717×1024 2026 poster from [sacramentojuneteenthinc.org](https://sacramentojuneteenthinc.org/) (`SJT-Photo-Template-1`, largest size on the site). Instagram and Facebook were not checked once the site poster turned up.
+- Alternate: 21st Sacramento Seafood and Soul…and Jazz Festival (“Jazz in Pink”), Black Expo Events, Sunday, October 4, 2026, Hagan Community Park, Rancho Cordova. Jazz in Pink and saxophonist Greg Chambers headline, with regional acts all day; a Seafood Court with crawfish, oysters, and fish sandwiches. Ticketed. No organizer site, so the card links [Eventbrite](https://www.eventbrite.com/e/jazz-in-pink-21st-sacramento-seafood-and-souland-jazz-festival-tickets-1997603623211). Confirmed and this month, so it also shows on the main list.
+- Alternate: 7th Annual Black Food Festival, Berry and Ade’jah Accius, Sunday, September 13, 2026, Florin Square. 30-plus booths of Southern, soul food, Afro-Caribbean, and West African food, with live entertainment; free, benefiting Voice of the Youth. It is diaspora-wide (Berry Accius is Haitian American), so it is an alternate rather than the main card. No organizer site; the card links the 2026 [Eventbrite](https://www.eventbrite.com/e/annual-black-food-festival-tickets-1990675875130). The card estimates September 2027.
+
+Left off: the Sacramento Black History Month Expo (38th, February 21, 2026, DoubleTree by Hilton; earlier years had a soul-food court), which changes venue every year and has no current site; and the Oak Park Juneteenth Block Party at 40 Acres (June 20, 2026), the same weekend as the main card.
+
+Restaurants (rating, review count, and price weighed): Fixins Soul Kitchen (Oak Park), Bear West BBQ & Soul Food (Folsom Blvd), Creole Soul Restaurant and Bar (Broadway). Bay & Rue Urban Kitchen on Del Paso Blvd was next.
+
 ## Closed October 1, 2026 — skipped
 
 | People | What turned up |
@@ -174,7 +184,7 @@ These civilizations map to a people already in `data/cultures.json`. Do not sear
 | Persian | persian | Persia, Achaemenid Persia, Qajar |
 | Cambodian | cambodian | Khmer |
 
-SacPassport also already has these peoples from earlier passes. They are closed even though Civilization does not list them as civilizations: Romanian, Fijian, Native American, Jewish, Hmong, Ukrainian, Iu Mien, Nigerian, Salvadoran, Armenian, Punjabi, Serbian, Irish, Sikh, Croatian, Pakistani, Bengali, Marathi, Malayali, Slavic, Caribbean, Chinese American.
+SacPassport also already has these peoples from earlier passes. They are closed even though Civilization does not list them as civilizations: Romanian, Fijian, Native American, Jewish, Hmong, Ukrainian, Iu Mien, Nigerian, Salvadoran, Armenian, Punjabi, Serbian, Irish, Sikh, Croatian, Pakistani, Bengali, Marathi, Malayali, Slavic, Caribbean, Chinese American, Black American.
 
 ## Closed — searched, no qualifying event
 
@@ -182,7 +192,7 @@ September 26, 2026, unless a date is on the row. “No qualifying event” means
 
 | People | Civs | What turned up |
 |--------|------|----------------|
-| American | America | Host country. Left off the culture-card list. |
+| American | America | Host country. Left off the culture-card list. Black American and Chinese American are their own cards (October 1, 2026). |
 | Arab | Arabia, Abbasid | Lebanese and Egyptian already have their own cards. ACCIS held a first Arab American Heritage Festival at Howe Park on April 27, 2025 (food, music, performances). That bill is several Arab countries on one stage. The 2026 ACCIS page describes a heritage-month gathering and does not give a festival date. |
 | Assyrian | Assyria | 12th Annual Assyrian Festival, September 12–13, 2026, Turlock–Modesto. Bao, September 26, 2026: Turlock is too far. |
 | Aztec | Aztec | No Aztec-only festival. Mexican is already a card. Festival del Sol and Raíces MonarCA are multi-Latin bills. |

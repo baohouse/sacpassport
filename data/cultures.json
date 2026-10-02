@@ -2142,6 +2142,73 @@
     ]
   },
   {
+    "id": "black-american",
+    "culture": "Black American",
+    "event": "Sacramento Juneteenth Festival",
+    "place": "William Land Park",
+    "city": "Sacramento",
+    "placeId": "ChIJufNfvaXRmoARQZr9lPs_qus",
+    "url": "https://sacramentojuneteenthinc.org/",
+    "urlLabel": "sacramentojuneteenthinc.org",
+    "when": "June 2027",
+    "whenKind": "estimate",
+    "lastHeld": "Jun 19–20, 2026",
+    "sortRank": 1,
+    "sortDate": "2027-06-19",
+    "origin": {
+      "lat": 29.3,
+      "lng": -94.8
+    },
+    "flyer": "/flyers/black-american-2026.jpg",
+    "alternates": [
+      {
+        "id": "black-american-seafood-soul-jazz",
+        "event": "Sacramento Seafood, Soul & Jazz Festival",
+        "place": "Hagan Community Park",
+        "city": "Rancho Cordova",
+        "placeId": "ChIJ97R8XFXcmoARD2pa0CTqe7s",
+        "url": "https://www.eventbrite.com/e/jazz-in-pink-21st-sacramento-seafood-and-souland-jazz-festival-tickets-1997603623211",
+        "urlLabel": "eventbrite.com",
+        "when": "Oct 4, 2026",
+        "whenKind": "confirmed",
+        "lastHeld": null,
+        "sortRank": 0,
+        "sortDate": "2026-10-04"
+      },
+      {
+        "id": "black-american-food-festival",
+        "event": "Black Food Festival",
+        "place": "Florin Square",
+        "city": "Sacramento",
+        "placeId": "ChIJI3yd3svPmoARRWZfkKNnhOE",
+        "url": "https://www.eventbrite.com/e/annual-black-food-festival-tickets-1990675875130",
+        "urlLabel": "eventbrite.com",
+        "when": "September 2027",
+        "whenKind": "estimate",
+        "lastHeld": "Sep 13, 2026",
+        "sortRank": 1,
+        "sortDate": "2027-09-12"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "Fixins Soul Kitchen",
+        "city": "Sacramento",
+        "placeId": "ChIJkXJMlgzRmoARbXrazo_9zQk"
+      },
+      {
+        "name": "Bear West BBQ & Soul Food",
+        "city": "Sacramento",
+        "placeId": "ChIJgyy8zkLZmoARLLP9r-O4CBk"
+      },
+      {
+        "name": "Creole Soul Restaurant and Bar",
+        "city": "Sacramento",
+        "placeId": "ChIJ3yB6HwDRmoARwk9IsS_kkIg"
+      }
+    ]
+  },
+  {
     "id": "vietnamese",
     "culture": "Vietnamese",
     "event": "Elk Grove Lunar New Year Tết Festival",
