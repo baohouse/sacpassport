@@ -243,6 +243,23 @@
       "lng": 126.98
     },
     "flyer": "/flyers/korean-2026.jpg",
+    "alternates": [
+      {
+        "id": "korean-taste-of-korea",
+        "event": "Taste of Korea",
+        "place": "IYF Sacramento",
+        "city": "Rancho Cordova",
+        "placeId": "ChIJifFFgxDdmoARpjsRKy1XGQw",
+        "url": "https://www.eventbrite.com/e/2026-taste-of-korea-in-sacramento-tickets-1999780443138",
+        "urlLabel": "eventbrite.com",
+        "when": "Nov 7, 2026",
+        "whenKind": "confirmed",
+        "lastHeld": null,
+        "sortRank": 0,
+        "sortDate": "2026-11-07",
+        "flyer": "/flyers/korean-taste-of-korea-2026.jpg"
+      }
+    ],
     "restaurants": [
       {
         "name": "Oz Korean BBQ",
