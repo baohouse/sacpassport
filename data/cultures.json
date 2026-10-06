@@ -891,6 +891,10 @@
     "lastHeld": "Oct 12, 2024",
     "sortRank": 1,
     "sortDate": "2026-10-15",
+    "skipped": {
+      "month": "2026-10",
+      "reason": "The 2026 festival is being skipped due to a hall renovation."
+    },
     "origin": {
       "lat": 44.79,
       "lng": 20.45

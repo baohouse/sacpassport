@@ -736,6 +736,13 @@ main {
   color: var(--ink-soft);
 }
 
+.date.has-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .dates-more {
   margin: 0;
   padding: 0;

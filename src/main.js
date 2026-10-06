@@ -138,6 +138,39 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+/** An "i" button that toggles a small popup; only one popup is open at a time. */
+function infoTip({ id, label, onOpen }) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'trade-info';
+  button.setAttribute('aria-label', label);
+  button.setAttribute('aria-expanded', 'false');
+  button.setAttribute('aria-controls', id);
+  button.textContent = 'i';
+
+  const tip = document.createElement('span');
+  tip.className = 'trade-tip';
+  tip.id = id;
+  tip.setAttribute('role', 'tooltip');
+  tip.hidden = true;
+
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const wasOpen = openTradeTip?.tip === tip;
+    closeTradeTip();
+    if (wasOpen) return;
+    tip.hidden = false;
+    tip.style.removeProperty('--tip-shift');
+    const overflow = tip.getBoundingClientRect().right - (document.documentElement.clientWidth - 8);
+    if (overflow > 0) tip.style.setProperty('--tip-shift', `${-overflow}px`);
+    button.setAttribute('aria-expanded', 'true');
+    openTradeTip = { tip, button };
+    onOpen?.();
+  });
+
+  return { button, tip };
+}
+
 /** Culture name for a card title; in Trade sort it carries an info button with California's trade figure. */
 function cardTitle(item) {
   const title = document.createElement('h2');
@@ -146,20 +179,11 @@ function cardTitle(item) {
   if (!trade) return title;
 
   title.classList.add('has-trade');
-  const tipId = `trade-${item.parentId || item.id}-${item.id}`;
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'trade-info';
-  button.setAttribute('aria-label', `California trade with ${trade.country}`);
-  button.setAttribute('aria-expanded', 'false');
-  button.setAttribute('aria-controls', tipId);
-  button.textContent = 'i';
-
-  const tip = document.createElement('span');
-  tip.className = 'trade-tip';
-  tip.id = tipId;
-  tip.setAttribute('role', 'tooltip');
-  tip.hidden = true;
+  const { button, tip } = infoTip({
+    id: `trade-${item.parentId || item.id}-${item.id}`,
+    label: `California trade with ${trade.country}`,
+    onOpen: () => trackCard('trade_info', item, { country: trade.country }),
+  });
   const heading = document.createElement('strong');
   heading.textContent = `California & ${trade.country}, ${tradeData.year}`;
   const total = document.createElement('span');
@@ -174,20 +198,6 @@ function cardTitle(item) {
     note.textContent = `Shared with other cultures tied to ${trade.country}`;
     tip.append(note);
   }
-
-  button.addEventListener('click', (event) => {
-    event.stopPropagation();
-    const wasOpen = openTradeTip?.tip === tip;
-    closeTradeTip();
-    if (wasOpen) return;
-    tip.hidden = false;
-    tip.style.removeProperty('--tip-shift');
-    const overflow = tip.getBoundingClientRect().right - (document.documentElement.clientWidth - 8);
-    if (overflow > 0) tip.style.setProperty('--tip-shift', `${-overflow}px`);
-    button.setAttribute('aria-expanded', 'true');
-    openTradeTip = { tip, button };
-    trackCard('trade_info', item, { country: trade.country });
-  });
 
   title.append(button, tip);
   return title;
@@ -503,8 +513,22 @@ function soonAlternates(now = new Date()) {
     .filter((alt) => alt.whenKind === 'confirmed' && alt.sortDate && alt.sortDate <= cutoffIso);
 }
 
+/**
+ * A skip only applies while the card's next date is still in the skipped month.
+ * Once that date passes, rollPastDates moves it a year and the skip drops off.
+ */
+function activeSkip(item) {
+  const skip = item.skipped;
+  if (!skip?.month || !item.sortDate?.startsWith(skip.month)) return null;
+  const [year, month] = skip.month.split('-').map(Number);
+  const label = new Date(year, month - 1, 1).toLocaleString('en-US', { month: 'short', year: 'numeric' });
+  return { label: `${label} skipped`, reason: skip.reason };
+}
+
 /** Display date for cards / plates, keyed off whenKind. */
 function formatDateLabel(item) {
+  const skip = activeSkip(item);
+  if (skip) return skip.label;
   switch (item.whenKind) {
     case 'confirmed':
       return item.when || 'Date TBA';
@@ -878,7 +902,17 @@ function render() {
     const date = document.createElement('p');
     date.className = 'date';
     const moreDates = Array.isArray(item.dates) ? item.dates.filter((value) => value && value !== dateLabel) : [];
-    if (moreDates.length === 0) {
+    const skip = activeSkip(item);
+    if (skip) {
+      date.classList.add('has-info');
+      const { button, tip } = infoTip({
+        id: `skip-${item.parentId || item.id}-${item.id}`,
+        label: `Why ${item.event} is skipped`,
+        onOpen: () => trackCard('skip_info', item),
+      });
+      tip.textContent = skip.reason;
+      date.append(document.createTextNode(dateLabel), button, tip);
+    } else if (moreDates.length === 0) {
       date.textContent = dateLabel;
     } else {
       date.append(document.createTextNode(`${dateLabel} + `));
