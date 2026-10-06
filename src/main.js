@@ -469,6 +469,8 @@ function rollPastDates(item, todayIso = localTodayIso()) {
 
   if ((item.whenKind === 'estimate' || item.whenKind === 'season') && item.sortDate) {
     if (item.sortDate >= todayIso) return item;
+    const skipMonth = item.skipped?.month;
+    if (skipMonth && item.sortDate.startsWith(skipMonth) && todayIso.slice(0, 7) <= skipMonth) return item;
     const sortDate = rollIsoForward(item.sortDate, todayIso);
     const rolled = { ...item, sortDate };
     if (item.whenKind === 'estimate') rolled.when = monthYearFromIso(sortDate);
@@ -514,8 +516,8 @@ function soonAlternates(now = new Date()) {
 }
 
 /**
- * A skip only applies while the card's next date is still in the skipped month.
- * Once that date passes, rollPastDates moves it a year and the skip drops off.
+ * A skip shows through the end of the skipped month. After that, rollPastDates
+ * moves the date a year and the skip drops off.
  */
 function activeSkip(item) {
   const skip = item.skipped;
