@@ -2230,6 +2230,58 @@
     ]
   },
   {
+    "id": "cajun-creole",
+    "culture": "Cajun & Creole",
+    "event": "City of Trees Parade & Mardi Gras Festival",
+    "place": "Capitol Mall",
+    "city": "Sacramento",
+    "mapPoint": {
+      "lat": 38.57851,
+      "lng": -121.50019
+    },
+    "url": "https://cityoftreesparade.org/city-of-trees-parade/",
+    "urlLabel": "cityoftreesparade.org",
+    "when": "Feb 27, 2027",
+    "whenKind": "confirmed",
+    "lastHeld": null,
+    "sortRank": 0,
+    "sortDate": "2027-02-27",
+    "origin": {
+      "lat": 29.95,
+      "lng": -90.07
+    },
+    "flyer": "/flyers/cajun-creole-2026.jpg",
+    "alternates": [
+      {
+        "id": "cajun-creole-gumbo-cookoff",
+        "event": "Louisiana Sue's Great Gumbo Cook-Off",
+        "place": "California State Capitol",
+        "city": "Sacramento",
+        "placeId": "ChIJldtsqgTWmoAR1aSB8REJQgU",
+        "url": "https://wherethegoodtimesroll.com/GreatGUmboCookOffOct2026.html",
+        "urlLabel": "wherethegoodtimesroll.com",
+        "when": "Oct 24, 2026",
+        "whenKind": "confirmed",
+        "lastHeld": null,
+        "sortRank": 0,
+        "sortDate": "2026-10-24",
+        "flyer": "/flyers/cajun-creole-gumbo-cookoff-2026.jpg"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "Louisiana Heaven",
+        "city": "Sacramento",
+        "placeId": "ChIJq6GlzBXRmoARgWrGPK6mBU8"
+      },
+      {
+        "name": "Howard Gumbo",
+        "city": "Sacramento",
+        "placeId": "ChIJu7FdCADZmoAR2XsyMxmotNE"
+      }
+    ]
+  },
+  {
     "id": "vietnamese",
     "culture": "Vietnamese",
     "event": "Elk Grove Lunar New Year Tết Festival",
