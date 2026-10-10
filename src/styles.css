@@ -652,9 +652,10 @@ main {
 
 .card h2.has-trade {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+}
+
+.title-tail {
+  white-space: nowrap;
 }
 
 .trade-info {
@@ -662,10 +663,10 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   width: 1.15rem;
   height: 1.15rem;
-  margin: 0;
+  margin: 0 0 0 0.4rem;
+  vertical-align: 0.2em;
   padding: 0;
   border: 1.5px solid var(--ocean);
   border-radius: 999px;
@@ -725,6 +726,12 @@ main {
 .trade-tip-note {
   opacity: 0.8;
   font-size: 0.82rem;
+}
+
+.trade-tip a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .event {

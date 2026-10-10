@@ -1,0 +1,519 @@
+{
+  "year": 2024,
+  "vintage": "ACS 2020–2024 5-year",
+  "geography": "Sacramento-Roseville-Folsom metro (Sacramento, Placer, El Dorado, Yolo counties)",
+  "cultures": {
+    "romanian": {
+      "count": 9480,
+      "moe": 1214,
+      "measure": "Romanian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "greek": {
+      "count": 8995,
+      "moe": 982,
+      "measure": "Greek ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "german": {
+      "count": 245383,
+      "moe": 4887,
+      "measure": "German ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "fijian": {
+      "count": 12594,
+      "moe": 1279,
+      "measure": "Fijian, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02019",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02019?g=310XX00US40900",
+      "note": "Indo-Fijians often answer Asian Indian, so this undercounts Fiji’s community."
+    },
+    "native": {
+      "count": 77804,
+      "moe": 3359,
+      "measure": "American Indian and Alaska Native, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02010",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02010?g=310XX00US40900"
+    },
+    "jewish": {
+      "count": 23750,
+      "measure": "Jewish population, Jewish Federation of the Sacramento Region service area",
+      "source": "American Jewish Year Book 2024 (Sheskin & Dashefsky)",
+      "url": "https://www.jewishdatabank.org/api/download/?mediaId=bjdb%5CUnitedStatesJewishPopulation_2024_AJYB.pdf&studyId=1398",
+      "note": "The Census does not ask religion. The Federation’s area also takes in Nevada and Butte counties.",
+      "estimate": true
+    },
+    "hmong": {
+      "count": 36999,
+      "moe": 3268,
+      "measure": "Hmong, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "korean": {
+      "count": 16768,
+      "moe": 1540,
+      "measure": "Korean, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "portuguese": {
+      "count": 31911,
+      "moe": 1713,
+      "measure": "Portuguese ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "filipino": {
+      "count": 105516,
+      "moe": 3781,
+      "measure": "Filipino, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "japanese": {
+      "count": 31574,
+      "moe": 2005,
+      "measure": "Japanese, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "indian": {
+      "count": 64580,
+      "moe": 3347,
+      "measure": "Asian Indian, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "ukrainian": {
+      "count": 29108,
+      "moe": 2583,
+      "measure": "Ukrainian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "polish": {
+      "count": 28746,
+      "moe": 1676,
+      "measure": "Polish ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "hawaiian": {
+      "count": 26121,
+      "moe": 2152,
+      "measure": "Native Hawaiian and Pacific Islander groups other than Fijian",
+      "source": "ACS 2020–2024 5-year, table B02019",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02019?g=310XX00US40900",
+      "note": "Groups tallied, so a person who reports two groups counts twice."
+    },
+    "peruvian": {
+      "count": 5084,
+      "moe": 1009,
+      "measure": "Peruvian (Hispanic origin)",
+      "source": "ACS 2020–2024 5-year, table B03001",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B03001?g=310XX00US40900"
+    },
+    "iu-mien": {
+      "count": 7712,
+      "moe": 1385,
+      "measure": "Mien, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "chinese": {
+      "count": 89429,
+      "moe": 3434,
+      "measure": "Chinese (except Taiwanese), alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "nigerian": {
+      "count": 4405,
+      "moe": 1126,
+      "measure": "Nigerian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "mexican": {
+      "count": 437691,
+      "moe": 4687,
+      "measure": "Mexican (Hispanic origin)",
+      "source": "ACS 2020–2024 5-year, table B03001",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B03001?g=310XX00US40900"
+    },
+    "brazilian": {
+      "count": 2313,
+      "moe": 475,
+      "measure": "Brazilian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "colombian": {
+      "count": 4521,
+      "moe": 817,
+      "measure": "Colombian (Hispanic origin)",
+      "source": "ACS 2020–2024 5-year, table B03001",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B03001?g=310XX00US40900"
+    },
+    "salvadoran": {
+      "count": 16853,
+      "moe": 2217,
+      "measure": "Salvadoran (Hispanic origin)",
+      "source": "ACS 2020–2024 5-year, table B03001",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B03001?g=310XX00US40900"
+    },
+    "armenian": {
+      "count": 6772,
+      "moe": 1685,
+      "measure": "Armenian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "punjabi": {
+      "count": 25009,
+      "moe": 2684,
+      "measure": "Speak Punjabi at home (age 5+)",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "egyptian": {
+      "count": 2863,
+      "moe": 1383,
+      "measure": "Egyptian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "italian": {
+      "count": 110553,
+      "moe": 3666,
+      "measure": "Italian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "serbian": {
+      "count": 1216,
+      "moe": 360,
+      "measure": "Serbian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "scottish": {
+      "count": 42682,
+      "moe": 2541,
+      "measure": "Scottish ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "irish": {
+      "count": 198576,
+      "moe": 4690,
+      "measure": "Irish ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "sikh": {
+      "sameAs": "punjabi",
+      "note": "The Census does not ask religion, so this uses Punjabi speakers, who also include Hindu and Muslim Punjabis."
+    },
+    "croatian": {
+      "count": 3793,
+      "moe": 607,
+      "measure": "Croatian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "pakistani": {
+      "count": 10102,
+      "moe": 1563,
+      "measure": "Pakistani, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "australian": {
+      "count": 1026,
+      "moe": 338,
+      "measure": "Australian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "spanish": {
+      "count": 13553,
+      "moe": 1463,
+      "measure": "Spaniard (Hispanic origin)",
+      "source": "ACS 2020–2024 5-year, table B03001",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B03001?g=310XX00US40900"
+    },
+    "lebanese": {
+      "count": 3059,
+      "moe": 734,
+      "measure": "Lebanese ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "thai": {
+      "count": 3310,
+      "moe": 678,
+      "measure": "Thai, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "bengali": {
+      "count": 1447,
+      "moe": 435,
+      "measure": "Speak Bengali at home (age 5+)",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "tamil": {
+      "count": 2129,
+      "moe": 613,
+      "measure": "Speak Tamil at home (age 5+)",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "marathi": {
+      "count": 1088,
+      "moe": 429,
+      "measure": "Speak Marathi at home (age 5+)",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "malayali": {
+      "count": 1228,
+      "moe": 451,
+      "measure": "Speak Malayalam at home (age 5+)",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "slavic": {
+      "count": 32296,
+      "moe": 2706,
+      "measure": "Russian or Slavic ancestry",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "caribbean": {
+      "count": 4149,
+      "moe": 816,
+      "measure": "West Indian ancestry (except Hispanic groups)",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "french": {
+      "count": 42558,
+      "moe": 2360,
+      "measure": "French ancestry (except Basque)",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "indonesian": {
+      "count": 1925,
+      "moe": 381,
+      "measure": "Indonesian, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "ethiopian": {
+      "count": 2430,
+      "moe": 771,
+      "measure": "Ethiopian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "sudanese": {
+      "count": 256,
+      "moe": 181,
+      "measure": "Sudanese ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "mongolian": {
+      "count": 657,
+      "moe": 424,
+      "measure": "Mongolian, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "persian": {
+      "count": 9034,
+      "moe": 1239,
+      "measure": "Iranian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "cambodian": {
+      "count": 6261,
+      "moe": 1507,
+      "measure": "Cambodian, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "afghan": {
+      "count": 27869,
+      "moe": 2459,
+      "measure": "Afghan, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "nicaraguan": {
+      "count": 5102,
+      "moe": 950,
+      "measure": "Nicaraguan (Hispanic origin)",
+      "source": "ACS 2020–2024 5-year, table B03001",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B03001?g=310XX00US40900"
+    },
+    "moldovan": {
+      "count": 3192,
+      "moe": 1114,
+      "measure": "Moldovan ancestry",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "bosnian": {
+      "count": 1042,
+      "moe": 555,
+      "measure": "Bosnian and Herzegovinian ancestry",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "chaldean": {
+      "count": 750,
+      "moe": 372,
+      "measure": "Assyrian, Chaldean, or Syriac ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "lao": {
+      "count": 6957,
+      "moe": 1038,
+      "measure": "Laotian, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "turkish": {
+      "count": 1454,
+      "moe": 416,
+      "measure": "Turkish ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "swedish": {
+      "count": 28063,
+      "moe": 1764,
+      "measure": "Swedish ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "basque": {
+      "count": 1309,
+      "moe": 347,
+      "measure": "Basque ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "czech": {
+      "count": 7598,
+      "moe": 983,
+      "measure": "Czech or Czechoslovakian ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "kurdish": {
+      "count": 569,
+      "moe": 494,
+      "measure": "Kurdish ancestry",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "nepali": {
+      "count": 2321,
+      "moe": 681,
+      "measure": "Nepalese, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "taiwanese": {
+      "count": 3024,
+      "moe": 595,
+      "measure": "Taiwanese, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "burmese": {
+      "count": 658,
+      "moe": 246,
+      "measure": "Burmese, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    },
+    "belarusian": {
+      "count": 2127,
+      "moe": 687,
+      "measure": "Belarusian ancestry",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "tibetan": {
+      "count": 52,
+      "moe": 71,
+      "measure": "Tibetan ancestry",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "finnish": {
+      "count": 4957,
+      "moe": 762,
+      "measure": "Finnish ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "chilean": {
+      "count": 1522,
+      "moe": 393,
+      "measure": "Chilean (Hispanic origin)",
+      "source": "ACS 2020–2024 5-year, table B03001",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B03001?g=310XX00US40900"
+    },
+    "maya": {
+      "count": null,
+      "note": "The Census has no usable count of Maya people for the area."
+    },
+    "moroccan": {
+      "count": 368,
+      "moe": 181,
+      "measure": "Moroccan ancestry",
+      "source": "ACS 2020–2024 5-year, table B04006",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B04006?g=310XX00US40900"
+    },
+    "chinese-american": {
+      "sameAs": "chinese"
+    },
+    "black-american": {
+      "count": 233336,
+      "moe": 2759,
+      "measure": "Black or African American, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02009",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02009?g=310XX00US40900",
+      "note": "Includes African and Caribbean immigrants, who also have their own cards."
+    },
+    "cajun-creole": {
+      "count": 1420,
+      "moe": 425,
+      "measure": "Cajun or Creole ancestry",
+      "source": "ACS 2020–2024 5-year microdata (PUMS)",
+      "url": "https://www.census.gov/programs-surveys/acs/microdata.html"
+    },
+    "vietnamese": {
+      "count": 46705,
+      "moe": 2709,
+      "measure": "Vietnamese, alone or in any combination",
+      "source": "ACS 2020–2024 5-year, table B02018",
+      "url": "https://data.census.gov/table/ACSDT5Y2024.B02018?g=310XX00US40900"
+    }
+  }
+}

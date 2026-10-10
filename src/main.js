@@ -4,6 +4,7 @@ import { feature } from 'topojson-client';
 import land from 'world-atlas/countries-110m.json';
 import rawCultures from '../data/cultures.json';
 import tradeData from '../data/trade.json';
+import populationData from '../data/population.json';
 import { registerSW } from 'virtual:pwa-register';
 
 // autoUpdate reloads the page once a new service worker takes control, so a
@@ -96,9 +97,48 @@ function byTrade(a, b) {
   return a.culture.localeCompare(b.culture) || byUpcoming(a, b);
 }
 
+const cultureNameById = new Map(rawCultures.map((item) => [item.id, item.culture]));
+const populationSharers = new Map();
+for (const [id, entry] of Object.entries(populationData.cultures)) {
+  if (!entry?.sameAs) continue;
+  populationSharers.set(entry.sameAs, [...(populationSharers.get(entry.sameAs) || [entry.sameAs]), id]);
+}
+
+/** The culture's Greater Sacramento population entry; cultures that borrow another's figure resolve to it. */
+function populationFor(item) {
+  const id = item.parentId || item.id;
+  const entry = populationData.cultures[id];
+  if (!entry) return null;
+  const baseId = entry.sameAs || id;
+  const figures = entry.sameAs ? populationData.cultures[entry.sameAs] : entry;
+  if (!figures) return null;
+  return {
+    ...figures,
+    baseId,
+    sharedWith: (populationSharers.get(baseId) || []).filter((other) => other !== id),
+  };
+}
+
+// Largest first. Cultures sharing one figure sit together, the source culture first;
+// cultures with no count go last, A–Z.
+function byPopulation(a, b) {
+  const popA = populationFor(a);
+  const popB = populationFor(b);
+  const countA = popA?.count ?? -1;
+  const countB = popB?.count ?? -1;
+  if (countA !== countB) return countB - countA;
+  if (popA && popB && popA.baseId === popB.baseId) {
+    const leadA = (a.parentId || a.id) === popA.baseId;
+    const leadB = (b.parentId || b.id) === popB.baseId;
+    if (leadA !== leadB) return leadA ? -1 : 1;
+  }
+  return a.culture.localeCompare(b.culture) || byUpcoming(a, b);
+}
+
 function sortList(list) {
   if (sortMode === 'name') return list.sort((a, b) => a.culture.localeCompare(b.culture));
   if (sortMode === 'trade') return list.sort(byTrade);
+  if (sortMode === 'population') return list.sort(byPopulation);
   return list.sort(byUpcoming);
 }
 
@@ -116,6 +156,17 @@ function formatMillions(millions) {
   if (millions >= 10) return `$${Math.round(millions)}M`;
   if (millions >= 0.05) return `$${millions.toFixed(1)}M`;
   return 'under $0.1M';
+}
+
+/** Two significant figures: 89,429 → "89,000". */
+function roundPeople(count) {
+  const step = 10 ** Math.max(0, Math.floor(Math.log10(count)) - 1);
+  return (Math.round(count / step) * step).toLocaleString('en-US');
+}
+
+function formatPeople(count) {
+  if (count < 100) return 'Under 100 people';
+  return `About ${roundPeople(count)} people`;
 }
 
 let openTradeTip = null;
@@ -171,14 +222,31 @@ function infoTip({ id, label, onOpen }) {
   return { button, tip };
 }
 
-/** Culture name for a card title; in Trade sort it carries an info button with California's trade figure. */
+/**
+ * Culture name for a card title. In Trade sort it carries an info button with California's
+ * trade figure; in Population sort, the culture's Greater Sacramento population.
+ */
 function cardTitle(item) {
   const title = document.createElement('h2');
   title.textContent = item.culture;
-  const trade = sortMode === 'trade' && !moreCultureId ? tradeFor(item) : null;
-  if (!trade) return title;
+  if (moreCultureId) return title;
+  const info = sortMode === 'trade' ? tradeInfo(item) : sortMode === 'population' ? populationInfo(item) : null;
+  if (!info) return title;
 
+  // The last word and the icon share a no-wrap span so the icon never wraps onto a line alone.
   title.classList.add('has-trade');
+  const words = item.culture.split(' ');
+  const tail = document.createElement('span');
+  tail.className = 'title-tail';
+  tail.append(words.pop(), info.button);
+  title.textContent = words.length ? `${words.join(' ')} ` : '';
+  title.append(tail, info.tip);
+  return title;
+}
+
+function tradeInfo(item) {
+  const trade = tradeFor(item);
+  if (!trade) return null;
   const { button, tip } = infoTip({
     id: `trade-${item.parentId || item.id}-${item.id}`,
     label: `California trade with ${trade.country}`,
@@ -198,9 +266,46 @@ function cardTitle(item) {
     note.textContent = `Shared with other cultures tied to ${trade.country}`;
     tip.append(note);
   }
+  return { button, tip };
+}
 
-  title.append(button, tip);
-  return title;
+function populationInfo(item) {
+  const population = populationFor(item);
+  if (!population) return null;
+  const { button, tip } = infoTip({
+    id: `population-${item.parentId || item.id}-${item.id}`,
+    label: `${item.culture} population in Greater Sacramento`,
+    onOpen: () => trackCard('population_info', item, { count: population.count ?? 'none' }),
+  });
+  const heading = document.createElement('strong');
+  heading.textContent = `${item.culture} in Greater Sacramento`;
+  tip.append(heading);
+
+  const total = document.createElement('span');
+  if (population.count == null) {
+    total.textContent = 'No reliable count';
+    tip.append(total);
+  } else {
+    total.textContent = formatPeople(population.count);
+    const measure = document.createElement('span');
+    measure.className = 'trade-tip-split';
+    measure.textContent = population.measure;
+    const source = document.createElement('a');
+    source.className = 'trade-tip-note';
+    source.href = population.url;
+    source.target = '_blank';
+    source.rel = 'noopener noreferrer';
+    source.textContent = population.estimate ? `Estimate: ${population.source}` : population.source;
+    tip.append(total, measure, source);
+  }
+
+  if (population.sharedWith.length) {
+    const note = document.createElement('span');
+    note.className = 'trade-tip-note';
+    note.textContent = `Same figure as ${population.sharedWith.map((id) => cultureNameById.get(id) || id).join(', ')}`;
+    tip.append(note);
+  }
+  return { button, tip };
 }
 
 function arcs() {
